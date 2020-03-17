@@ -1,0 +1,60 @@
+what_WP is_VBZ the_DT quantity_NN of_IN the_DT drugs_NNS sold_VBN in_IN the_DT year_NN 2018_CD 
+
+what_WP is_VBZ the_DT quantity_NN of_IN the_DT drugs_NNS that_WDT has_VBZ been_VBN sold_VBN in_IN the_DT city_NN X_NN 
+
+what_WP is_VBZ the_DT total_JJ quantity_NN of_IN the_DT drugs_NNS that_WDT has_VBZ been_VBN sold_VBN at_IN the_DT year_NN X_NN in_IN the_DT city_NN Y_NN 
+
+what_WP is_VBZ the_DT quantity_NN of_IN the_DT drug_NN X_NN sold_VBN at_IN the_DT year_NN Y_NN in_IN the_DT city_NN Z_NN 
+
+what_WP is_VBZ the_DT quantity_NN of_IN the_DT drugs_NNS that_WDT has_VBZ been_VBN sold_VBN today_NN 
+
+what_WP is_VBZ the_DT quantity_NN of_IN the_DT drugs_NNS are_VBP stored_VBN 
+
+how_WRB many_JJ medicnes_NNS are_VBP stoked_VBN 
+
+how_WRB many_JJ medicnes_NNS are_VBP stoked_VBN in_IN the_DT city_NN X_NN ?_. 
+
+what_WP is_VBZ the_DT quantity_NN of_IN the_DT drugs_NNS are_VBP stored_VBN in_IN the_DT city_NN X_NN ?_. 
+
+what_WP is_VBZ the_DT drug_NN with_IN the_DT most_RBS sales_NNS in_IN the_DT city_NN X_NN 
+
+what_WP is_VBZ the_DT drug_NN with_IN the_DT most_RBS sales_JJ last_JJ month_NN 
+
+what_WP is_VBZ the_DT drug_NN with_IN the_DT most_RBS sales_JJ between_IN the_DT year_NN X_NN and_CC Y_NN 
+
+who_WP is_VBZ the_DT supplier_NN that_WDT supply_VBP the_DT drug_NN X_NN 
+
+who_WP is_VBZ the_DT supplier_NN of_IN the_DT drug_NN X_NN 
+
+who_WP are_VBP the_DT suppliers_NNS of_IN the_DT city_NN X_NN and_CC Y_NN
+
+who_WP are_VBP the_DT suppliers_NNS that_WDT supply_VBP drugs_NNS in_IN the_DT city_NN X_NN and_CC Y_NN 
+
+who_WP are_VBP the_DT consumers_NNS that_WDT bought_VBD drugs_NNS yesterday_NN  //stoped
+
+who_WP are_VBP the_DT buyers_NNS of_IN yesterday_NN 
+
+what_WP is_VBZ the_DT city_NN that_WDT have_VBP the_DT most_RBS sales_NNS 
+
+when_WRB the_DT quantity_NN of_IN drugs_NNS sold_VBN has_VBZ increased_VBN ?_. 
+
+when_WRB was_VBD the_DT last_JJ time_NN the_DT consumer_NN X_NN bought_VBD the_DT drug_NN Y_NN 
+
+where_WRB the_DT drug_NN X_NN is_VBZ stored_VBN 
+
+who_WP is_VBZ the_DT supplier_NN with_IN most_JJS stocked_VBN quantity_NN 
+
+amount_NN total_JJ numbre_JJ volume_NN ration_NN percentage_NN degree_NN 
+
+for_IN during_IN in_IN since_IN while_IN when_WRB according_VBG 
+
+time_NN year_NN mounth_JJ day_NN season_NN hour_NN minute_NN seconde_NN 
+
+equal_JJ more_RBR then_RB less_JJR then_RB with_IN this_DT between_IN 
+
+of_IN at_IN in_IN 
+
+a_DT of_IN of_IN the_DT 
+
+jan_NN feb_NN mar_FW apr_FW may_MD jun_NN jul_NN aug_NN sep_NN oct_NN nov_NN dec_NN 
+
