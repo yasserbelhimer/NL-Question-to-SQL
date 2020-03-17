@@ -1,0 +1,1 @@
+download stanford postagger-3.9.2 from https://nlp.stanford.edu/software/tagger.shtml#Download and extractet here
