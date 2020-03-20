@@ -8,10 +8,12 @@
 
 plugins {
     // Apply the java plugin to add support for Java
-    id 'java'
+    //id 'java'
+    id 'war'
+    id "org.gretty" version "3.0.1"
 
     // Apply the application plugin to add support for building a CLI application.
-    id 'application'
+    //id 'application'
 }
 
 repositories {
@@ -24,6 +26,7 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     compile 'com.google.guava:guava:28.1-jre'
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 
     compile files('src/main/resources/StanfordPoSTagger/stanford-postagger.jar')
     compile files('src/main/resources/Antlr/antlr-runtime-4.8.jar')
@@ -34,7 +37,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-application {
+/*application {
     // Define the main class for the application.
     mainClassName = 'App.App'
 }
@@ -48,4 +51,4 @@ jar {
     from {
             configurations.compile.collect {it.isDirectory() ? it : zipTree(it) }
         }
-}
+}*/
