@@ -8,12 +8,17 @@
         <br>
         <p>${taggedSentence}</p>
         <br>
-        <h2>2) the measers indicators :</h2>
+        <h2>2)Measers :</h2>
         <br>
         <pre>${measers}</pre>
         <br>
-        <h2>3) pastParticiples :</h2>
+        <h2>3)Dimentions :</h2>
         <br>
-        <pre>${pastParticiples}</pre>
+        <pre>${dimentions}</pre>
+        <br>
+        <h2>4)Filters :</h2>
+        <br>
+        <pre>${filters}</pre>
+        <br>
     </body>
 </html>
