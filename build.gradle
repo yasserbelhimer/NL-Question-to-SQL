@@ -16,8 +16,10 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     compile 'com.google.guava:guava:28.1-jre'
+    compile 'javax.servlet:jstl:1.2'
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
     implementation 'info.debatty:java-string-similarity:1.2.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     compile files('src/main/resources/StanfordPoSTagger/stanford-postagger.jar')
     compile files('src/main/resources/Antlr/antlr-runtime-4.8.jar')
