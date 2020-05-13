@@ -100,26 +100,27 @@ const disconnect = ()=>{
   });
 }
 
-const setTables = ()=>{
+const setTables = () => {
+
   var measureTables = $("#MeasureTables").val();
   var dimensionTable = $("#DimensionTable").val();
   var temporalLexion = $("#TemporalLexion").val();
-  if(measureTables =="" && dimensionTable == "" && temporalLexion ==""){
-    setTimeout("window.location.href='analyse.jsp'");
-  }
-  else{      
-    $.ajax({
-      url: "tables",
-      method: "post",
-      data: { measureTables:measureTables,dimensionTable:dimensionTable,temporalLexion:temporalLexion},
-      success: function (data) {
-        
-        setTimeout("window.location.href='analyse.jsp'");
-      },
-    });
-  }
-  
+
+  measureTables   = measureTables.toString();
+  dimensionTable  = dimensionTable.toString();
+  temporalLexion  = temporalLexion.toString();
+
+  $.ajax({
+    url: "tables",
+    method: "post",
+    data: { measureTables:measureTables,dimensionTable:dimensionTable,temporalLexion:temporalLexion},
+    success: function (data) {
+      setTimeout("window.location.href='analyse.jsp'");
+    },
+  });
+
 }
+
 $('#badInfos').css('display','none');
 $('#goodInfos').css('display','none');
 $('#Mysnipper').css('display','none');

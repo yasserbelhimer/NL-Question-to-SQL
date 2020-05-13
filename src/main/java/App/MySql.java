@@ -43,27 +43,25 @@ public class MySql {
         return myResults;
     }
 
-    public String getTables() {
-
+    public static String getTables() {
         Statement statement = null;
         ResultSet resultat = null;
         String myString = new String();
         try {
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("show tables;");
+            resultat = statement.executeQuery("show tables");
             while (resultat.next()) {
-                String table = resultat.getString(1);
-                myString += table + "\n";
+                String atribute = resultat.getString(1);
+                myString += atribute + "\n";
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("Error : cannot show tables");
         }
-
         return myString;
     }
 
-    public String describeTable(String string) {
+    public static String describeTable(String string) {
 
         Statement statement = null;
         ResultSet resultat = null;

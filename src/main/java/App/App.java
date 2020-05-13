@@ -55,6 +55,7 @@ public class App extends HttpServlet {
         for (ParseTree t : XPath.findAll(tree, "/qa/ng", parser)) {
             mes.clear();
             for (ParseTree t2 : XPath.findAll(t, "ng//measure_indicator", parser)) {
+                
                 mes.add(t2.getText());
             }
             if (!mes.isEmpty()) {
@@ -73,6 +74,8 @@ public class App extends HttpServlet {
                 if (myMeasers.containsKey(table)) {
                     for (String attribute : myMeasers.get(table)) {
                         if (jw.similarity(attribute, s) >= 0.5) {
+                            System.out.println("S : "+s);
+                            System.out.println("attribute : "+attribute);
                             myMeasures.add(new Term(attribute, table, jw.similarity(attribute, s)));
                         }
                     }
