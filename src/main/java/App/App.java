@@ -43,48 +43,38 @@ public class App extends HttpServlet {
         ArrayList<String> measures = new ArrayList<>();
         ArrayList<String> filter = new ArrayList<>();
         ArrayList<String> dimention = new ArrayList<>();
-        ArrayList<String> mes = new ArrayList<>();
+        
+        ArrayList<ArrayList<String>> suggestionMeasures = new ArrayList<ArrayList<String>>();
 
-        MySql mySql = new MySql();
-        HashMap<String, HashMap<String, String[]>> measersAndDimensions = mySql.getMeasersAndDimensions();
-        HashMap<String, String[]> myMeasers = measersAndDimensions.get("measers");
-        HashMap<String, String[]> myDimensions = measersAndDimensions.get("dimensions");
-        String[] myTables = mySql.showTables().split("\n");
+
+        String[] myTables = MySql.getTables().split("\n");
         JaroWinkler jw = new JaroWinkler();
 
-        for (ParseTree t : XPath.findAll(tree, "/qa/ng", parser)) {
-            mes.clear();
-            for (ParseTree t2 : XPath.findAll(t, "ng//measure_indicator", parser)) {
-                
-                mes.add(t2.getText());
-            }
-            if (!mes.isEmpty()) {
-                measures.add(t.getText().replaceAll("_[A-Z.]+", " "));
-            } else {
-                dimention.add(t.getText().replaceAll("_[A-Z.]+", " "));
-            }
-        }
+        suggestionMeasures = Analyse.getSuggestionMeasures(tree, parser);
+
         for (ParseTree t : XPath.findAll(tree, "/qa/filter", parser)) {
             filter.add(t.getText().replaceAll("_[A-Z.]+", " "));
         }
+
         // ----------- desplaying the measers ------------
         ArrayList<Term> myMeasures = new ArrayList<>();
-        for (String s : measures) {
-            for (String table : myTables) {
-                if (myMeasers.containsKey(table)) {
-                    for (String attribute : myMeasers.get(table)) {
-                        if (jw.similarity(attribute, s) >= 0.5) {
-                            System.out.println("S : "+s);
-                            System.out.println("attribute : "+attribute);
-                            myMeasures.add(new Term(attribute, table, jw.similarity(attribute, s)));
+        for(ArrayList<String> list1:suggestionMeasures){
+            for (String s : list1) {
+                for (String table : myTables) {
+                    if (Tables.measureTables.containsKey(table)) {
+                        for (String attribute : Tables.measureTables.get(table)) {
+                            if (jw.similarity(attribute, s) >= 0.9) {
+                                myMeasures.add(new Term(attribute, table, jw.similarity(attribute, s)));
+                            }
                         }
                     }
                 }
             }
         }
+    
         // ----------- desplaying the dimentions ------------
 
-        ArrayList<Term> myDimentions = new ArrayList<>();
+        /*ArrayList<Term> myDimentions = new ArrayList<>();
         for (String s : dimention) {
             for (String table : myTables) {
                 if (myDimensions.containsKey(table)) {
@@ -96,17 +86,26 @@ public class App extends HttpServlet {
                 }
             }
         }
-
+        */
         // ----------- desplaying the Queries ------------
-        String[] queries = new String[20];
-        int i=0;
+        ArrayList<String> queries = new ArrayList<>();
         Collections.sort(myMeasures, new SortByPourcentage());
+        ArrayList<String> selectedTables = new ArrayList<>();
         for (Term m : myMeasures) {
-            queries[i]= "SELECT " + m.getTerm() + " FROM " + m.getTable();i++;
+            String query = "SELECT " + m.getTerm() + " FROM " + m.getTable();
+            if(!queries.contains(query))
+                queries.add(query);
+            if(!selectedTables.contains(m.getTable()))
+                selectedTables.add(m.getTable());
+        }
+        for (String table:selectedTables){
+            String query = "SELECT * FROM " + table;
+            if(!queries.contains(query))
+                queries.add(query);
         }
         request.setAttribute("taggedSentence", taggedSentence);
         request.setAttribute("measers", myMeasures);
-        request.setAttribute("dimentions", myDimentions);
+        //request.setAttribute("dimentions", myDimentions);
         request.setAttribute("filters", filter);
         request.setAttribute("Queries", queries);
         //Levenshtein l = new Levenshtein();
