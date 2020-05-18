@@ -95,14 +95,10 @@
       </div>
     </div>
     <!-- Modal -->
-    <%@ include file="model.jsp" %>
-
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <%@ include file="WEB-INF/pages/model.jsp" %>
     <script src="assets/js/chart.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/myScript.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src='<c:url value="/assets/js/jquery.min.js" />'></script>
     <script type="text/javascript" src='<c:url value="/assets/bootstrap/js/bootstrap.min.js" />'></script>
     <script src="assets/js/theme.js"></script>

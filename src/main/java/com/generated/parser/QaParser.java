@@ -1,5 +1,7 @@
 // Generated from Qa.g4 by ANTLR 4.8
-package com.generated.parser;
+
+    package com.generated.parser;
+
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -55,7 +57,7 @@ public class QaParser extends Parser {
 			"'volume'", "'ration'", "'percentage'", "'degree'", "'for'", "'_IN'", 
 			"'during'", "'in'", "'at'", "'since'", "'while'", "'according'", "'_VBG'", 
 			"'time'", "'year'", "'mounth'", "'day'", "'season'", "'hour'", "'minute'", 
-			"'seconde'", "'cety'", "'/'", "'_CD'", "'-'", "'equal'", "'more'", "'_RBR'", 
+			"'seconde'", "'city'", "'/'", "'_CD'", "'-'", "'equal'", "'more'", "'_RBR'", 
 			"'then'", "'_RB'", "'less'", "'_JJR'", "'with'", "'this'", "'_DT'", "'between'", 
 			"'of'", "'_WDT'", "'_WP$'", "'_RBS'", "'a'", "'the'", "'jan'", "'feb'", 
 			"'mar'", "'_FW'", "'apr'", "'may'", "'_MD'", "'jun'", "'jul'", "'aug'", 
@@ -161,6 +163,11 @@ public class QaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitQa(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitQa(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final QaContext qa() throws RecognitionException {
@@ -254,6 +261,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitWhquestion(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitWhquestion(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -354,6 +366,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitFilter(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitFilter(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -479,6 +496,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitNg(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitNg(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -662,6 +684,11 @@ public class QaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitNg1(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitNg1(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Ng1Context ng1() throws RecognitionException {
@@ -768,6 +795,11 @@ public class QaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitNominal_term(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitNominal_term(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Nominal_termContext nominal_term() throws RecognitionException {
@@ -831,6 +863,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitNoun(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitNoun(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -911,6 +948,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitMeasure_indicator(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitMeasure_indicator(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1020,6 +1062,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitDimention_marker(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitDimention_marker(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1139,6 +1186,11 @@ public class QaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitTemporal_dimention(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitTemporal_dimention(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Temporal_dimentionContext temporal_dimention() throws RecognitionException {
@@ -1204,6 +1256,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitTemporal_lexion(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitTemporal_lexion(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1328,6 +1385,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitDate(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitDate(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1478,6 +1540,11 @@ public class QaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitFilter_operator(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitFilter_operator(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Filter_operatorContext filter_operator() throws RecognitionException {
@@ -1585,6 +1652,11 @@ public class QaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitPrepeposition(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitPrepeposition(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PrepepositionContext prepeposition() throws RecognitionException {
@@ -1652,6 +1724,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitWh_determiner(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitWh_determiner(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1736,6 +1813,11 @@ public class QaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitAdverb(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitAdverb(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final AdverbContext adverb() throws RecognitionException {
@@ -1797,6 +1879,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitDt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitDt(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1872,6 +1959,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitMmm(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitMmm(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2019,6 +2111,11 @@ public class QaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitAdjective(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitAdjective(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final AdjectiveContext adjective() throws RecognitionException {
@@ -2109,6 +2206,11 @@ public class QaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitPast_participle(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitPast_participle(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Past_participleContext past_participle() throws RecognitionException {
@@ -2158,6 +2260,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitString(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitString(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2222,6 +2329,11 @@ public class QaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof QaListener ) ((QaListener)listener).exitVerb(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitVerb(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 

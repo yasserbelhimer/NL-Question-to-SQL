@@ -1,4 +1,7 @@
 grammar Qa;
+@header {
+    package com.generated.parser;
+}
 qa                  :whquestion (string)? (ng)+ (string)? (filter)* '?_.';
 whquestion          :'what''_WP'
                     |'how''_WRB'

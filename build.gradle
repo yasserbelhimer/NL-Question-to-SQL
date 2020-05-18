@@ -4,6 +4,7 @@ plugins {
     // Apply the java plugin to add support for Java
     id 'war'
     id "org.gretty" version "3.0.1"
+    id "antlr"
 }
 
 repositories {
@@ -20,13 +21,18 @@ dependencies {
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
     implementation 'info.debatty:java-string-similarity:1.2.1'
     implementation 'com.google.code.gson:gson:2.8.6'
+    antlr "org.antlr:antlr4:4.8"
 
     compile files('src/main/resources/StanfordPoSTagger/stanford-postagger.jar')
-    compile files('src/main/resources/Antlr/antlr-runtime-4.8.jar')
-    compile files('src/main/resources/Antlr/antlr-4.8-complete.jar')
     compile files('src/main/resources/eu/syllable-counter-4.1.0.jar')
     compile files('src/main/resources/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.jar')
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+}
+
+generateGrammarSource {
+    maxHeapSize = "64m"
+    arguments += ["-visitor", "-long-messages"]
+    outputDirectory = file("src/main/java/com/generated/parser")
 }

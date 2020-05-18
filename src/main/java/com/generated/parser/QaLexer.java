@@ -1,5 +1,7 @@
 // Generated from Qa.g4 by ANTLR 4.8
-package com.generated.parser;
+
+    package com.generated.parser;
+
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -63,7 +65,7 @@ public class QaLexer extends Lexer {
 			"'volume'", "'ration'", "'percentage'", "'degree'", "'for'", "'_IN'", 
 			"'during'", "'in'", "'at'", "'since'", "'while'", "'according'", "'_VBG'", 
 			"'time'", "'year'", "'mounth'", "'day'", "'season'", "'hour'", "'minute'", 
-			"'seconde'", "'cety'", "'/'", "'_CD'", "'-'", "'equal'", "'more'", "'_RBR'", 
+			"'seconde'", "'city'", "'/'", "'_CD'", "'-'", "'equal'", "'more'", "'_RBR'", 
 			"'then'", "'_RB'", "'less'", "'_JJR'", "'with'", "'this'", "'_DT'", "'between'", 
 			"'of'", "'_WDT'", "'_WP$'", "'_RBS'", "'a'", "'the'", "'jan'", "'feb'", 
 			"'mar'", "'_FW'", "'apr'", "'may'", "'_MD'", "'jun'", "'jul'", "'aug'", 
@@ -286,7 +288,7 @@ public class QaLexer extends Lexer {
 		"\u0195\7p\2\2\u0195\u0196\7w\2\2\u0196\u0197\7v\2\2\u0197\u0198\7g\2\2"+
 		"\u0198R\3\2\2\2\u0199\u019a\7u\2\2\u019a\u019b\7g\2\2\u019b\u019c\7e\2"+
 		"\2\u019c\u019d\7q\2\2\u019d\u019e\7p\2\2\u019e\u019f\7f\2\2\u019f\u01a0"+
-		"\7g\2\2\u01a0T\3\2\2\2\u01a1\u01a2\7e\2\2\u01a2\u01a3\7g\2\2\u01a3\u01a4"+
+		"\7g\2\2\u01a0T\3\2\2\2\u01a1\u01a2\7e\2\2\u01a2\u01a3\7k\2\2\u01a3\u01a4"+
 		"\7v\2\2\u01a4\u01a5\7{\2\2\u01a5V\3\2\2\2\u01a6\u01a7\7\61\2\2\u01a7X"+
 		"\3\2\2\2\u01a8\u01a9\7a\2\2\u01a9\u01aa\7E\2\2\u01aa\u01ab\7F\2\2\u01ab"+
 		"Z\3\2\2\2\u01ac\u01ad\7/\2\2\u01ad\\\3\2\2\2\u01ae\u01af\7g\2\2\u01af"+
