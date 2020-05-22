@@ -36,7 +36,7 @@ public class Tables extends HttpServlet {
 
         String[]    tables          = MySql.getTables().split("\n");
 
-        Pattern     r1              = Pattern.compile("(time|year|month|day|season|hour|minute|seconde|city)");
+        Pattern     r1              = Pattern.compile("(time|year|month|day|season|hour|minute|seconde)");
         Pattern     r2              = Pattern.compile("(degree|amount|total|numbre|volume|percentage|quantity)");
 
 
@@ -50,12 +50,10 @@ public class Tables extends HttpServlet {
 
                 if(!table.isBlank())
                     temporalLexion.put(table, MySql.describeTable(table).split("\n"));
-
             }
 
         }
         else{
-
             for(String table:tables){
 
                 if(!table.isBlank()){
@@ -112,6 +110,7 @@ public class Tables extends HttpServlet {
             for(String table:tables){
 
                 if((!table.isBlank())&& !contain(temporalsStrings, table)){
+
                     int         chance      = 0;
                     boolean     temp        = false;
                     String[]    attributes  = MySql.describeTable(table).split("\n");
@@ -120,17 +119,21 @@ public class Tables extends HttpServlet {
 
                         Matcher     m1      = r1.matcher(attribute.toLowerCase());
 
-                        if (m1.find())
+                        if (m1.find()){
                             chance++;
+                        }
+                          
 
                         Matcher     m2  = r2.matcher(attribute.toLowerCase());
 
-                        if(m2.find())
+                        if(m2.find()){
                             temp = true;
+                        }
+                            
 
                     }
                     
-                    if((chance >= 2) && temp && (!measureTables.containsKey(table))){
+                    if((chance >= 1) && temp && (!measureTables.containsKey(table))){
                         measureTables.put(table, attributes);
                     }
                 }

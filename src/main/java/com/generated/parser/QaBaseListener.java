@@ -54,6 +54,18 @@ public class QaBaseListener implements QaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNg_filter(QaParser.Ng_filterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNg_filter(QaParser.Ng_filterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNg(QaParser.NgContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -61,6 +73,18 @@ public class QaBaseListener implements QaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNg(QaParser.NgContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNg1_filter(QaParser.Ng1_filterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNg1_filter(QaParser.Ng1_filterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -30,21 +30,22 @@ public class QaParser extends Parser {
 		T__59=60, T__60=61, T__61=62, T__62=63, T__63=64, T__64=65, T__65=66, 
 		T__66=67, T__67=68, T__68=69, T__69=70, T__70=71, T__71=72, T__72=73, 
 		T__73=74, T__74=75, T__75=76, T__76=77, T__77=78, T__78=79, T__79=80, 
-		T__80=81, T__81=82, T__82=83, T__83=84, DD=85, MM=86, YYYY=87, WORD=88, 
-		INT=89, WS=90;
+		T__80=81, T__81=82, T__82=83, T__83=84, T__84=85, DD=86, MM=87, YYYY=88, 
+		WORD=89, INT=90, WS=91;
 	public static final int
-		RULE_qa = 0, RULE_whquestion = 1, RULE_filter = 2, RULE_ng = 3, RULE_ng1 = 4, 
-		RULE_nominal_term = 5, RULE_noun = 6, RULE_measure_indicator = 7, RULE_dimention_marker = 8, 
-		RULE_temporal_dimention = 9, RULE_temporal_lexion = 10, RULE_date = 11, 
-		RULE_filter_operator = 12, RULE_prepeposition = 13, RULE_wh_determiner = 14, 
-		RULE_adverb = 15, RULE_dt = 16, RULE_mmm = 17, RULE_adjective = 18, RULE_past_participle = 19, 
-		RULE_string = 20, RULE_verb = 21;
+		RULE_qa = 0, RULE_whquestion = 1, RULE_filter = 2, RULE_ng_filter = 3, 
+		RULE_ng = 4, RULE_ng1_filter = 5, RULE_ng1 = 6, RULE_nominal_term = 7, 
+		RULE_noun = 8, RULE_measure_indicator = 9, RULE_dimention_marker = 10, 
+		RULE_temporal_dimention = 11, RULE_temporal_lexion = 12, RULE_date = 13, 
+		RULE_filter_operator = 14, RULE_prepeposition = 15, RULE_wh_determiner = 16, 
+		RULE_adverb = 17, RULE_dt = 18, RULE_mmm = 19, RULE_adjective = 20, RULE_past_participle = 21, 
+		RULE_string = 22, RULE_verb = 23;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"qa", "whquestion", "filter", "ng", "ng1", "nominal_term", "noun", "measure_indicator", 
-			"dimention_marker", "temporal_dimention", "temporal_lexion", "date", 
-			"filter_operator", "prepeposition", "wh_determiner", "adverb", "dt", 
-			"mmm", "adjective", "past_participle", "string", "verb"
+			"qa", "whquestion", "filter", "ng_filter", "ng", "ng1_filter", "ng1", 
+			"nominal_term", "noun", "measure_indicator", "dimention_marker", "temporal_dimention", 
+			"temporal_lexion", "date", "filter_operator", "prepeposition", "wh_determiner", 
+			"adverb", "dt", "mmm", "adjective", "past_participle", "string", "verb"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -53,7 +54,7 @@ public class QaParser extends Parser {
 		return new String[] {
 			null, "'?_.'", "'what'", "'_WP'", "'how'", "'_WRB'", "'who'", "'when'", 
 			"'where'", "',_,'", "'and_CC'", "'_NN'", "'_PRP'", "'_NNS'", "'_NNP'", 
-			"'_NNPS'", "'quantity'", "'amount'", "'total'", "'_JJ'", "'numbre'", 
+			"'_NNPS'", "'quantity'", "'amount'", "'total'", "'_JJ'", "'many'", "'numbre'", 
 			"'volume'", "'ration'", "'percentage'", "'degree'", "'for'", "'_IN'", 
 			"'during'", "'in'", "'at'", "'since'", "'while'", "'according'", "'_VBG'", 
 			"'time'", "'year'", "'mounth'", "'day'", "'season'", "'hour'", "'minute'", 
@@ -75,7 +76,7 @@ public class QaParser extends Parser {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, "DD", "MM", "YYYY", "WORD", "INT", "WS"
+			null, null, "DD", "MM", "YYYY", "WORD", "INT", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -178,19 +179,19 @@ public class QaParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(44);
+			setState(48);
 			whquestion();
-			setState(46);
+			setState(50);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 			case 1:
 				{
-				setState(45);
+				setState(49);
 				string();
 				}
 				break;
 			}
-			setState(49); 
+			setState(53); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -198,7 +199,7 @@ public class QaParser extends Parser {
 				case 1:
 					{
 					{
-					setState(48);
+					setState(52);
 					ng();
 					}
 					}
@@ -206,35 +207,35 @@ public class QaParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(51); 
+				setState(55); 
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
-			setState(54);
+			setState(58);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
 				{
-				setState(53);
+				setState(57);
 				string();
 				}
 				break;
 			}
-			setState(59);
+			setState(63);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << T__15) | (1L << T__16) | (1L << T__17) | (1L << T__19) | (1L << T__20) | (1L << T__21) | (1L << T__22) | (1L << T__23) | (1L << T__24) | (1L << T__26) | (1L << T__27) | (1L << T__28) | (1L << T__29) | (1L << T__30) | (1L << T__31) | (1L << T__33) | (1L << T__34) | (1L << T__35) | (1L << T__36) | (1L << T__37) | (1L << T__38) | (1L << T__39) | (1L << T__40) | (1L << T__41) | (1L << T__45) | (1L << T__46) | (1L << T__48) | (1L << T__50) | (1L << T__52) | (1L << T__53) | (1L << T__55) | (1L << T__56) | (1L << T__60) | (1L << T__61) | (1L << T__62))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (T__63 - 64)) | (1L << (T__64 - 64)) | (1L << (T__66 - 64)) | (1L << (T__67 - 64)) | (1L << (T__69 - 64)) | (1L << (T__70 - 64)) | (1L << (T__71 - 64)) | (1L << (T__72 - 64)) | (1L << (T__73 - 64)) | (1L << (T__74 - 64)) | (1L << (T__75 - 64)) | (1L << (DD - 64)) | (1L << (MM - 64)) | (1L << (YYYY - 64)) | (1L << (WORD - 64)))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << T__15) | (1L << T__16) | (1L << T__17) | (1L << T__19) | (1L << T__20) | (1L << T__21) | (1L << T__22) | (1L << T__23) | (1L << T__24) | (1L << T__25) | (1L << T__27) | (1L << T__28) | (1L << T__29) | (1L << T__30) | (1L << T__31) | (1L << T__32) | (1L << T__34) | (1L << T__35) | (1L << T__36) | (1L << T__37) | (1L << T__38) | (1L << T__39) | (1L << T__40) | (1L << T__41) | (1L << T__42) | (1L << T__46) | (1L << T__47) | (1L << T__49) | (1L << T__51) | (1L << T__53) | (1L << T__54) | (1L << T__56) | (1L << T__57) | (1L << T__61) | (1L << T__62))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (T__63 - 64)) | (1L << (T__64 - 64)) | (1L << (T__65 - 64)) | (1L << (T__67 - 64)) | (1L << (T__68 - 64)) | (1L << (T__70 - 64)) | (1L << (T__71 - 64)) | (1L << (T__72 - 64)) | (1L << (T__73 - 64)) | (1L << (T__74 - 64)) | (1L << (T__75 - 64)) | (1L << (T__76 - 64)) | (1L << (DD - 64)) | (1L << (MM - 64)) | (1L << (YYYY - 64)) | (1L << (WORD - 64)))) != 0)) {
 				{
 				{
-				setState(56);
+				setState(60);
 				filter();
 				}
 				}
-				setState(61);
+				setState(65);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(62);
+			setState(66);
 			match(T__0);
 			}
 		}
@@ -273,51 +274,51 @@ public class QaParser extends Parser {
 		WhquestionContext _localctx = new WhquestionContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_whquestion);
 		try {
-			setState(74);
+			setState(78);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(64);
+				setState(68);
 				match(T__1);
-				setState(65);
+				setState(69);
 				match(T__2);
 				}
 				break;
 			case T__3:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(66);
+				setState(70);
 				match(T__3);
-				setState(67);
+				setState(71);
 				match(T__4);
 				}
 				break;
 			case T__5:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(68);
+				setState(72);
 				match(T__5);
-				setState(69);
+				setState(73);
 				match(T__2);
 				}
 				break;
 			case T__6:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(70);
+				setState(74);
 				match(T__6);
-				setState(71);
+				setState(75);
 				match(T__4);
 				}
 				break;
 			case T__7:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(72);
+				setState(76);
 				match(T__7);
-				setState(73);
+				setState(77);
 				match(T__4);
 				}
 				break;
@@ -340,8 +341,8 @@ public class QaParser extends Parser {
 		public Dimention_markerContext dimention_marker() {
 			return getRuleContext(Dimention_markerContext.class,0);
 		}
-		public NgContext ng() {
-			return getRuleContext(NgContext.class,0);
+		public Ng_filterContext ng_filter() {
+			return getRuleContext(Ng_filterContext.class,0);
 		}
 		public Temporal_dimentionContext temporal_dimention() {
 			return getRuleContext(Temporal_dimentionContext.class,0);
@@ -379,23 +380,203 @@ public class QaParser extends Parser {
 		enterRule(_localctx, 4, RULE_filter);
 		int _la;
 		try {
-			setState(97);
+			setState(99);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(76);
+				setState(80);
 				dimention_marker();
-				setState(77);
-				ng();
-				setState(79);
+				setState(81);
+				ng_filter();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(84);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+				_la = _input.LA(1);
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << T__25) | (1L << T__27) | (1L << T__28) | (1L << T__29) | (1L << T__30) | (1L << T__31) | (1L << T__32))) != 0)) {
+					{
+					setState(83);
+					dimention_marker();
+					}
+				}
+
+				setState(86);
+				temporal_dimention();
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(87);
+				filter_operator();
+				setState(92);
+				_errHandler.sync(this);
+				switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 				case 1:
 					{
-					setState(78);
-					temporal_dimention();
+					setState(89);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
+						{
+						setState(88);
+						dt();
+						}
+					}
+
+					setState(91);
+					adverb();
+					}
+					break;
+				}
+				setState(94);
+				ng_filter();
+				}
+				break;
+			case 4:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(96);
+				filter_operator();
+				setState(97);
+				temporal_dimention();
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Ng_filterContext extends ParserRuleContext {
+		public List<Ng1_filterContext> ng1_filter() {
+			return getRuleContexts(Ng1_filterContext.class);
+		}
+		public Ng1_filterContext ng1_filter(int i) {
+			return getRuleContext(Ng1_filterContext.class,i);
+		}
+		public List<DtContext> dt() {
+			return getRuleContexts(DtContext.class);
+		}
+		public DtContext dt(int i) {
+			return getRuleContext(DtContext.class,i);
+		}
+		public PrepepositionContext prepeposition() {
+			return getRuleContext(PrepepositionContext.class,0);
+		}
+		public Ng_filterContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_ng_filter; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof QaListener ) ((QaListener)listener).enterNg_filter(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof QaListener ) ((QaListener)listener).exitNg_filter(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitNg_filter(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Ng_filterContext ng_filter() throws RecognitionException {
+		Ng_filterContext _localctx = new Ng_filterContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_ng_filter);
+		int _la;
+		try {
+			setState(138);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,17,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(102);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
+					{
+					setState(101);
+					dt();
+					}
+				}
+
+				setState(104);
+				ng1_filter();
+				setState(120);
+				_errHandler.sync(this);
+				switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
+				case 1:
+					{
+					setState(110); 
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+					do {
+						{
+						{
+						setState(105);
+						match(T__8);
+						setState(107);
+						_errHandler.sync(this);
+						_la = _input.LA(1);
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
+							{
+							setState(106);
+							dt();
+							}
+						}
+
+						setState(109);
+						ng1_filter();
+						}
+						}
+						setState(112); 
+						_errHandler.sync(this);
+						_la = _input.LA(1);
+					} while ( _la==T__8 );
+					setState(114);
+					match(T__9);
+					setState(116);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
+						{
+						setState(115);
+						dt();
+						}
+					}
+
+					setState(118);
+					ng1_filter();
+					}
+					break;
+				}
+				setState(126);
+				_errHandler.sync(this);
+				switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
+				case 1:
+					{
+					setState(122);
+					prepeposition();
+					setState(123);
+					dt();
+					setState(124);
+					ng1_filter();
 					}
 					break;
 				}
@@ -404,56 +585,32 @@ public class QaParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(82);
+				setState(129);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << T__24) | (1L << T__26) | (1L << T__27) | (1L << T__28) | (1L << T__29) | (1L << T__30) | (1L << T__31))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
 					{
-					setState(81);
-					dimention_marker();
+					setState(128);
+					dt();
 					}
 				}
 
-				setState(84);
-				temporal_dimention();
-				}
-				break;
-			case 3:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(85);
-				filter_operator();
-				setState(90);
+				setState(131);
+				ng1_filter();
+				setState(132);
+				match(T__9);
+				setState(134);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
-				case 1:
+				_la = _input.LA(1);
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
 					{
-					setState(87);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__56) | (1L << T__60) | (1L << T__61))) != 0)) {
-						{
-						setState(86);
-						dt();
-						}
+					setState(133);
+					dt();
 					}
+				}
 
-					setState(89);
-					adverb();
-					}
-					break;
-				}
-				setState(92);
-				ng();
-				}
-				break;
-			case 4:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(94);
-				filter_operator();
-				setState(95);
-				temporal_dimention();
+				setState(136);
+				ng1_filter();
 				}
 				break;
 			}
@@ -506,85 +663,85 @@ public class QaParser extends Parser {
 
 	public final NgContext ng() throws RecognitionException {
 		NgContext _localctx = new NgContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_ng);
+		enterRule(_localctx, 8, RULE_ng);
 		int _la;
 		try {
-			setState(136);
+			setState(177);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,26,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(100);
+				setState(141);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__56) | (1L << T__60) | (1L << T__61))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
 					{
-					setState(99);
+					setState(140);
 					dt();
 					}
 				}
 
-				setState(102);
+				setState(143);
 				ng1();
-				setState(118);
+				setState(159);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==T__8) {
 					{
-					setState(108); 
+					setState(149); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					do {
 						{
 						{
-						setState(103);
+						setState(144);
 						match(T__8);
-						setState(105);
+						setState(146);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__56) | (1L << T__60) | (1L << T__61))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
 							{
-							setState(104);
+							setState(145);
 							dt();
 							}
 						}
 
-						setState(107);
+						setState(148);
 						ng1();
 						}
 						}
-						setState(110); 
+						setState(151); 
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 					} while ( _la==T__8 );
-					setState(112);
+					setState(153);
 					match(T__9);
-					setState(114);
+					setState(155);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__56) | (1L << T__60) | (1L << T__61))) != 0)) {
+					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
 						{
-						setState(113);
+						setState(154);
 						dt();
 						}
 					}
 
-					setState(116);
+					setState(157);
 					ng1();
 					}
 				}
 
-				setState(124);
+				setState(165);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
 				case 1:
 					{
-					setState(120);
+					setState(161);
 					prepeposition();
-					setState(121);
+					setState(162);
 					dt();
-					setState(122);
+					setState(163);
 					ng1();
 					}
 					break;
@@ -594,34 +751,193 @@ public class QaParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(127);
+				setState(168);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__56) | (1L << T__60) | (1L << T__61))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
 					{
-					setState(126);
+					setState(167);
 					dt();
 					}
 				}
 
-				setState(129);
+				setState(170);
 				ng1();
-				setState(130);
+				setState(171);
 				match(T__9);
-				setState(132);
+				setState(173);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__56) | (1L << T__60) | (1L << T__61))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
 					{
-					setState(131);
+					setState(172);
 					dt();
 					}
 				}
 
-				setState(134);
+				setState(175);
 				ng1();
 				}
 				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Ng1_filterContext extends ParserRuleContext {
+		public List<Nominal_termContext> nominal_term() {
+			return getRuleContexts(Nominal_termContext.class);
+		}
+		public Nominal_termContext nominal_term(int i) {
+			return getRuleContext(Nominal_termContext.class,i);
+		}
+		public List<AdjectiveContext> adjective() {
+			return getRuleContexts(AdjectiveContext.class);
+		}
+		public AdjectiveContext adjective(int i) {
+			return getRuleContext(AdjectiveContext.class,i);
+		}
+		public List<Past_participleContext> past_participle() {
+			return getRuleContexts(Past_participleContext.class);
+		}
+		public Past_participleContext past_participle(int i) {
+			return getRuleContext(Past_participleContext.class,i);
+		}
+		public List<Wh_determinerContext> wh_determiner() {
+			return getRuleContexts(Wh_determinerContext.class);
+		}
+		public Wh_determinerContext wh_determiner(int i) {
+			return getRuleContext(Wh_determinerContext.class,i);
+		}
+		public List<StringContext> string() {
+			return getRuleContexts(StringContext.class);
+		}
+		public StringContext string(int i) {
+			return getRuleContext(StringContext.class,i);
+		}
+		public List<AdverbContext> adverb() {
+			return getRuleContexts(AdverbContext.class);
+		}
+		public AdverbContext adverb(int i) {
+			return getRuleContext(AdverbContext.class,i);
+		}
+		public List<Temporal_dimentionContext> temporal_dimention() {
+			return getRuleContexts(Temporal_dimentionContext.class);
+		}
+		public Temporal_dimentionContext temporal_dimention(int i) {
+			return getRuleContext(Temporal_dimentionContext.class,i);
+		}
+		public List<DtContext> dt() {
+			return getRuleContexts(DtContext.class);
+		}
+		public DtContext dt(int i) {
+			return getRuleContext(DtContext.class,i);
+		}
+		public Ng1_filterContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_ng1_filter; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof QaListener ) ((QaListener)listener).enterNg1_filter(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof QaListener ) ((QaListener)listener).exitNg1_filter(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QaVisitor ) return ((QaVisitor<? extends T>)visitor).visitNg1_filter(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Ng1_filterContext ng1_filter() throws RecognitionException {
+		Ng1_filterContext _localctx = new Ng1_filterContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_ng1_filter);
+		int _la;
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(179);
+			nominal_term();
+			setState(192);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,29,_ctx);
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					setState(190);
+					_errHandler.sync(this);
+					switch ( getInterpreter().adaptivePredict(_input,28,_ctx) ) {
+					case 1:
+						{
+						setState(180);
+						nominal_term();
+						}
+						break;
+					case 2:
+						{
+						setState(181);
+						adjective();
+						}
+						break;
+					case 3:
+						{
+						setState(182);
+						past_participle();
+						}
+						break;
+					case 4:
+						{
+						setState(183);
+						wh_determiner();
+						}
+						break;
+					case 5:
+						{
+						setState(184);
+						string();
+						}
+						break;
+					case 6:
+						{
+						setState(186);
+						_errHandler.sync(this);
+						_la = _input.LA(1);
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
+							{
+							setState(185);
+							dt();
+							}
+						}
+
+						setState(188);
+						adverb();
+						}
+						break;
+					case 7:
+						{
+						setState(189);
+						temporal_dimention();
+						}
+						break;
+					}
+					} 
+				}
+				setState(194);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,29,_ctx);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -660,6 +976,12 @@ public class QaParser extends Parser {
 		public Wh_determinerContext wh_determiner(int i) {
 			return getRuleContext(Wh_determinerContext.class,i);
 		}
+		public List<StringContext> string() {
+			return getRuleContexts(StringContext.class);
+		}
+		public StringContext string(int i) {
+			return getRuleContext(StringContext.class,i);
+		}
 		public List<AdverbContext> adverb() {
 			return getRuleContexts(AdverbContext.class);
 		}
@@ -693,69 +1015,75 @@ public class QaParser extends Parser {
 
 	public final Ng1Context ng1() throws RecognitionException {
 		Ng1Context _localctx = new Ng1Context(_ctx, getState());
-		enterRule(_localctx, 8, RULE_ng1);
+		enterRule(_localctx, 12, RULE_ng1);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(138);
+			setState(195);
 			nominal_term();
-			setState(149);
+			setState(207);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,32,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
-					setState(147);
+					setState(205);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,31,_ctx) ) {
 					case 1:
 						{
-						setState(139);
+						setState(196);
 						nominal_term();
 						}
 						break;
 					case 2:
 						{
-						setState(140);
+						setState(197);
 						adjective();
 						}
 						break;
 					case 3:
 						{
-						setState(141);
+						setState(198);
 						past_participle();
 						}
 						break;
 					case 4:
 						{
-						setState(142);
+						setState(199);
 						wh_determiner();
 						}
 						break;
 					case 5:
 						{
-						setState(144);
+						setState(200);
+						string();
+						}
+						break;
+					case 6:
+						{
+						setState(202);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__56) | (1L << T__60) | (1L << T__61))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__57) | (1L << T__61) | (1L << T__62))) != 0)) {
 							{
-							setState(143);
+							setState(201);
 							dt();
 							}
 						}
 
-						setState(146);
+						setState(204);
 						adverb();
 						}
 						break;
 					}
 					} 
 				}
-				setState(151);
+				setState(209);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,32,_ctx);
 			}
 			}
 		}
@@ -804,36 +1132,36 @@ public class QaParser extends Parser {
 
 	public final Nominal_termContext nominal_term() throws RecognitionException {
 		Nominal_termContext _localctx = new Nominal_termContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_nominal_term);
+		enterRule(_localctx, 14, RULE_nominal_term);
 		try {
-			setState(156);
+			setState(214);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,33,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(152);
+				setState(210);
 				noun();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(153);
+				setState(211);
 				measure_indicator();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(154);
+				setState(212);
 				temporal_lexion();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(155);
+				setState(213);
 				adjective();
 				}
 				break;
@@ -873,53 +1201,53 @@ public class QaParser extends Parser {
 
 	public final NounContext noun() throws RecognitionException {
 		NounContext _localctx = new NounContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_noun);
+		enterRule(_localctx, 16, RULE_noun);
 		try {
-			setState(168);
+			setState(226);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,34,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(158);
+				setState(216);
 				match(WORD);
-				setState(159);
+				setState(217);
 				match(T__10);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(160);
+				setState(218);
 				match(WORD);
-				setState(161);
+				setState(219);
 				match(T__11);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(162);
+				setState(220);
 				match(WORD);
-				setState(163);
+				setState(221);
 				match(T__12);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(164);
+				setState(222);
 				match(WORD);
-				setState(165);
+				setState(223);
 				match(T__13);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(166);
+				setState(224);
 				match(WORD);
-				setState(167);
+				setState(225);
 				match(T__14);
 				}
 				break;
@@ -958,80 +1286,89 @@ public class QaParser extends Parser {
 
 	public final Measure_indicatorContext measure_indicator() throws RecognitionException {
 		Measure_indicatorContext _localctx = new Measure_indicatorContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_measure_indicator);
+		enterRule(_localctx, 18, RULE_measure_indicator);
 		try {
-			setState(186);
+			setState(246);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__15:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(170);
+				setState(228);
 				match(T__15);
-				setState(171);
+				setState(229);
 				match(T__10);
 				}
 				break;
 			case T__16:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(172);
+				setState(230);
 				match(T__16);
-				setState(173);
+				setState(231);
 				match(T__10);
 				}
 				break;
 			case T__17:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(174);
+				setState(232);
 				match(T__17);
-				setState(175);
+				setState(233);
 				match(T__18);
 				}
 				break;
 			case T__19:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(176);
+				setState(234);
 				match(T__19);
-				setState(177);
+				setState(235);
 				match(T__18);
 				}
 				break;
 			case T__20:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(178);
+				setState(236);
 				match(T__20);
-				setState(179);
-				match(T__10);
+				setState(237);
+				match(T__18);
 				}
 				break;
 			case T__21:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(180);
+				setState(238);
 				match(T__21);
-				setState(181);
+				setState(239);
 				match(T__10);
 				}
 				break;
 			case T__22:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(182);
+				setState(240);
 				match(T__22);
-				setState(183);
+				setState(241);
 				match(T__10);
 				}
 				break;
 			case T__23:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(184);
+				setState(242);
 				match(T__23);
-				setState(185);
+				setState(243);
+				match(T__10);
+				}
+				break;
+			case T__24:
+				enterOuterAlt(_localctx, 9);
+				{
+				setState(244);
+				match(T__24);
+				setState(245);
 				match(T__10);
 				}
 				break;
@@ -1072,81 +1409,81 @@ public class QaParser extends Parser {
 
 	public final Dimention_markerContext dimention_marker() throws RecognitionException {
 		Dimention_markerContext _localctx = new Dimention_markerContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_dimention_marker);
+		enterRule(_localctx, 20, RULE_dimention_marker);
 		try {
-			setState(204);
+			setState(264);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__24:
+			case T__25:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(188);
-				match(T__24);
-				setState(189);
+				setState(248);
 				match(T__25);
-				}
-				break;
-			case T__26:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(190);
+				setState(249);
 				match(T__26);
-				setState(191);
-				match(T__25);
 				}
 				break;
 			case T__27:
-				enterOuterAlt(_localctx, 3);
+				enterOuterAlt(_localctx, 2);
 				{
-				setState(192);
+				setState(250);
 				match(T__27);
-				setState(193);
-				match(T__25);
+				setState(251);
+				match(T__26);
 				}
 				break;
 			case T__28:
-				enterOuterAlt(_localctx, 4);
+				enterOuterAlt(_localctx, 3);
 				{
-				setState(194);
+				setState(252);
 				match(T__28);
-				setState(195);
-				match(T__25);
+				setState(253);
+				match(T__26);
 				}
 				break;
 			case T__29:
-				enterOuterAlt(_localctx, 5);
+				enterOuterAlt(_localctx, 4);
 				{
-				setState(196);
+				setState(254);
 				match(T__29);
-				setState(197);
-				match(T__25);
+				setState(255);
+				match(T__26);
 				}
 				break;
 			case T__30:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(256);
+				match(T__30);
+				setState(257);
+				match(T__26);
+				}
+				break;
+			case T__31:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(198);
-				match(T__30);
-				setState(199);
-				match(T__25);
+				setState(258);
+				match(T__31);
+				setState(259);
+				match(T__26);
 				}
 				break;
 			case T__6:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(200);
+				setState(260);
 				match(T__6);
-				setState(201);
+				setState(261);
 				match(T__4);
 				}
 				break;
-			case T__31:
+			case T__32:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(202);
-				match(T__31);
-				setState(203);
+				setState(262);
 				match(T__32);
+				setState(263);
+				match(T__33);
 				}
 				break;
 			default:
@@ -1165,14 +1502,11 @@ public class QaParser extends Parser {
 	}
 
 	public static class Temporal_dimentionContext extends ParserRuleContext {
-		public NgContext ng() {
-			return getRuleContext(NgContext.class,0);
+		public Ng_filterContext ng_filter() {
+			return getRuleContext(Ng_filterContext.class,0);
 		}
 		public DateContext date() {
 			return getRuleContext(DateContext.class,0);
-		}
-		public Past_participleContext past_participle() {
-			return getRuleContext(Past_participleContext.class,0);
 		}
 		public Temporal_dimentionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1195,42 +1529,72 @@ public class QaParser extends Parser {
 
 	public final Temporal_dimentionContext temporal_dimention() throws RecognitionException {
 		Temporal_dimentionContext _localctx = new Temporal_dimentionContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_temporal_dimention);
+		enterRule(_localctx, 22, RULE_temporal_dimention);
 		try {
-			setState(212);
+			setState(271);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,27,_ctx) ) {
-			case 1:
+			switch (_input.LA(1)) {
+			case T__15:
+			case T__16:
+			case T__17:
+			case T__19:
+			case T__20:
+			case T__21:
+			case T__22:
+			case T__23:
+			case T__24:
+			case T__34:
+			case T__35:
+			case T__36:
+			case T__37:
+			case T__38:
+			case T__39:
+			case T__40:
+			case T__41:
+			case T__42:
+			case T__57:
+			case T__61:
+			case T__62:
+			case WORD:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(206);
-				ng();
-				setState(208);
+				setState(266);
+				ng_filter();
+				setState(268);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,26,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,37,_ctx) ) {
 				case 1:
 					{
-					setState(207);
+					setState(267);
 					date();
 					}
 					break;
 				}
 				}
 				break;
-			case 2:
+			case T__63:
+			case T__64:
+			case T__65:
+			case T__67:
+			case T__68:
+			case T__70:
+			case T__71:
+			case T__72:
+			case T__73:
+			case T__74:
+			case T__75:
+			case T__76:
+			case DD:
+			case MM:
+			case YYYY:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(210);
+				setState(270);
 				date();
 				}
 				break;
-			case 3:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(211);
-				past_participle();
-				}
-				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1266,89 +1630,89 @@ public class QaParser extends Parser {
 
 	public final Temporal_lexionContext temporal_lexion() throws RecognitionException {
 		Temporal_lexionContext _localctx = new Temporal_lexionContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_temporal_lexion);
+		enterRule(_localctx, 24, RULE_temporal_lexion);
 		try {
-			setState(232);
+			setState(291);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__33:
+			case T__34:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(214);
-				match(T__33);
-				setState(215);
-				match(T__10);
-				}
-				break;
-			case T__34:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(216);
+				setState(273);
 				match(T__34);
-				setState(217);
+				setState(274);
 				match(T__10);
 				}
 				break;
 			case T__35:
-				enterOuterAlt(_localctx, 3);
+				enterOuterAlt(_localctx, 2);
 				{
-				setState(218);
+				setState(275);
 				match(T__35);
-				setState(219);
-				match(T__18);
-				}
-				break;
-			case T__36:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(220);
-				match(T__36);
-				setState(221);
+				setState(276);
 				match(T__10);
 				}
 				break;
-			case T__37:
-				enterOuterAlt(_localctx, 5);
+			case T__36:
+				enterOuterAlt(_localctx, 3);
 				{
-				setState(222);
+				setState(277);
+				match(T__36);
+				setState(278);
+				match(T__18);
+				}
+				break;
+			case T__37:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(279);
 				match(T__37);
-				setState(223);
+				setState(280);
 				match(T__10);
 				}
 				break;
 			case T__38:
-				enterOuterAlt(_localctx, 6);
+				enterOuterAlt(_localctx, 5);
 				{
-				setState(224);
+				setState(281);
 				match(T__38);
-				setState(225);
+				setState(282);
 				match(T__10);
 				}
 				break;
 			case T__39:
-				enterOuterAlt(_localctx, 7);
+				enterOuterAlt(_localctx, 6);
 				{
-				setState(226);
+				setState(283);
 				match(T__39);
-				setState(227);
+				setState(284);
 				match(T__10);
 				}
 				break;
 			case T__40:
-				enterOuterAlt(_localctx, 8);
+				enterOuterAlt(_localctx, 7);
 				{
-				setState(228);
+				setState(285);
 				match(T__40);
-				setState(229);
+				setState(286);
 				match(T__10);
 				}
 				break;
 			case T__41:
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(287);
+				match(T__41);
+				setState(288);
+				match(T__10);
+				}
+				break;
+			case T__42:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(230);
-				match(T__41);
-				setState(231);
+				setState(289);
+				match(T__42);
+				setState(290);
 				match(T__10);
 				}
 				break;
@@ -1395,122 +1759,122 @@ public class QaParser extends Parser {
 
 	public final DateContext date() throws RecognitionException {
 		DateContext _localctx = new DateContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_date);
+		enterRule(_localctx, 26, RULE_date);
 		try {
-			setState(270);
+			setState(329);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,29,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,40,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(234);
+				setState(293);
 				match(DD);
-				setState(235);
-				match(T__42);
-				setState(236);
+				setState(294);
+				match(T__43);
+				setState(295);
 				match(MM);
-				setState(237);
-				match(T__42);
-				setState(238);
+				setState(296);
+				match(T__43);
+				setState(297);
 				match(YYYY);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(239);
+				setState(298);
 				match(MM);
-				setState(240);
-				match(T__42);
-				setState(241);
+				setState(299);
+				match(T__43);
+				setState(300);
 				match(YYYY);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(242);
+				setState(301);
 				match(DD);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(243);
+				setState(302);
 				match(MM);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(244);
+				setState(303);
 				match(YYYY);
-				setState(245);
-				match(T__43);
+				setState(304);
+				match(T__44);
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(246);
+				setState(305);
 				match(DD);
-				setState(247);
-				match(T__44);
-				setState(248);
+				setState(306);
+				match(T__45);
+				setState(307);
 				mmm();
-				setState(249);
-				match(T__44);
-				setState(250);
+				setState(308);
+				match(T__45);
+				setState(309);
 				match(YYYY);
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(252);
+				setState(311);
 				mmm();
-				setState(253);
-				match(T__44);
-				setState(254);
+				setState(312);
+				match(T__45);
+				setState(313);
 				match(YYYY);
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(256);
+				setState(315);
 				match(MM);
-				setState(257);
-				match(T__42);
-				setState(258);
+				setState(316);
+				match(T__43);
+				setState(317);
 				match(DD);
-				setState(259);
-				match(T__42);
-				setState(260);
+				setState(318);
+				match(T__43);
+				setState(319);
 				match(YYYY);
 				}
 				break;
 			case 9:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(261);
+				setState(320);
 				mmm();
-				setState(262);
+				setState(321);
 				match(DD);
-				setState(263);
+				setState(322);
 				match(T__8);
-				setState(264);
+				setState(323);
 				match(YYYY);
 				}
 				break;
 			case 10:
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(266);
+				setState(325);
 				mmm();
-				setState(267);
+				setState(326);
 				match(T__8);
-				setState(268);
+				setState(327);
 				match(YYYY);
 				}
 				break;
@@ -1549,81 +1913,81 @@ public class QaParser extends Parser {
 
 	public final Filter_operatorContext filter_operator() throws RecognitionException {
 		Filter_operatorContext _localctx = new Filter_operatorContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_filter_operator);
+		enterRule(_localctx, 28, RULE_filter_operator);
 		try {
-			setState(288);
+			setState(347);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,30,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,41,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(272);
-				match(T__45);
-				setState(273);
+				setState(331);
+				match(T__46);
+				setState(332);
 				match(T__18);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(274);
-				match(T__46);
-				setState(275);
+				setState(333);
 				match(T__47);
+				setState(334);
+				match(T__48);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(276);
-				match(T__48);
-				setState(277);
+				setState(335);
 				match(T__49);
+				setState(336);
+				match(T__50);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(278);
-				match(T__50);
-				setState(279);
+				setState(337);
 				match(T__51);
+				setState(338);
+				match(T__52);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(280);
-				match(T__48);
-				setState(281);
+				setState(339);
 				match(T__49);
+				setState(340);
+				match(T__50);
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(282);
-				match(T__52);
-				setState(283);
-				match(T__25);
+				setState(341);
+				match(T__53);
+				setState(342);
+				match(T__26);
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(284);
-				match(T__53);
-				setState(285);
+				setState(343);
 				match(T__54);
+				setState(344);
+				match(T__55);
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(286);
-				match(T__55);
-				setState(287);
-				match(T__25);
+				setState(345);
+				match(T__56);
+				setState(346);
+				match(T__26);
 				}
 				break;
 			}
@@ -1661,31 +2025,14 @@ public class QaParser extends Parser {
 
 	public final PrepepositionContext prepeposition() throws RecognitionException {
 		PrepepositionContext _localctx = new PrepepositionContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_prepeposition);
+		enterRule(_localctx, 30, RULE_prepeposition);
 		try {
-			setState(294);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case T__56:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(290);
-				match(T__56);
-				setState(291);
-				match(T__25);
-				}
-				break;
-			case T__28:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(292);
-				match(T__28);
-				setState(293);
-				match(T__25);
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(349);
+			match(T__57);
+			setState(350);
+			match(T__26);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1734,56 +2081,56 @@ public class QaParser extends Parser {
 
 	public final Wh_determinerContext wh_determiner() throws RecognitionException {
 		Wh_determinerContext _localctx = new Wh_determinerContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_wh_determiner);
+		enterRule(_localctx, 32, RULE_wh_determiner);
 		try {
 			int _alt;
-			setState(307);
+			setState(363);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,34,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,44,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(296);
+				setState(352);
 				match(WORD);
-				setState(297);
-				match(T__57);
-				setState(302);
+				setState(353);
+				match(T__58);
+				setState(358);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,33,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,43,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
-						setState(300);
+						setState(356);
 						_errHandler.sync(this);
-						switch ( getInterpreter().adaptivePredict(_input,32,_ctx) ) {
+						switch ( getInterpreter().adaptivePredict(_input,42,_ctx) ) {
 						case 1:
 							{
-							setState(298);
+							setState(354);
 							verb();
 							}
 							break;
 						case 2:
 							{
-							setState(299);
+							setState(355);
 							past_participle();
 							}
 							break;
 						}
 						} 
 					}
-					setState(304);
+					setState(360);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,33,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,43,_ctx);
 				}
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(305);
+				setState(361);
 				match(WORD);
-				setState(306);
-				match(T__58);
+				setState(362);
+				match(T__59);
 				}
 				break;
 			}
@@ -1822,36 +2169,36 @@ public class QaParser extends Parser {
 
 	public final AdverbContext adverb() throws RecognitionException {
 		AdverbContext _localctx = new AdverbContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_adverb);
+		enterRule(_localctx, 34, RULE_adverb);
 		try {
-			setState(315);
+			setState(371);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,35,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,45,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(309);
+				setState(365);
 				match(WORD);
-				setState(310);
-				match(T__49);
+				setState(366);
+				match(T__50);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(311);
+				setState(367);
 				match(WORD);
-				setState(312);
-				match(T__47);
+				setState(368);
+				match(T__48);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(313);
+				setState(369);
 				match(WORD);
-				setState(314);
-				match(T__59);
+				setState(370);
+				match(T__60);
 				}
 				break;
 			}
@@ -1889,49 +2236,49 @@ public class QaParser extends Parser {
 
 	public final DtContext dt() throws RecognitionException {
 		DtContext _localctx = new DtContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_dt);
+		enterRule(_localctx, 36, RULE_dt);
 		try {
-			setState(327);
+			setState(383);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,36,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,46,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(317);
-				match(T__60);
-				setState(318);
-				match(T__54);
+				setState(373);
+				match(T__61);
+				setState(374);
+				match(T__55);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(319);
-				match(T__56);
-				setState(320);
-				match(T__25);
+				setState(375);
+				match(T__57);
+				setState(376);
+				match(T__26);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(321);
-				match(T__56);
-				setState(322);
-				match(T__25);
-				setState(323);
-				match(T__61);
-				setState(324);
-				match(T__54);
+				setState(377);
+				match(T__57);
+				setState(378);
+				match(T__26);
+				setState(379);
+				match(T__62);
+				setState(380);
+				match(T__55);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(325);
-				match(T__61);
-				setState(326);
-				match(T__54);
+				setState(381);
+				match(T__62);
+				setState(382);
+				match(T__55);
 				}
 				break;
 			}
@@ -1969,116 +2316,116 @@ public class QaParser extends Parser {
 
 	public final MmmContext mmm() throws RecognitionException {
 		MmmContext _localctx = new MmmContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_mmm);
+		enterRule(_localctx, 38, RULE_mmm);
 		try {
-			setState(353);
+			setState(409);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__62:
+			case T__63:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(329);
-				match(T__62);
-				setState(330);
-				match(T__10);
-				}
-				break;
-			case T__63:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(331);
+				setState(385);
 				match(T__63);
-				setState(332);
+				setState(386);
 				match(T__10);
 				}
 				break;
 			case T__64:
-				enterOuterAlt(_localctx, 3);
+				enterOuterAlt(_localctx, 2);
 				{
-				setState(333);
+				setState(387);
 				match(T__64);
-				setState(334);
-				match(T__65);
-				}
-				break;
-			case T__66:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(335);
-				match(T__66);
-				setState(336);
-				match(T__65);
-				}
-				break;
-			case T__67:
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(337);
-				match(T__67);
-				setState(338);
-				match(T__68);
-				}
-				break;
-			case T__69:
-				enterOuterAlt(_localctx, 6);
-				{
-				setState(339);
-				match(T__69);
-				setState(340);
+				setState(388);
 				match(T__10);
 				}
 				break;
-			case T__70:
-				enterOuterAlt(_localctx, 7);
+			case T__65:
+				enterOuterAlt(_localctx, 3);
 				{
-				setState(341);
+				setState(389);
+				match(T__65);
+				setState(390);
+				match(T__66);
+				}
+				break;
+			case T__67:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(391);
+				match(T__67);
+				setState(392);
+				match(T__66);
+				}
+				break;
+			case T__68:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(393);
+				match(T__68);
+				setState(394);
+				match(T__69);
+				}
+				break;
+			case T__70:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(395);
 				match(T__70);
-				setState(342);
+				setState(396);
 				match(T__10);
 				}
 				break;
 			case T__71:
-				enterOuterAlt(_localctx, 8);
+				enterOuterAlt(_localctx, 7);
 				{
-				setState(343);
+				setState(397);
 				match(T__71);
-				setState(344);
+				setState(398);
 				match(T__10);
 				}
 				break;
 			case T__72:
-				enterOuterAlt(_localctx, 9);
+				enterOuterAlt(_localctx, 8);
 				{
-				setState(345);
+				setState(399);
 				match(T__72);
-				setState(346);
+				setState(400);
 				match(T__10);
 				}
 				break;
 			case T__73:
-				enterOuterAlt(_localctx, 10);
+				enterOuterAlt(_localctx, 9);
 				{
-				setState(347);
+				setState(401);
 				match(T__73);
-				setState(348);
+				setState(402);
 				match(T__10);
 				}
 				break;
 			case T__74:
-				enterOuterAlt(_localctx, 11);
+				enterOuterAlt(_localctx, 10);
 				{
-				setState(349);
+				setState(403);
 				match(T__74);
-				setState(350);
+				setState(404);
 				match(T__10);
 				}
 				break;
 			case T__75:
+				enterOuterAlt(_localctx, 11);
+				{
+				setState(405);
+				match(T__75);
+				setState(406);
+				match(T__10);
+				}
+				break;
+			case T__76:
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(351);
-				match(T__75);
-				setState(352);
+				setState(407);
+				match(T__76);
+				setState(408);
 				match(T__10);
 				}
 				break;
@@ -2120,63 +2467,63 @@ public class QaParser extends Parser {
 
 	public final AdjectiveContext adjective() throws RecognitionException {
 		AdjectiveContext _localctx = new AdjectiveContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_adjective);
+		enterRule(_localctx, 40, RULE_adjective);
 		try {
-			setState(367);
+			setState(423);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,38,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,48,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(355);
+				setState(411);
 				match(WORD);
-				setState(356);
+				setState(412);
 				match(T__18);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(357);
+				setState(413);
 				match(WORD);
-				setState(358);
-				match(T__51);
+				setState(414);
+				match(T__52);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(359);
+				setState(415);
 				match(WORD);
-				setState(360);
-				match(T__76);
+				setState(416);
+				match(T__77);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(361);
+				setState(417);
 				match(WORD);
-				setState(362);
-				match(T__43);
+				setState(418);
+				match(T__44);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(363);
+				setState(419);
 				match(WORD);
-				setState(364);
-				match(T__77);
+				setState(420);
+				match(T__78);
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(365);
+				setState(421);
 				match(WORD);
-				setState(366);
-				match(T__78);
+				setState(422);
+				match(T__79);
 				}
 				break;
 			}
@@ -2215,14 +2562,14 @@ public class QaParser extends Parser {
 
 	public final Past_participleContext past_participle() throws RecognitionException {
 		Past_participleContext _localctx = new Past_participleContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_past_participle);
+		enterRule(_localctx, 42, RULE_past_participle);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(369);
+			setState(425);
 			match(WORD);
-			setState(370);
-			match(T__79);
+			setState(426);
+			match(T__80);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2270,36 +2617,36 @@ public class QaParser extends Parser {
 
 	public final StringContext string() throws RecognitionException {
 		StringContext _localctx = new StringContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_string);
+		enterRule(_localctx, 44, RULE_string);
 		try {
-			setState(376);
+			setState(432);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,39,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,49,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(372);
+				setState(428);
 				noun();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(373);
+				setState(429);
 				verb();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(374);
+				setState(430);
 				adjective();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(375);
+				setState(431);
 				dt();
 				}
 				break;
@@ -2339,54 +2686,54 @@ public class QaParser extends Parser {
 
 	public final VerbContext verb() throws RecognitionException {
 		VerbContext _localctx = new VerbContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_verb);
+		enterRule(_localctx, 46, RULE_verb);
 		try {
-			setState(388);
+			setState(444);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,40,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,50,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(378);
+				setState(434);
 				match(WORD);
-				setState(379);
-				match(T__80);
+				setState(435);
+				match(T__81);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(380);
+				setState(436);
 				match(WORD);
-				setState(381);
-				match(T__81);
+				setState(437);
+				match(T__82);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(382);
+				setState(438);
 				match(WORD);
-				setState(383);
-				match(T__32);
+				setState(439);
+				match(T__33);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(384);
+				setState(440);
 				match(WORD);
-				setState(385);
-				match(T__82);
+				setState(441);
+				match(T__83);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(386);
+				setState(442);
 				match(WORD);
-				setState(387);
-				match(T__83);
+				setState(443);
+				match(T__84);
 				}
 				break;
 			}
@@ -2403,157 +2750,183 @@ public class QaParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\\\u0189\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3]\u01c1\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
-		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\5\2\61\n\2"+
-		"\3\2\6\2\64\n\2\r\2\16\2\65\3\2\5\29\n\2\3\2\7\2<\n\2\f\2\16\2?\13\2\3"+
-		"\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3M\n\3\3\4\3\4\3\4\5"+
-		"\4R\n\4\3\4\5\4U\n\4\3\4\3\4\3\4\5\4Z\n\4\3\4\5\4]\n\4\3\4\3\4\3\4\3\4"+
-		"\3\4\5\4d\n\4\3\5\5\5g\n\5\3\5\3\5\3\5\5\5l\n\5\3\5\6\5o\n\5\r\5\16\5"+
-		"p\3\5\3\5\5\5u\n\5\3\5\3\5\5\5y\n\5\3\5\3\5\3\5\3\5\5\5\177\n\5\3\5\5"+
-		"\5\u0082\n\5\3\5\3\5\3\5\5\5\u0087\n\5\3\5\3\5\5\5\u008b\n\5\3\6\3\6\3"+
-		"\6\3\6\3\6\3\6\5\6\u0093\n\6\3\6\7\6\u0096\n\6\f\6\16\6\u0099\13\6\3\7"+
-		"\3\7\3\7\3\7\5\7\u009f\n\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\b"+
-		"\u00ab\n\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t"+
-		"\3\t\5\t\u00bd\n\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n"+
-		"\3\n\3\n\3\n\5\n\u00cf\n\n\3\13\3\13\5\13\u00d3\n\13\3\13\3\13\5\13\u00d7"+
+		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
+		"\3\2\3\2\5\2\65\n\2\3\2\6\28\n\2\r\2\16\29\3\2\5\2=\n\2\3\2\7\2@\n\2\f"+
+		"\2\16\2C\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3Q\n\3"+
+		"\3\4\3\4\3\4\3\4\5\4W\n\4\3\4\3\4\3\4\5\4\\\n\4\3\4\5\4_\n\4\3\4\3\4\3"+
+		"\4\3\4\3\4\5\4f\n\4\3\5\5\5i\n\5\3\5\3\5\3\5\5\5n\n\5\3\5\6\5q\n\5\r\5"+
+		"\16\5r\3\5\3\5\5\5w\n\5\3\5\3\5\5\5{\n\5\3\5\3\5\3\5\3\5\5\5\u0081\n\5"+
+		"\3\5\5\5\u0084\n\5\3\5\3\5\3\5\5\5\u0089\n\5\3\5\3\5\5\5\u008d\n\5\3\6"+
+		"\5\6\u0090\n\6\3\6\3\6\3\6\5\6\u0095\n\6\3\6\6\6\u0098\n\6\r\6\16\6\u0099"+
+		"\3\6\3\6\5\6\u009e\n\6\3\6\3\6\5\6\u00a2\n\6\3\6\3\6\3\6\3\6\5\6\u00a8"+
+		"\n\6\3\6\5\6\u00ab\n\6\3\6\3\6\3\6\5\6\u00b0\n\6\3\6\3\6\5\6\u00b4\n\6"+
+		"\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7\u00bd\n\7\3\7\3\7\7\7\u00c1\n\7\f\7\16"+
+		"\7\u00c4\13\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\b\u00cd\n\b\3\b\7\b\u00d0"+
+		"\n\b\f\b\16\b\u00d3\13\b\3\t\3\t\3\t\3\t\5\t\u00d9\n\t\3\n\3\n\3\n\3\n"+
+		"\3\n\3\n\3\n\3\n\3\n\3\n\5\n\u00e5\n\n\3\13\3\13\3\13\3\13\3\13\3\13\3"+
+		"\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\5\13\u00f9"+
 		"\n\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f"+
-		"\3\f\3\f\5\f\u00eb\n\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r"+
-		"\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3"+
-		"\r\3\r\3\r\3\r\3\r\3\r\3\r\5\r\u0111\n\r\3\16\3\16\3\16\3\16\3\16\3\16"+
-		"\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\5\16\u0123\n\16\3\17"+
-		"\3\17\3\17\3\17\5\17\u0129\n\17\3\20\3\20\3\20\3\20\7\20\u012f\n\20\f"+
-		"\20\16\20\u0132\13\20\3\20\3\20\5\20\u0136\n\20\3\21\3\21\3\21\3\21\3"+
-		"\21\3\21\5\21\u013e\n\21\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22"+
-		"\3\22\5\22\u014a\n\22\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23"+
-		"\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23"+
-		"\5\23\u0164\n\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24"+
-		"\3\24\5\24\u0172\n\24\3\25\3\25\3\25\3\26\3\26\3\26\3\26\5\26\u017b\n"+
-		"\26\3\27\3\27\3\27\3\27\3\27\3\27\3\27\3\27\3\27\3\27\5\27\u0187\n\27"+
-		"\3\27\2\2\30\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,\2\2\2\u01e0"+
-		"\2.\3\2\2\2\4L\3\2\2\2\6c\3\2\2\2\b\u008a\3\2\2\2\n\u008c\3\2\2\2\f\u009e"+
-		"\3\2\2\2\16\u00aa\3\2\2\2\20\u00bc\3\2\2\2\22\u00ce\3\2\2\2\24\u00d6\3"+
-		"\2\2\2\26\u00ea\3\2\2\2\30\u0110\3\2\2\2\32\u0122\3\2\2\2\34\u0128\3\2"+
-		"\2\2\36\u0135\3\2\2\2 \u013d\3\2\2\2\"\u0149\3\2\2\2$\u0163\3\2\2\2&\u0171"+
-		"\3\2\2\2(\u0173\3\2\2\2*\u017a\3\2\2\2,\u0186\3\2\2\2.\60\5\4\3\2/\61"+
-		"\5*\26\2\60/\3\2\2\2\60\61\3\2\2\2\61\63\3\2\2\2\62\64\5\b\5\2\63\62\3"+
-		"\2\2\2\64\65\3\2\2\2\65\63\3\2\2\2\65\66\3\2\2\2\668\3\2\2\2\679\5*\26"+
-		"\28\67\3\2\2\289\3\2\2\29=\3\2\2\2:<\5\6\4\2;:\3\2\2\2<?\3\2\2\2=;\3\2"+
-		"\2\2=>\3\2\2\2>@\3\2\2\2?=\3\2\2\2@A\7\3\2\2A\3\3\2\2\2BC\7\4\2\2CM\7"+
-		"\5\2\2DE\7\6\2\2EM\7\7\2\2FG\7\b\2\2GM\7\5\2\2HI\7\t\2\2IM\7\7\2\2JK\7"+
-		"\n\2\2KM\7\7\2\2LB\3\2\2\2LD\3\2\2\2LF\3\2\2\2LH\3\2\2\2LJ\3\2\2\2M\5"+
-		"\3\2\2\2NO\5\22\n\2OQ\5\b\5\2PR\5\24\13\2QP\3\2\2\2QR\3\2\2\2Rd\3\2\2"+
-		"\2SU\5\22\n\2TS\3\2\2\2TU\3\2\2\2UV\3\2\2\2Vd\5\24\13\2W\\\5\32\16\2X"+
-		"Z\5\"\22\2YX\3\2\2\2YZ\3\2\2\2Z[\3\2\2\2[]\5 \21\2\\Y\3\2\2\2\\]\3\2\2"+
-		"\2]^\3\2\2\2^_\5\b\5\2_d\3\2\2\2`a\5\32\16\2ab\5\24\13\2bd\3\2\2\2cN\3"+
-		"\2\2\2cT\3\2\2\2cW\3\2\2\2c`\3\2\2\2d\7\3\2\2\2eg\5\"\22\2fe\3\2\2\2f"+
-		"g\3\2\2\2gh\3\2\2\2hx\5\n\6\2ik\7\13\2\2jl\5\"\22\2kj\3\2\2\2kl\3\2\2"+
-		"\2lm\3\2\2\2mo\5\n\6\2ni\3\2\2\2op\3\2\2\2pn\3\2\2\2pq\3\2\2\2qr\3\2\2"+
-		"\2rt\7\f\2\2su\5\"\22\2ts\3\2\2\2tu\3\2\2\2uv\3\2\2\2vw\5\n\6\2wy\3\2"+
-		"\2\2xn\3\2\2\2xy\3\2\2\2y~\3\2\2\2z{\5\34\17\2{|\5\"\22\2|}\5\n\6\2}\177"+
-		"\3\2\2\2~z\3\2\2\2~\177\3\2\2\2\177\u008b\3\2\2\2\u0080\u0082\5\"\22\2"+
-		"\u0081\u0080\3\2\2\2\u0081\u0082\3\2\2\2\u0082\u0083\3\2\2\2\u0083\u0084"+
-		"\5\n\6\2\u0084\u0086\7\f\2\2\u0085\u0087\5\"\22\2\u0086\u0085\3\2\2\2"+
-		"\u0086\u0087\3\2\2\2\u0087\u0088\3\2\2\2\u0088\u0089\5\n\6\2\u0089\u008b"+
-		"\3\2\2\2\u008af\3\2\2\2\u008a\u0081\3\2\2\2\u008b\t\3\2\2\2\u008c\u0097"+
-		"\5\f\7\2\u008d\u0096\5\f\7\2\u008e\u0096\5&\24\2\u008f\u0096\5(\25\2\u0090"+
-		"\u0096\5\36\20\2\u0091\u0093\5\"\22\2\u0092\u0091\3\2\2\2\u0092\u0093"+
-		"\3\2\2\2\u0093\u0094\3\2\2\2\u0094\u0096\5 \21\2\u0095\u008d\3\2\2\2\u0095"+
-		"\u008e\3\2\2\2\u0095\u008f\3\2\2\2\u0095\u0090\3\2\2\2\u0095\u0092\3\2"+
-		"\2\2\u0096\u0099\3\2\2\2\u0097\u0095\3\2\2\2\u0097\u0098\3\2\2\2\u0098"+
-		"\13\3\2\2\2\u0099\u0097\3\2\2\2\u009a\u009f\5\16\b\2\u009b\u009f\5\20"+
-		"\t\2\u009c\u009f\5\26\f\2\u009d\u009f\5&\24\2\u009e\u009a\3\2\2\2\u009e"+
-		"\u009b\3\2\2\2\u009e\u009c\3\2\2\2\u009e\u009d\3\2\2\2\u009f\r\3\2\2\2"+
-		"\u00a0\u00a1\7Z\2\2\u00a1\u00ab\7\r\2\2\u00a2\u00a3\7Z\2\2\u00a3\u00ab"+
-		"\7\16\2\2\u00a4\u00a5\7Z\2\2\u00a5\u00ab\7\17\2\2\u00a6\u00a7\7Z\2\2\u00a7"+
-		"\u00ab\7\20\2\2\u00a8\u00a9\7Z\2\2\u00a9\u00ab\7\21\2\2\u00aa\u00a0\3"+
-		"\2\2\2\u00aa\u00a2\3\2\2\2\u00aa\u00a4\3\2\2\2\u00aa\u00a6\3\2\2\2\u00aa"+
-		"\u00a8\3\2\2\2\u00ab\17\3\2\2\2\u00ac\u00ad\7\22\2\2\u00ad\u00bd\7\r\2"+
-		"\2\u00ae\u00af\7\23\2\2\u00af\u00bd\7\r\2\2\u00b0\u00b1\7\24\2\2\u00b1"+
-		"\u00bd\7\25\2\2\u00b2\u00b3\7\26\2\2\u00b3\u00bd\7\25\2\2\u00b4\u00b5"+
-		"\7\27\2\2\u00b5\u00bd\7\r\2\2\u00b6\u00b7\7\30\2\2\u00b7\u00bd\7\r\2\2"+
-		"\u00b8\u00b9\7\31\2\2\u00b9\u00bd\7\r\2\2\u00ba\u00bb\7\32\2\2\u00bb\u00bd"+
-		"\7\r\2\2\u00bc\u00ac\3\2\2\2\u00bc\u00ae\3\2\2\2\u00bc\u00b0\3\2\2\2\u00bc"+
-		"\u00b2\3\2\2\2\u00bc\u00b4\3\2\2\2\u00bc\u00b6\3\2\2\2\u00bc\u00b8\3\2"+
-		"\2\2\u00bc\u00ba\3\2\2\2\u00bd\21\3\2\2\2\u00be\u00bf\7\33\2\2\u00bf\u00cf"+
-		"\7\34\2\2\u00c0\u00c1\7\35\2\2\u00c1\u00cf\7\34\2\2\u00c2\u00c3\7\36\2"+
-		"\2\u00c3\u00cf\7\34\2\2\u00c4\u00c5\7\37\2\2\u00c5\u00cf\7\34\2\2\u00c6"+
-		"\u00c7\7 \2\2\u00c7\u00cf\7\34\2\2\u00c8\u00c9\7!\2\2\u00c9\u00cf\7\34"+
-		"\2\2\u00ca\u00cb\7\t\2\2\u00cb\u00cf\7\7\2\2\u00cc\u00cd\7\"\2\2\u00cd"+
-		"\u00cf\7#\2\2\u00ce\u00be\3\2\2\2\u00ce\u00c0\3\2\2\2\u00ce\u00c2\3\2"+
-		"\2\2\u00ce\u00c4\3\2\2\2\u00ce\u00c6\3\2\2\2\u00ce\u00c8\3\2\2\2\u00ce"+
-		"\u00ca\3\2\2\2\u00ce\u00cc\3\2\2\2\u00cf\23\3\2\2\2\u00d0\u00d2\5\b\5"+
-		"\2\u00d1\u00d3\5\30\r\2\u00d2\u00d1\3\2\2\2\u00d2\u00d3\3\2\2\2\u00d3"+
-		"\u00d7\3\2\2\2\u00d4\u00d7\5\30\r\2\u00d5\u00d7\5(\25\2\u00d6\u00d0\3"+
-		"\2\2\2\u00d6\u00d4\3\2\2\2\u00d6\u00d5\3\2\2\2\u00d7\25\3\2\2\2\u00d8"+
-		"\u00d9\7$\2\2\u00d9\u00eb\7\r\2\2\u00da\u00db\7%\2\2\u00db\u00eb\7\r\2"+
-		"\2\u00dc\u00dd\7&\2\2\u00dd\u00eb\7\25\2\2\u00de\u00df\7\'\2\2\u00df\u00eb"+
-		"\7\r\2\2\u00e0\u00e1\7(\2\2\u00e1\u00eb\7\r\2\2\u00e2\u00e3\7)\2\2\u00e3"+
-		"\u00eb\7\r\2\2\u00e4\u00e5\7*\2\2\u00e5\u00eb\7\r\2\2\u00e6\u00e7\7+\2"+
-		"\2\u00e7\u00eb\7\r\2\2\u00e8\u00e9\7,\2\2\u00e9\u00eb\7\r\2\2\u00ea\u00d8"+
-		"\3\2\2\2\u00ea\u00da\3\2\2\2\u00ea\u00dc\3\2\2\2\u00ea\u00de\3\2\2\2\u00ea"+
-		"\u00e0\3\2\2\2\u00ea\u00e2\3\2\2\2\u00ea\u00e4\3\2\2\2\u00ea\u00e6\3\2"+
-		"\2\2\u00ea\u00e8\3\2\2\2\u00eb\27\3\2\2\2\u00ec\u00ed\7W\2\2\u00ed\u00ee"+
-		"\7-\2\2\u00ee\u00ef\7X\2\2\u00ef\u00f0\7-\2\2\u00f0\u0111\7Y\2\2\u00f1"+
-		"\u00f2\7X\2\2\u00f2\u00f3\7-\2\2\u00f3\u0111\7Y\2\2\u00f4\u0111\7W\2\2"+
-		"\u00f5\u0111\7X\2\2\u00f6\u00f7\7Y\2\2\u00f7\u0111\7.\2\2\u00f8\u00f9"+
-		"\7W\2\2\u00f9\u00fa\7/\2\2\u00fa\u00fb\5$\23\2\u00fb\u00fc\7/\2\2\u00fc"+
-		"\u00fd\7Y\2\2\u00fd\u0111\3\2\2\2\u00fe\u00ff\5$\23\2\u00ff\u0100\7/\2"+
-		"\2\u0100\u0101\7Y\2\2\u0101\u0111\3\2\2\2\u0102\u0103\7X\2\2\u0103\u0104"+
-		"\7-\2\2\u0104\u0105\7W\2\2\u0105\u0106\7-\2\2\u0106\u0111\7Y\2\2\u0107"+
-		"\u0108\5$\23\2\u0108\u0109\7W\2\2\u0109\u010a\7\13\2\2\u010a\u010b\7Y"+
-		"\2\2\u010b\u0111\3\2\2\2\u010c\u010d\5$\23\2\u010d\u010e\7\13\2\2\u010e"+
-		"\u010f\7Y\2\2\u010f\u0111\3\2\2\2\u0110\u00ec\3\2\2\2\u0110\u00f1\3\2"+
-		"\2\2\u0110\u00f4\3\2\2\2\u0110\u00f5\3\2\2\2\u0110\u00f6\3\2\2\2\u0110"+
-		"\u00f8\3\2\2\2\u0110\u00fe\3\2\2\2\u0110\u0102\3\2\2\2\u0110\u0107\3\2"+
-		"\2\2\u0110\u010c\3\2\2\2\u0111\31\3\2\2\2\u0112\u0113\7\60\2\2\u0113\u0123"+
-		"\7\25\2\2\u0114\u0115\7\61\2\2\u0115\u0123\7\62\2\2\u0116\u0117\7\63\2"+
-		"\2\u0117\u0123\7\64\2\2\u0118\u0119\7\65\2\2\u0119\u0123\7\66\2\2\u011a"+
-		"\u011b\7\63\2\2\u011b\u0123\7\64\2\2\u011c\u011d\7\67\2\2\u011d\u0123"+
-		"\7\34\2\2\u011e\u011f\78\2\2\u011f\u0123\79\2\2\u0120\u0121\7:\2\2\u0121"+
-		"\u0123\7\34\2\2\u0122\u0112\3\2\2\2\u0122\u0114\3\2\2\2\u0122\u0116\3"+
-		"\2\2\2\u0122\u0118\3\2\2\2\u0122\u011a\3\2\2\2\u0122\u011c\3\2\2\2\u0122"+
-		"\u011e\3\2\2\2\u0122\u0120\3\2\2\2\u0123\33\3\2\2\2\u0124\u0125\7;\2\2"+
-		"\u0125\u0129\7\34\2\2\u0126\u0127\7\37\2\2\u0127\u0129\7\34\2\2\u0128"+
-		"\u0124\3\2\2\2\u0128\u0126\3\2\2\2\u0129\35\3\2\2\2\u012a\u012b\7Z\2\2"+
-		"\u012b\u0130\7<\2\2\u012c\u012f\5,\27\2\u012d\u012f\5(\25\2\u012e\u012c"+
-		"\3\2\2\2\u012e\u012d\3\2\2\2\u012f\u0132\3\2\2\2\u0130\u012e\3\2\2\2\u0130"+
-		"\u0131\3\2\2\2\u0131\u0136\3\2\2\2\u0132\u0130\3\2\2\2\u0133\u0134\7Z"+
-		"\2\2\u0134\u0136\7=\2\2\u0135\u012a\3\2\2\2\u0135\u0133\3\2\2\2\u0136"+
-		"\37\3\2\2\2\u0137\u0138\7Z\2\2\u0138\u013e\7\64\2\2\u0139\u013a\7Z\2\2"+
-		"\u013a\u013e\7\62\2\2\u013b\u013c\7Z\2\2\u013c\u013e\7>\2\2\u013d\u0137"+
-		"\3\2\2\2\u013d\u0139\3\2\2\2\u013d\u013b\3\2\2\2\u013e!\3\2\2\2\u013f"+
-		"\u0140\7?\2\2\u0140\u014a\79\2\2\u0141\u0142\7;\2\2\u0142\u014a\7\34\2"+
-		"\2\u0143\u0144\7;\2\2\u0144\u0145\7\34\2\2\u0145\u0146\7@\2\2\u0146\u014a"+
-		"\79\2\2\u0147\u0148\7@\2\2\u0148\u014a\79\2\2\u0149\u013f\3\2\2\2\u0149"+
-		"\u0141\3\2\2\2\u0149\u0143\3\2\2\2\u0149\u0147\3\2\2\2\u014a#\3\2\2\2"+
-		"\u014b\u014c\7A\2\2\u014c\u0164\7\r\2\2\u014d\u014e\7B\2\2\u014e\u0164"+
-		"\7\r\2\2\u014f\u0150\7C\2\2\u0150\u0164\7D\2\2\u0151\u0152\7E\2\2\u0152"+
-		"\u0164\7D\2\2\u0153\u0154\7F\2\2\u0154\u0164\7G\2\2\u0155\u0156\7H\2\2"+
-		"\u0156\u0164\7\r\2\2\u0157\u0158\7I\2\2\u0158\u0164\7\r\2\2\u0159\u015a"+
-		"\7J\2\2\u015a\u0164\7\r\2\2\u015b\u015c\7K\2\2\u015c\u0164\7\r\2\2\u015d"+
-		"\u015e\7L\2\2\u015e\u0164\7\r\2\2\u015f\u0160\7M\2\2\u0160\u0164\7\r\2"+
-		"\2\u0161\u0162\7N\2\2\u0162\u0164\7\r\2\2\u0163\u014b\3\2\2\2\u0163\u014d"+
-		"\3\2\2\2\u0163\u014f\3\2\2\2\u0163\u0151\3\2\2\2\u0163\u0153\3\2\2\2\u0163"+
-		"\u0155\3\2\2\2\u0163\u0157\3\2\2\2\u0163\u0159\3\2\2\2\u0163\u015b\3\2"+
-		"\2\2\u0163\u015d\3\2\2\2\u0163\u015f\3\2\2\2\u0163\u0161\3\2\2\2\u0164"+
-		"%\3\2\2\2\u0165\u0166\7Z\2\2\u0166\u0172\7\25\2\2\u0167\u0168\7Z\2\2\u0168"+
-		"\u0172\7\66\2\2\u0169\u016a\7Z\2\2\u016a\u0172\7O\2\2\u016b\u016c\7Z\2"+
-		"\2\u016c\u0172\7.\2\2\u016d\u016e\7Z\2\2\u016e\u0172\7P\2\2\u016f\u0170"+
-		"\7Z\2\2\u0170\u0172\7Q\2\2\u0171\u0165\3\2\2\2\u0171\u0167\3\2\2\2\u0171"+
-		"\u0169\3\2\2\2\u0171\u016b\3\2\2\2\u0171\u016d\3\2\2\2\u0171\u016f\3\2"+
-		"\2\2\u0172\'\3\2\2\2\u0173\u0174\7Z\2\2\u0174\u0175\7R\2\2\u0175)\3\2"+
-		"\2\2\u0176\u017b\5\16\b\2\u0177\u017b\5,\27\2\u0178\u017b\5&\24\2\u0179"+
-		"\u017b\5\"\22\2\u017a\u0176\3\2\2\2\u017a\u0177\3\2\2\2\u017a\u0178\3"+
-		"\2\2\2\u017a\u0179\3\2\2\2\u017b+\3\2\2\2\u017c\u017d\7Z\2\2\u017d\u0187"+
-		"\7S\2\2\u017e\u017f\7Z\2\2\u017f\u0187\7T\2\2\u0180\u0181\7Z\2\2\u0181"+
-		"\u0187\7#\2\2\u0182\u0183\7Z\2\2\u0183\u0187\7U\2\2\u0184\u0185\7Z\2\2"+
-		"\u0185\u0187\7V\2\2\u0186\u017c\3\2\2\2\u0186\u017e\3\2\2\2\u0186\u0180"+
-		"\3\2\2\2\u0186\u0182\3\2\2\2\u0186\u0184\3\2\2\2\u0187-\3\2\2\2+\60\65"+
-		"8=LQTY\\cfkptx~\u0081\u0086\u008a\u0092\u0095\u0097\u009e\u00aa\u00bc"+
-		"\u00ce\u00d2\u00d6\u00ea\u0110\u0122\u0128\u012e\u0130\u0135\u013d\u0149"+
-		"\u0163\u0171\u017a\u0186";
+		"\5\f\u010b\n\f\3\r\3\r\5\r\u010f\n\r\3\r\5\r\u0112\n\r\3\16\3\16\3\16"+
+		"\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16"+
+		"\3\16\5\16\u0126\n\16\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17"+
+		"\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17"+
+		"\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\5\17\u014c"+
+		"\n\17\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20"+
+		"\3\20\3\20\3\20\5\20\u015e\n\20\3\21\3\21\3\21\3\22\3\22\3\22\3\22\7\22"+
+		"\u0167\n\22\f\22\16\22\u016a\13\22\3\22\3\22\5\22\u016e\n\22\3\23\3\23"+
+		"\3\23\3\23\3\23\3\23\5\23\u0176\n\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24"+
+		"\3\24\3\24\3\24\5\24\u0182\n\24\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25"+
+		"\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25"+
+		"\3\25\3\25\5\25\u019c\n\25\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26"+
+		"\3\26\3\26\3\26\5\26\u01aa\n\26\3\27\3\27\3\27\3\30\3\30\3\30\3\30\5\30"+
+		"\u01b3\n\30\3\31\3\31\3\31\3\31\3\31\3\31\3\31\3\31\3\31\3\31\5\31\u01bf"+
+		"\n\31\3\31\2\2\32\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\2"+
+		"\2\2\u0226\2\62\3\2\2\2\4P\3\2\2\2\6e\3\2\2\2\b\u008c\3\2\2\2\n\u00b3"+
+		"\3\2\2\2\f\u00b5\3\2\2\2\16\u00c5\3\2\2\2\20\u00d8\3\2\2\2\22\u00e4\3"+
+		"\2\2\2\24\u00f8\3\2\2\2\26\u010a\3\2\2\2\30\u0111\3\2\2\2\32\u0125\3\2"+
+		"\2\2\34\u014b\3\2\2\2\36\u015d\3\2\2\2 \u015f\3\2\2\2\"\u016d\3\2\2\2"+
+		"$\u0175\3\2\2\2&\u0181\3\2\2\2(\u019b\3\2\2\2*\u01a9\3\2\2\2,\u01ab\3"+
+		"\2\2\2.\u01b2\3\2\2\2\60\u01be\3\2\2\2\62\64\5\4\3\2\63\65\5.\30\2\64"+
+		"\63\3\2\2\2\64\65\3\2\2\2\65\67\3\2\2\2\668\5\n\6\2\67\66\3\2\2\289\3"+
+		"\2\2\29\67\3\2\2\29:\3\2\2\2:<\3\2\2\2;=\5.\30\2<;\3\2\2\2<=\3\2\2\2="+
+		"A\3\2\2\2>@\5\6\4\2?>\3\2\2\2@C\3\2\2\2A?\3\2\2\2AB\3\2\2\2BD\3\2\2\2"+
+		"CA\3\2\2\2DE\7\3\2\2E\3\3\2\2\2FG\7\4\2\2GQ\7\5\2\2HI\7\6\2\2IQ\7\7\2"+
+		"\2JK\7\b\2\2KQ\7\5\2\2LM\7\t\2\2MQ\7\7\2\2NO\7\n\2\2OQ\7\7\2\2PF\3\2\2"+
+		"\2PH\3\2\2\2PJ\3\2\2\2PL\3\2\2\2PN\3\2\2\2Q\5\3\2\2\2RS\5\26\f\2ST\5\b"+
+		"\5\2Tf\3\2\2\2UW\5\26\f\2VU\3\2\2\2VW\3\2\2\2WX\3\2\2\2Xf\5\30\r\2Y^\5"+
+		"\36\20\2Z\\\5&\24\2[Z\3\2\2\2[\\\3\2\2\2\\]\3\2\2\2]_\5$\23\2^[\3\2\2"+
+		"\2^_\3\2\2\2_`\3\2\2\2`a\5\b\5\2af\3\2\2\2bc\5\36\20\2cd\5\30\r\2df\3"+
+		"\2\2\2eR\3\2\2\2eV\3\2\2\2eY\3\2\2\2eb\3\2\2\2f\7\3\2\2\2gi\5&\24\2hg"+
+		"\3\2\2\2hi\3\2\2\2ij\3\2\2\2jz\5\f\7\2km\7\13\2\2ln\5&\24\2ml\3\2\2\2"+
+		"mn\3\2\2\2no\3\2\2\2oq\5\f\7\2pk\3\2\2\2qr\3\2\2\2rp\3\2\2\2rs\3\2\2\2"+
+		"st\3\2\2\2tv\7\f\2\2uw\5&\24\2vu\3\2\2\2vw\3\2\2\2wx\3\2\2\2xy\5\f\7\2"+
+		"y{\3\2\2\2zp\3\2\2\2z{\3\2\2\2{\u0080\3\2\2\2|}\5 \21\2}~\5&\24\2~\177"+
+		"\5\f\7\2\177\u0081\3\2\2\2\u0080|\3\2\2\2\u0080\u0081\3\2\2\2\u0081\u008d"+
+		"\3\2\2\2\u0082\u0084\5&\24\2\u0083\u0082\3\2\2\2\u0083\u0084\3\2\2\2\u0084"+
+		"\u0085\3\2\2\2\u0085\u0086\5\f\7\2\u0086\u0088\7\f\2\2\u0087\u0089\5&"+
+		"\24\2\u0088\u0087\3\2\2\2\u0088\u0089\3\2\2\2\u0089\u008a\3\2\2\2\u008a"+
+		"\u008b\5\f\7\2\u008b\u008d\3\2\2\2\u008ch\3\2\2\2\u008c\u0083\3\2\2\2"+
+		"\u008d\t\3\2\2\2\u008e\u0090\5&\24\2\u008f\u008e\3\2\2\2\u008f\u0090\3"+
+		"\2\2\2\u0090\u0091\3\2\2\2\u0091\u00a1\5\16\b\2\u0092\u0094\7\13\2\2\u0093"+
+		"\u0095\5&\24\2\u0094\u0093\3\2\2\2\u0094\u0095\3\2\2\2\u0095\u0096\3\2"+
+		"\2\2\u0096\u0098\5\16\b\2\u0097\u0092\3\2\2\2\u0098\u0099\3\2\2\2\u0099"+
+		"\u0097\3\2\2\2\u0099\u009a\3\2\2\2\u009a\u009b\3\2\2\2\u009b\u009d\7\f"+
+		"\2\2\u009c\u009e\5&\24\2\u009d\u009c\3\2\2\2\u009d\u009e\3\2\2\2\u009e"+
+		"\u009f\3\2\2\2\u009f\u00a0\5\16\b\2\u00a0\u00a2\3\2\2\2\u00a1\u0097\3"+
+		"\2\2\2\u00a1\u00a2\3\2\2\2\u00a2\u00a7\3\2\2\2\u00a3\u00a4\5 \21\2\u00a4"+
+		"\u00a5\5&\24\2\u00a5\u00a6\5\16\b\2\u00a6\u00a8\3\2\2\2\u00a7\u00a3\3"+
+		"\2\2\2\u00a7\u00a8\3\2\2\2\u00a8\u00b4\3\2\2\2\u00a9\u00ab\5&\24\2\u00aa"+
+		"\u00a9\3\2\2\2\u00aa\u00ab\3\2\2\2\u00ab\u00ac\3\2\2\2\u00ac\u00ad\5\16"+
+		"\b\2\u00ad\u00af\7\f\2\2\u00ae\u00b0\5&\24\2\u00af\u00ae\3\2\2\2\u00af"+
+		"\u00b0\3\2\2\2\u00b0\u00b1\3\2\2\2\u00b1\u00b2\5\16\b\2\u00b2\u00b4\3"+
+		"\2\2\2\u00b3\u008f\3\2\2\2\u00b3\u00aa\3\2\2\2\u00b4\13\3\2\2\2\u00b5"+
+		"\u00c2\5\20\t\2\u00b6\u00c1\5\20\t\2\u00b7\u00c1\5*\26\2\u00b8\u00c1\5"+
+		",\27\2\u00b9\u00c1\5\"\22\2\u00ba\u00c1\5.\30\2\u00bb\u00bd\5&\24\2\u00bc"+
+		"\u00bb\3\2\2\2\u00bc\u00bd\3\2\2\2\u00bd\u00be\3\2\2\2\u00be\u00c1\5$"+
+		"\23\2\u00bf\u00c1\5\30\r\2\u00c0\u00b6\3\2\2\2\u00c0\u00b7\3\2\2\2\u00c0"+
+		"\u00b8\3\2\2\2\u00c0\u00b9\3\2\2\2\u00c0\u00ba\3\2\2\2\u00c0\u00bc\3\2"+
+		"\2\2\u00c0\u00bf\3\2\2\2\u00c1\u00c4\3\2\2\2\u00c2\u00c0\3\2\2\2\u00c2"+
+		"\u00c3\3\2\2\2\u00c3\r\3\2\2\2\u00c4\u00c2\3\2\2\2\u00c5\u00d1\5\20\t"+
+		"\2\u00c6\u00d0\5\20\t\2\u00c7\u00d0\5*\26\2\u00c8\u00d0\5,\27\2\u00c9"+
+		"\u00d0\5\"\22\2\u00ca\u00d0\5.\30\2\u00cb\u00cd\5&\24\2\u00cc\u00cb\3"+
+		"\2\2\2\u00cc\u00cd\3\2\2\2\u00cd\u00ce\3\2\2\2\u00ce\u00d0\5$\23\2\u00cf"+
+		"\u00c6\3\2\2\2\u00cf\u00c7\3\2\2\2\u00cf\u00c8\3\2\2\2\u00cf\u00c9\3\2"+
+		"\2\2\u00cf\u00ca\3\2\2\2\u00cf\u00cc\3\2\2\2\u00d0\u00d3\3\2\2\2\u00d1"+
+		"\u00cf\3\2\2\2\u00d1\u00d2\3\2\2\2\u00d2\17\3\2\2\2\u00d3\u00d1\3\2\2"+
+		"\2\u00d4\u00d9\5\22\n\2\u00d5\u00d9\5\24\13\2\u00d6\u00d9\5\32\16\2\u00d7"+
+		"\u00d9\5*\26\2\u00d8\u00d4\3\2\2\2\u00d8\u00d5\3\2\2\2\u00d8\u00d6\3\2"+
+		"\2\2\u00d8\u00d7\3\2\2\2\u00d9\21\3\2\2\2\u00da\u00db\7[\2\2\u00db\u00e5"+
+		"\7\r\2\2\u00dc\u00dd\7[\2\2\u00dd\u00e5\7\16\2\2\u00de\u00df\7[\2\2\u00df"+
+		"\u00e5\7\17\2\2\u00e0\u00e1\7[\2\2\u00e1\u00e5\7\20\2\2\u00e2\u00e3\7"+
+		"[\2\2\u00e3\u00e5\7\21\2\2\u00e4\u00da\3\2\2\2\u00e4\u00dc\3\2\2\2\u00e4"+
+		"\u00de\3\2\2\2\u00e4\u00e0\3\2\2\2\u00e4\u00e2\3\2\2\2\u00e5\23\3\2\2"+
+		"\2\u00e6\u00e7\7\22\2\2\u00e7\u00f9\7\r\2\2\u00e8\u00e9\7\23\2\2\u00e9"+
+		"\u00f9\7\r\2\2\u00ea\u00eb\7\24\2\2\u00eb\u00f9\7\25\2\2\u00ec\u00ed\7"+
+		"\26\2\2\u00ed\u00f9\7\25\2\2\u00ee\u00ef\7\27\2\2\u00ef\u00f9\7\25\2\2"+
+		"\u00f0\u00f1\7\30\2\2\u00f1\u00f9\7\r\2\2\u00f2\u00f3\7\31\2\2\u00f3\u00f9"+
+		"\7\r\2\2\u00f4\u00f5\7\32\2\2\u00f5\u00f9\7\r\2\2\u00f6\u00f7\7\33\2\2"+
+		"\u00f7\u00f9\7\r\2\2\u00f8\u00e6\3\2\2\2\u00f8\u00e8\3\2\2\2\u00f8\u00ea"+
+		"\3\2\2\2\u00f8\u00ec\3\2\2\2\u00f8\u00ee\3\2\2\2\u00f8\u00f0\3\2\2\2\u00f8"+
+		"\u00f2\3\2\2\2\u00f8\u00f4\3\2\2\2\u00f8\u00f6\3\2\2\2\u00f9\25\3\2\2"+
+		"\2\u00fa\u00fb\7\34\2\2\u00fb\u010b\7\35\2\2\u00fc\u00fd\7\36\2\2\u00fd"+
+		"\u010b\7\35\2\2\u00fe\u00ff\7\37\2\2\u00ff\u010b\7\35\2\2\u0100\u0101"+
+		"\7 \2\2\u0101\u010b\7\35\2\2\u0102\u0103\7!\2\2\u0103\u010b\7\35\2\2\u0104"+
+		"\u0105\7\"\2\2\u0105\u010b\7\35\2\2\u0106\u0107\7\t\2\2\u0107\u010b\7"+
+		"\7\2\2\u0108\u0109\7#\2\2\u0109\u010b\7$\2\2\u010a\u00fa\3\2\2\2\u010a"+
+		"\u00fc\3\2\2\2\u010a\u00fe\3\2\2\2\u010a\u0100\3\2\2\2\u010a\u0102\3\2"+
+		"\2\2\u010a\u0104\3\2\2\2\u010a\u0106\3\2\2\2\u010a\u0108\3\2\2\2\u010b"+
+		"\27\3\2\2\2\u010c\u010e\5\b\5\2\u010d\u010f\5\34\17\2\u010e\u010d\3\2"+
+		"\2\2\u010e\u010f\3\2\2\2\u010f\u0112\3\2\2\2\u0110\u0112\5\34\17\2\u0111"+
+		"\u010c\3\2\2\2\u0111\u0110\3\2\2\2\u0112\31\3\2\2\2\u0113\u0114\7%\2\2"+
+		"\u0114\u0126\7\r\2\2\u0115\u0116\7&\2\2\u0116\u0126\7\r\2\2\u0117\u0118"+
+		"\7\'\2\2\u0118\u0126\7\25\2\2\u0119\u011a\7(\2\2\u011a\u0126\7\r\2\2\u011b"+
+		"\u011c\7)\2\2\u011c\u0126\7\r\2\2\u011d\u011e\7*\2\2\u011e\u0126\7\r\2"+
+		"\2\u011f\u0120\7+\2\2\u0120\u0126\7\r\2\2\u0121\u0122\7,\2\2\u0122\u0126"+
+		"\7\r\2\2\u0123\u0124\7-\2\2\u0124\u0126\7\r\2\2\u0125\u0113\3\2\2\2\u0125"+
+		"\u0115\3\2\2\2\u0125\u0117\3\2\2\2\u0125\u0119\3\2\2\2\u0125\u011b\3\2"+
+		"\2\2\u0125\u011d\3\2\2\2\u0125\u011f\3\2\2\2\u0125\u0121\3\2\2\2\u0125"+
+		"\u0123\3\2\2\2\u0126\33\3\2\2\2\u0127\u0128\7X\2\2\u0128\u0129\7.\2\2"+
+		"\u0129\u012a\7Y\2\2\u012a\u012b\7.\2\2\u012b\u014c\7Z\2\2\u012c\u012d"+
+		"\7Y\2\2\u012d\u012e\7.\2\2\u012e\u014c\7Z\2\2\u012f\u014c\7X\2\2\u0130"+
+		"\u014c\7Y\2\2\u0131\u0132\7Z\2\2\u0132\u014c\7/\2\2\u0133\u0134\7X\2\2"+
+		"\u0134\u0135\7\60\2\2\u0135\u0136\5(\25\2\u0136\u0137\7\60\2\2\u0137\u0138"+
+		"\7Z\2\2\u0138\u014c\3\2\2\2\u0139\u013a\5(\25\2\u013a\u013b\7\60\2\2\u013b"+
+		"\u013c\7Z\2\2\u013c\u014c\3\2\2\2\u013d\u013e\7Y\2\2\u013e\u013f\7.\2"+
+		"\2\u013f\u0140\7X\2\2\u0140\u0141\7.\2\2\u0141\u014c\7Z\2\2\u0142\u0143"+
+		"\5(\25\2\u0143\u0144\7X\2\2\u0144\u0145\7\13\2\2\u0145\u0146\7Z\2\2\u0146"+
+		"\u014c\3\2\2\2\u0147\u0148\5(\25\2\u0148\u0149\7\13\2\2\u0149\u014a\7"+
+		"Z\2\2\u014a\u014c\3\2\2\2\u014b\u0127\3\2\2\2\u014b\u012c\3\2\2\2\u014b"+
+		"\u012f\3\2\2\2\u014b\u0130\3\2\2\2\u014b\u0131\3\2\2\2\u014b\u0133\3\2"+
+		"\2\2\u014b\u0139\3\2\2\2\u014b\u013d\3\2\2\2\u014b\u0142\3\2\2\2\u014b"+
+		"\u0147\3\2\2\2\u014c\35\3\2\2\2\u014d\u014e\7\61\2\2\u014e\u015e\7\25"+
+		"\2\2\u014f\u0150\7\62\2\2\u0150\u015e\7\63\2\2\u0151\u0152\7\64\2\2\u0152"+
+		"\u015e\7\65\2\2\u0153\u0154\7\66\2\2\u0154\u015e\7\67\2\2\u0155\u0156"+
+		"\7\64\2\2\u0156\u015e\7\65\2\2\u0157\u0158\78\2\2\u0158\u015e\7\35\2\2"+
+		"\u0159\u015a\79\2\2\u015a\u015e\7:\2\2\u015b\u015c\7;\2\2\u015c\u015e"+
+		"\7\35\2\2\u015d\u014d\3\2\2\2\u015d\u014f\3\2\2\2\u015d\u0151\3\2\2\2"+
+		"\u015d\u0153\3\2\2\2\u015d\u0155\3\2\2\2\u015d\u0157\3\2\2\2\u015d\u0159"+
+		"\3\2\2\2\u015d\u015b\3\2\2\2\u015e\37\3\2\2\2\u015f\u0160\7<\2\2\u0160"+
+		"\u0161\7\35\2\2\u0161!\3\2\2\2\u0162\u0163\7[\2\2\u0163\u0168\7=\2\2\u0164"+
+		"\u0167\5\60\31\2\u0165\u0167\5,\27\2\u0166\u0164\3\2\2\2\u0166\u0165\3"+
+		"\2\2\2\u0167\u016a\3\2\2\2\u0168\u0166\3\2\2\2\u0168\u0169\3\2\2\2\u0169"+
+		"\u016e\3\2\2\2\u016a\u0168\3\2\2\2\u016b\u016c\7[\2\2\u016c\u016e\7>\2"+
+		"\2\u016d\u0162\3\2\2\2\u016d\u016b\3\2\2\2\u016e#\3\2\2\2\u016f\u0170"+
+		"\7[\2\2\u0170\u0176\7\65\2\2\u0171\u0172\7[\2\2\u0172\u0176\7\63\2\2\u0173"+
+		"\u0174\7[\2\2\u0174\u0176\7?\2\2\u0175\u016f\3\2\2\2\u0175\u0171\3\2\2"+
+		"\2\u0175\u0173\3\2\2\2\u0176%\3\2\2\2\u0177\u0178\7@\2\2\u0178\u0182\7"+
+		":\2\2\u0179\u017a\7<\2\2\u017a\u0182\7\35\2\2\u017b\u017c\7<\2\2\u017c"+
+		"\u017d\7\35\2\2\u017d\u017e\7A\2\2\u017e\u0182\7:\2\2\u017f\u0180\7A\2"+
+		"\2\u0180\u0182\7:\2\2\u0181\u0177\3\2\2\2\u0181\u0179\3\2\2\2\u0181\u017b"+
+		"\3\2\2\2\u0181\u017f\3\2\2\2\u0182\'\3\2\2\2\u0183\u0184\7B\2\2\u0184"+
+		"\u019c\7\r\2\2\u0185\u0186\7C\2\2\u0186\u019c\7\r\2\2\u0187\u0188\7D\2"+
+		"\2\u0188\u019c\7E\2\2\u0189\u018a\7F\2\2\u018a\u019c\7E\2\2\u018b\u018c"+
+		"\7G\2\2\u018c\u019c\7H\2\2\u018d\u018e\7I\2\2\u018e\u019c\7\r\2\2\u018f"+
+		"\u0190\7J\2\2\u0190\u019c\7\r\2\2\u0191\u0192\7K\2\2\u0192\u019c\7\r\2"+
+		"\2\u0193\u0194\7L\2\2\u0194\u019c\7\r\2\2\u0195\u0196\7M\2\2\u0196\u019c"+
+		"\7\r\2\2\u0197\u0198\7N\2\2\u0198\u019c\7\r\2\2\u0199\u019a\7O\2\2\u019a"+
+		"\u019c\7\r\2\2\u019b\u0183\3\2\2\2\u019b\u0185\3\2\2\2\u019b\u0187\3\2"+
+		"\2\2\u019b\u0189\3\2\2\2\u019b\u018b\3\2\2\2\u019b\u018d\3\2\2\2\u019b"+
+		"\u018f\3\2\2\2\u019b\u0191\3\2\2\2\u019b\u0193\3\2\2\2\u019b\u0195\3\2"+
+		"\2\2\u019b\u0197\3\2\2\2\u019b\u0199\3\2\2\2\u019c)\3\2\2\2\u019d\u019e"+
+		"\7[\2\2\u019e\u01aa\7\25\2\2\u019f\u01a0\7[\2\2\u01a0\u01aa\7\67\2\2\u01a1"+
+		"\u01a2\7[\2\2\u01a2\u01aa\7P\2\2\u01a3\u01a4\7[\2\2\u01a4\u01aa\7/\2\2"+
+		"\u01a5\u01a6\7[\2\2\u01a6\u01aa\7Q\2\2\u01a7\u01a8\7[\2\2\u01a8\u01aa"+
+		"\7R\2\2\u01a9\u019d\3\2\2\2\u01a9\u019f\3\2\2\2\u01a9\u01a1\3\2\2\2\u01a9"+
+		"\u01a3\3\2\2\2\u01a9\u01a5\3\2\2\2\u01a9\u01a7\3\2\2\2\u01aa+\3\2\2\2"+
+		"\u01ab\u01ac\7[\2\2\u01ac\u01ad\7S\2\2\u01ad-\3\2\2\2\u01ae\u01b3\5\22"+
+		"\n\2\u01af\u01b3\5\60\31\2\u01b0\u01b3\5*\26\2\u01b1\u01b3\5&\24\2\u01b2"+
+		"\u01ae\3\2\2\2\u01b2\u01af\3\2\2\2\u01b2\u01b0\3\2\2\2\u01b2\u01b1\3\2"+
+		"\2\2\u01b3/\3\2\2\2\u01b4\u01b5\7[\2\2\u01b5\u01bf\7T\2\2\u01b6\u01b7"+
+		"\7[\2\2\u01b7\u01bf\7U\2\2\u01b8\u01b9\7[\2\2\u01b9\u01bf\7$\2\2\u01ba"+
+		"\u01bb\7[\2\2\u01bb\u01bf\7V\2\2\u01bc\u01bd\7[\2\2\u01bd\u01bf\7W\2\2"+
+		"\u01be\u01b4\3\2\2\2\u01be\u01b6\3\2\2\2\u01be\u01b8\3\2\2\2\u01be\u01ba"+
+		"\3\2\2\2\u01be\u01bc\3\2\2\2\u01bf\61\3\2\2\2\65\649<APV[^ehmrvz\u0080"+
+		"\u0083\u0088\u008c\u008f\u0094\u0099\u009d\u00a1\u00a7\u00aa\u00af\u00b3"+
+		"\u00bc\u00c0\u00c2\u00cc\u00cf\u00d1\u00d8\u00e4\u00f8\u010a\u010e\u0111"+
+		"\u0125\u014b\u015d\u0166\u0168\u016d\u0175\u0181\u019b\u01a9\u01b2\u01be";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

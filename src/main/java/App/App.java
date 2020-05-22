@@ -44,34 +44,27 @@ public class App extends HttpServlet {
         ArrayList<String> filter = new ArrayList<>();
         ArrayList<String> dimention = new ArrayList<>();
         
-        ArrayList<ArrayList<String>> suggestionMeasures = new ArrayList<ArrayList<String>>();
-
-
-        String[] myTables = MySql.getTables().split("\n");
-        JaroWinkler jw = new JaroWinkler();
-
-        suggestionMeasures = Analyse.getSuggestionMeasures(tree, parser);
-
-        for (ParseTree t : XPath.findAll(tree, "/qa/filter", parser)) {
+        /*for (ParseTree t : XPath.findAll(tree, "/qa/filter", parser)) {
             filter.add(t.getText().replaceAll("_[A-Z.]+", " "));
-        }
+        }*/
+
 
         // ----------- desplaying the measers ------------
-        ArrayList<Term> myMeasures = new ArrayList<>();
-        for(ArrayList<String> list1:suggestionMeasures){
-            for (String s : list1) {
-                for (String table : myTables) {
-                    if (Tables.measureTables.containsKey(table)) {
-                        for (String attribute : Tables.measureTables.get(table)) {
-                            if (jw.similarity(attribute, s) >= 0.9) {
-                                myMeasures.add(new Term(attribute, table, jw.similarity(attribute, s)));
-                            }
-                        }
-                    }
-                }
-            }
+        ArrayList<Term>     myMeasures  = Analyse.getMeasures(tree, parser);
+        ArrayList<Term>     myDimensions  = new ArrayList<>(); Analyse.getDimensions(tree, parser);
+        ArrayList<Filter>   myFilters   = Analyse.getFilters(tree, parser);
+        Collections.sort(myFilters , Collections.reverseOrder());
+        if(myMeasures.isEmpty()){
+            myDimensions = Analyse.getDimensions(tree, parser);
         }
-    
+        System.out.println("\nSize = "+myMeasures.size());
+
+        for(Filter f:myFilters){
+            if(!filter.contains(f.getFilterValue()))
+                filter.add(f.getFilterValue());
+            if(!dimention.contains(f.getFilterTable()))
+                dimention.add(f.getFilterTable());
+        }
         // ----------- desplaying the dimentions ------------
 
         /*ArrayList<Term> myDimentions = new ArrayList<>();
@@ -89,14 +82,119 @@ public class App extends HttpServlet {
         */
         // ----------- desplaying the Queries ------------
         ArrayList<String> queries = new ArrayList<>();
-        Collections.sort(myMeasures, new SortByPourcentage());
         ArrayList<String> selectedTables = new ArrayList<>();
-        for (Term m : myMeasures) {
-            String query = "SELECT " + m.getTerm() + " FROM " + m.getTable();
-            if(!queries.contains(query))
-                queries.add(query);
-            if(!selectedTables.contains(m.getTable()))
-                selectedTables.add(m.getTable());
+
+        if(!myMeasures.isEmpty()){
+            Collections.sort(myMeasures, new SortByPourcentage());
+            HashSet<Object> seen=new HashSet<>();
+            myMeasures.removeIf(e->!seen.add(e.getTerm()));
+            for (Term m : myMeasures) {
+                String      query = new String ();
+                boolean     firstChange = true;
+                int i = 0;
+                while(i<myFilters.size()-1){
+                    if(firstChange){
+                        query += "SELECT " + m.getTerm() + " FROM " + m.getTable() +" WHERE "+myFilters.get(i).getFilterID() + " IN ( SELECT " 
+                        + myFilters.get(i).getFilterID() + " FROM " + myFilters.get(i).getFilterTable() + " WHERE "+
+                        myFilters.get(i).getFilterName() + " = '" + myFilters.get(i).getFilterValue() +"'";
+                        firstChange = false;
+                    }
+                    else{
+                        query += " OR "+myFilters.get(i).getFilterName()+" = '"+myFilters.get(i).getFilterValue()+"'";
+                    }
+
+                    if(!myFilters.get(i).getFilterName().equals(myFilters.get(i+1).getFilterName())){
+                        query += " )";
+                        firstChange = true;
+                        if(!queries.contains(query))
+                            queries.add(query);
+                        if(!selectedTables.contains(m.getTable()))
+                            selectedTables.add(m.getTable());
+
+                        query = "";
+                    }
+                    i++;
+                }
+                if(i<myFilters.size()){
+                    if(firstChange){
+                        query += "SELECT " + m.getTerm() + " FROM " + m.getTable() +" WHERE "+myFilters.get(i).getFilterID() + " IN ( SELECT " 
+                        + myFilters.get(i).getFilterID() + " FROM " + myFilters.get(i).getFilterTable() + " WHERE "+
+                        myFilters.get(i).getFilterName() + " = '" + myFilters.get(i).getFilterValue() +"')";
+                    }
+                    else{
+                        query += " OR "+myFilters.get(i).getFilterName()+" = '"+myFilters.get(i).getFilterValue()+"')";
+                    }
+                    if(!queries.contains(query))
+                        queries.add(query);
+                    if(!selectedTables.contains(m.getTable()))
+                        selectedTables.add(m.getTable());
+                }
+                
+            }
+            
+            for (Term m : myMeasures) {
+                String query = "SELECT " + m.getTerm() + " FROM " + m.getTable();
+                if(!queries.contains(query))
+                    queries.add(query);
+                if(!selectedTables.contains(m.getTable()))
+                    selectedTables.add(m.getTable());
+            }
+        }
+        else {
+            Collections.sort(myDimensions, new SortByPourcentage());
+            HashSet<Object> seen=new HashSet<>();
+            myDimensions.removeIf(e->!seen.add(e.getTerm()));
+            for (Term m : myDimensions) {
+                String      query = new String ();
+                boolean     firstChange = true;
+                int i = 0;
+                while(i<myFilters.size()-1){
+                    if(firstChange){
+                        query += "SELECT " + m.getTerm() + " FROM " + m.getTable() +" WHERE "+myFilters.get(i).getFilterID() + " IN ( SELECT " 
+                        + myFilters.get(i).getFilterID() + " FROM " + myFilters.get(i).getFilterTable() + " WHERE "+
+                        myFilters.get(i).getFilterName() + " = '" + myFilters.get(i).getFilterValue() +"'";
+                        firstChange = false;
+                    }
+                    else{
+                        query += " OR "+myFilters.get(i).getFilterName()+" = '"+myFilters.get(i).getFilterValue()+"'";
+                    }
+
+                    if(!myFilters.get(i).getFilterName().equals(myFilters.get(i+1).getFilterName())){
+                        query += " )";
+                        firstChange = true;
+                        if(!queries.contains(query))
+                            queries.add(query);
+                        if(!selectedTables.contains(m.getTable()))
+                            selectedTables.add(m.getTable());
+
+                        query = "";
+                    }
+                    i++;
+                }
+                if(i<myFilters.size()){
+                    if(firstChange){
+                        query += "SELECT " + m.getTerm() + " FROM " + m.getTable() +" WHERE "+myFilters.get(i).getFilterID() + " IN ( SELECT " 
+                        + myFilters.get(i).getFilterID() + " FROM " + myFilters.get(i).getFilterTable() + " WHERE "+
+                        myFilters.get(i).getFilterName() + " = '" + myFilters.get(i).getFilterValue() +"')";
+                    }
+                    else{
+                        query += " OR "+myFilters.get(i).getFilterName()+" = '"+myFilters.get(i).getFilterValue()+"')";
+                    }
+                    if(!queries.contains(query))
+                        queries.add(query);
+                    if(!selectedTables.contains(m.getTable()))
+                        selectedTables.add(m.getTable());
+                }
+                
+            }
+            
+            for (Term m : myDimensions) {
+                String query = "SELECT " + m.getTerm() + " FROM " + m.getTable();
+                if(!queries.contains(query))
+                    queries.add(query);
+                if(!selectedTables.contains(m.getTable()))
+                    selectedTables.add(m.getTable());
+            }
         }
         for (String table:selectedTables){
             String query = "SELECT * FROM " + table;
@@ -105,7 +203,7 @@ public class App extends HttpServlet {
         }
         request.setAttribute("taggedSentence", taggedSentence);
         request.setAttribute("measers", myMeasures);
-        //request.setAttribute("dimentions", myDimentions);
+        request.setAttribute("dimentions", dimention);
         request.setAttribute("filters", filter);
         request.setAttribute("Queries", queries);
         //Levenshtein l = new Levenshtein();

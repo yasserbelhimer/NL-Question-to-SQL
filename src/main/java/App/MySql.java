@@ -55,7 +55,6 @@ public class MySql {
                 myString += atribute + "\n";
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             System.out.println("Error : cannot show tables");
         }
         return myString;
@@ -127,6 +126,22 @@ public class MySql {
         dic.put("measers", measers);
         dic.put("dimensions", dimensions);
         return dic;
+    }
+
+    //----------- get the primary key of tables -------------
+    public static String getPKey(String table){
+        String pk = new String();
+        try {
+            DatabaseMetaData metaData = connexion.getMetaData();            
+            ResultSet resultat = metaData.getPrimaryKeys(null, null, table);
+            while (resultat.next()) {
+                pk = resultat.getString("COLUMN_NAME");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            System.out.println("Error : cannot get the primary key");
+        }
+        return pk;
     }
 
     public static boolean loadDatabase(String server,String username,String password) {

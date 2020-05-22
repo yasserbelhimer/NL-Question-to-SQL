@@ -40,6 +40,16 @@ public interface QaListener extends ParseTreeListener {
 	 */
 	void exitFilter(QaParser.FilterContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link QaParser#ng_filter}.
+	 * @param ctx the parse tree
+	 */
+	void enterNg_filter(QaParser.Ng_filterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QaParser#ng_filter}.
+	 * @param ctx the parse tree
+	 */
+	void exitNg_filter(QaParser.Ng_filterContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link QaParser#ng}.
 	 * @param ctx the parse tree
 	 */
@@ -49,6 +59,16 @@ public interface QaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNg(QaParser.NgContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QaParser#ng1_filter}.
+	 * @param ctx the parse tree
+	 */
+	void enterNg1_filter(QaParser.Ng1_filterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QaParser#ng1_filter}.
+	 * @param ctx the parse tree
+	 */
+	void exitNg1_filter(QaParser.Ng1_filterContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link QaParser#ng1}.
 	 * @param ctx the parse tree

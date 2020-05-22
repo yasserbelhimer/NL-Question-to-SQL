@@ -31,11 +31,23 @@ public interface QaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFilter(QaParser.FilterContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link QaParser#ng_filter}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNg_filter(QaParser.Ng_filterContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link QaParser#ng}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNg(QaParser.NgContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link QaParser#ng1_filter}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNg1_filter(QaParser.Ng1_filterContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link QaParser#ng1}.
 	 * @param ctx the parse tree

@@ -1,20 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!--display the queries-->
-<div class="card shadow-lg o-hidden border-0 my-5">
-  <div class="card-body p-0">
-    <div id="queries" class="list-group">
-      <div class="list-group-item list-group-item-action active">Queries</div>
-      <c:forEach items="${ Queries }" var="Query">
-        <c:if test="${ !empty Query }">
-          <button class="list-group-item list-group-item-action"><c:out value="${ Query }"/></button>
-        </c:if>
-      </c:forEach>
-    </div>
-  </div>
-</div>
-
 <!--display the Details-->
 
 <div class="card shadow-lg o-hidden border-0 my-5">
@@ -87,6 +73,21 @@
 
   </div>
 </div>
+
+<!--display the queries-->
+<div class="card shadow-lg o-hidden border-0 my-5">
+  <div class="card-body p-0">
+    <div id="queries" class="list-group">
+      <div class="list-group-item list-group-item-action active">Queries</div>
+      <c:forEach items="${ Queries }" var="Query">
+        <c:if test="${ !empty Query }">
+          <button class="list-group-item list-group-item-action"><c:out value="${ Query }"/></button>
+        </c:if>
+      </c:forEach>
+    </div>
+  </div>
+</div>
+
 <script>
   $( "#queries" ).click(function( event ) {
     if(event.target.textContent!=="Queries"){

@@ -9,15 +9,20 @@ whquestion          :'what''_WP'
                     |'when''_WRB'
                     |'where''_WRB'
                     ;
-filter              :dimention_marker ng (temporal_dimention)?
+filter              :dimention_marker ng_filter
                     |(dimention_marker)? temporal_dimention
-                    |filter_operator ((dt)? adverb )? ng
+                    |filter_operator ((dt)? adverb )? ng_filter
                     |filter_operator temporal_dimention
+                    ;
+ng_filter           :(dt)? ng1_filter ((',_,' (dt)? ng1_filter)+ 'and_CC' (dt)? ng1_filter)? (prepeposition dt ng1_filter)?
+                    |(dt)? ng1_filter 'and_CC' (dt)? ng1_filter
                     ;
 ng                  :(dt)? ng1 ((',_,' (dt)? ng1)+ 'and_CC' (dt)? ng1)? (prepeposition dt ng1)?
                     |(dt)? ng1 'and_CC' (dt)? ng1
                     ;
-ng1                 :nominal_term ( nominal_term | adjective | past_participle | wh_determiner| (dt)? adverb)*
+ng1_filter          :nominal_term ( nominal_term | adjective | past_participle | wh_determiner | string | (dt)? adverb|temporal_dimention)*
+                    ;
+ng1                 :nominal_term ( nominal_term | adjective | past_participle | wh_determiner | string | (dt)? adverb)*
                     ;
 nominal_term        :noun
                     |measure_indicator
@@ -33,6 +38,7 @@ noun                :WORD '_NN'
 measure_indicator   :'quantity' '_NN'
                     |'amount' '_NN'
                     |'total' '_JJ'
+                    |'many' '_JJ'
                     |'numbre' '_JJ'
                     |'volume' '_NN'
                     |'ration' '_NN'
@@ -48,9 +54,8 @@ dimention_marker    :'for' '_IN'
                     |'when' '_WRB'
                     |'according' '_VBG'
                     ;
-temporal_dimention  :ng (date)?
+temporal_dimention  :ng_filter (date)?
                     |date
-                    |past_participle
                     ;
 temporal_lexion     :'time' '_NN'
                     |'year' '_NN'
@@ -83,7 +88,6 @@ filter_operator     :'equal' '_JJ'
                     |'between' '_IN'
                     ;
 prepeposition       :'of' '_IN'
-                    |'at' '_IN'
                     ; 
 wh_determiner       :WORD '_WDT' (verb | past_participle)*
                     |WORD '_WP$'
