@@ -22,10 +22,15 @@ dependencies {
     implementation 'info.debatty:java-string-similarity:1.2.1'
     implementation 'com.google.code.gson:gson:2.8.6'
     antlr "org.antlr:antlr4:4.8"
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+    compile group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.19'
 
     compile files('src/main/resources/StanfordPoSTagger/stanford-postagger.jar')
     compile files('src/main/resources/eu/syllable-counter-4.1.0.jar')
     compile files('src/main/resources/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.jar')
+//     compile group: 'net.sf.jwordnet', name: 'jwnl', version: '1.4_rc3'
+//     compile group: 'com.hurence.logisland', name: 'logisland-scripting-plugin', version: '0.14.0'
+// //Thanks for using https://jar-download.com
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

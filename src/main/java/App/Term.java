@@ -27,4 +27,16 @@ public class Term {
     public String toString() {
         return this.term + " : table -> " + this.table + ". pourcentage of similarity : " + this.pourcentage * 100 + "%";
     }
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { 
+            return true; 
+        } 
+
+        if (!(o instanceof Term)) { 
+            return false; 
+        }
+        Term myTerm = (Term) o; 
+        return (this.table.equals(myTerm.table) && this.term.equals(myTerm.term));
+    }
 }

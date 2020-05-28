@@ -89,7 +89,7 @@ public class Analyse {
         //---------------------- filter the suggestion dimensions ---------------
         public static ArrayList<Term> getDimensions(ParseTree tree,QaParser parser){
             ArrayList<ArrayList<String>> suggestionDimensions = getSuggestionDimensions(tree, parser);
-            ArrayList<Term> myMeasures = new ArrayList<>();
+            ArrayList<Term> myDimensions = new ArrayList<>();
             String[] myTables = MySql.getTables().split("\n");
             JaroWinkler jw = new JaroWinkler();
             for(ArrayList<String> list1:suggestionDimensions){
@@ -98,14 +98,16 @@ public class Analyse {
                         if (Tables.dimensionTable.containsKey(table)) {
                             for (String attribute : Tables.dimensionTable.get(table)) {
                                 if (jw.similarity(attribute, s) >= 0.8) {
-                                    myMeasures.add(new Term(attribute, table, jw.similarity(attribute, s)));
+                                    Term myTerm = new Term(attribute, table, jw.similarity(attribute, s));
+                                    if(!myDimensions.contains(myTerm))
+                                        myDimensions.add(myTerm);
                                 }
                             }
                         }
                     }
                 }
             }
-            return myMeasures;
+            return myDimensions;
         }
     
     //------------------- generate the suggestion fillters --------------------
@@ -155,14 +157,26 @@ public class Analyse {
                     if (Tables.temporalLexion.containsKey(table)) {
                         for (String attribute : Tables.temporalLexion.get(table)) {
                             if (jw.similarity(attribute, key) >= 0.8) {
-                                myFilers.add(new Filter(attribute, MySql.getPKey(table), table, s, jw.similarity(attribute, key)));
+                                ArrayList<String> values = MySql.getFilterValue("SELECT "+attribute+" FROM "+table+" WHERE "+attribute+" = '"+s+"'",attribute);
+                                
+                                Filter filter = new Filter(attribute, MySql.getPKey(table), table, s, jw.similarity(attribute, key));
+                                if(values.size()>0){
+                                    if(!myFilers.contains(filter))
+                                        myFilers.add(filter);
+                                }
                             }
                         }
                     }
                     else if(Tables.dimensionTable.containsKey(table)){
                         for (String attribute : Tables.dimensionTable.get(table)) {
                             if (jw.similarity(attribute, key) >= 0.8) {
-                                myFilers.add(new Filter(attribute, MySql.getPKey(table), table, s, jw.similarity(attribute, key)));
+                                ArrayList<String> values = MySql.getFilterValue("SELECT "+attribute+" FROM "+table+" WHERE "+attribute+" = '"+s+"'",attribute);
+
+                                Filter filter = new Filter(attribute, MySql.getPKey(table), table, s, jw.similarity(attribute, key));
+                                if(values.size()>0){
+                                    if(!myFilers.contains(filter))
+                                        myFilers.add(filter);
+                                }
                             }
                         }
                     }
@@ -172,7 +186,63 @@ public class Analyse {
         return myFilers;
     }
 
+    public static HashMap<String,ArrayList<String>> dimensionsAndFilter(ParseTree tree,QaParser parser){
+        ArrayList<String> dimensions = new ArrayList<>();
+        ArrayList<String> filters = new ArrayList<>();
+        HashMap<String,ArrayList<String>> dimensionsAndFilter = new HashMap<>();
+        String[] myTables = MySql.getTables().split("\n");
+        JaroWinkler jw = new JaroWinkler();
+        for (ParseTree tree1 : XPath.findAll(tree, "/qa//noun", parser)) {
+            boolean found   = false;
+            ArrayList<String> myNouns = new ArrayList<>();
+            myNouns.add(tree1.getText().replaceAll("_[A-Z.]+", ""));
 
+            for(String noun:myNouns){
+                for(String table:Tables.dimensionTable.keySet()){
+                    if(jw.similarity(table, noun)>=0.8 && !found){
+                        if(!dimensions.contains(table))
+                            dimensions.add(table);
+                        found = true;
+                    }
+                    else{
+                        for(String attribute:Tables.dimensionTable.get(table)){
+                            if(jw.similarity(attribute, noun)>=0.8){
+                                if(!dimensions.contains(attribute))
+                                    dimensions.add(attribute);
+                                found=true;
+                            }
+                        }
+                    }
+                }
+                if(!found){
+                    for(String table:Tables.temporalLexion.keySet()){
+                        if(jw.similarity(table, noun)>=0.8 && !found){
+                            if(!dimensions.contains(table))
+                                dimensions.add(table);
+                            found = true;
+                        }
+                        else{
+                            for(String attribute:Tables.temporalLexion.get(table)){
+                                if(jw.similarity(attribute, noun)>=0.8){
+                                    if(!dimensions.contains(attribute))
+                                        dimensions.add(attribute);
+                                    found=true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(!found){
+                    filters.add(noun);
+                }
+            }
+        }
+        dimensionsAndFilter.put("dimensions", dimensions);
+        dimensionsAndFilter.put("filters", filters);
+        return dimensionsAndFilter;
+    }
+
+    
     public static ArrayList<String> nGram(ArrayList<String> list1,ArrayList<String> list2,ArrayList<String> list3){
         ArrayList<String> myList = new ArrayList<>();
         for(String l1:list1){

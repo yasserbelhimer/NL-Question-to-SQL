@@ -62,5 +62,20 @@ public class Filter implements Comparable<Filter> {
 
 	public int compareTo(Filter filter) {  
         return this.filterName.compareTo(filter.filterName);  
-    }  
+	}  
+	
+	@Override
+	public boolean equals(Object o){
+		if (o == this) { 
+            return true; 
+        } 
+
+        if (!(o instanceof Filter)) { 
+            return false; 
+        }
+		Filter filter = (Filter) o;
+		
+		return (this.filterName.equals(filter.filterName) && this.filterValue.equals(filter.filterValue));
+
+	}
 }
