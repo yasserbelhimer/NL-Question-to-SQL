@@ -95,7 +95,8 @@
                 });
                 var tables = localStorage.getItem("tables");
                 localStorage.removeItem("tables");
-                tables = tables.split("\n");
+                if(tables !=="")
+                    tables = tables.split("\n");
                 $('.MeasureTables').select2({
                     placeholder: 'Measure Tables',
                     width:"100%",

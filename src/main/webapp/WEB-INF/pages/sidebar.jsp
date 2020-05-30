@@ -34,12 +34,16 @@
           </li>
         </c:when>
         <c:otherwise>
-          <li class="nav-item" role="presentation" 	>
-            <a class="nav-link" href="tables.jsp" >
-              <i class="fas fa-table"></i>
-              <span>Tables</span>
-            </a>
-          </li>
+          <c:choose>
+            <c:when test="${ empty sessionScope.connected_admin }">
+              <li class="nav-item" role="presentation" 	>
+                <a class="nav-link" href="tables.jsp" >
+                  <i class="fas fa-table"></i>
+                  <span>Tables</span>
+                </a>
+              </li>
+            </c:when>
+          </c:choose>
           <li class="nav-item" role="presentation">
             <a class="nav-link" href="analyse.jsp">
               <i class="fas fa-cogs"></i>

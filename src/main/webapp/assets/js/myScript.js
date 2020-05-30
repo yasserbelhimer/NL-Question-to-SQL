@@ -6,7 +6,7 @@ const connect = () => {
   let password = $("#password").val();
   let type = $( "select#type option:checked" ).val();
   
-  alert("type");
+  alert(type);
 
   if(server =='' || port =='' || datawarehouse == ''|| username == ''||password=='' ||type ==''){
     $('#goodInfos').css('display','none');
