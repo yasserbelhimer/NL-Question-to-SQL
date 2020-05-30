@@ -4,9 +4,12 @@ const connect = () => {
   let datawarehouse = $("#datawarehouse").val();
   let username = $("#username").val();
   let password = $("#password").val();
+  let type = $( "select#type option:checked" ).val();
+  
+  alert("type");
 
-  if(server =='' || port =='' || datawarehouse == ''|| username == ''||password==''){
-    $('#badInfos').css('display','none');
+  if(server =='' || port =='' || datawarehouse == ''|| username == ''||password=='' ||type ==''){
+    $('#goodInfos').css('display','none');
     $('#badInfos').html('<h3>there are empty fields</h3>');
     $('#badInfos').css('display','block');
     $('#myModal').modal('show');
@@ -16,7 +19,7 @@ const connect = () => {
     $.ajax({
       url:"connect",
       method:'post',
-      data:{server:server,port:port,datawarehouse:datawarehouse,username:username,password:password},
+      data:{server:server,port:port,datawarehouse:datawarehouse,username:username,password:password,type:type},
       beforeSend: function(){
         $('#button1').css("display","none");
         $('#button2').css("display","block");

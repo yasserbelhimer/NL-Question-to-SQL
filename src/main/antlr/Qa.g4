@@ -65,7 +65,6 @@ temporal_lexion     :'time' '_NN'
                     |'hour' '_NN'
                     |'minute' '_NN'
                     |'seconde' '_NN'
-                    |'city' '_NN'
                     ;
 date                :DD '/' MM '/' YYYY
                     |MM '/' YYYY

@@ -233,6 +233,85 @@ public class MySql {
             }
             return exportedTables;
         }
+        public static ArrayList<String> getImportedTables(String table){
+            ArrayList<String> exportedTables = new ArrayList<>();
+            try {
+                DatabaseMetaData metaData = connexion.getMetaData();            
+                // ResultSet resultat = metaData.getExportedKeys(null, null, table);
+                // while (resultat.next()) {
+                //     if(!exportedTables.contains(resultat.getString("FKTABLE_NAME")))
+                //         exportedTables.add(resultat.getString("FKTABLE_NAME"));
+                //     if(!exportedTables.contains(resultat.getString("PKTABLE_NAME")))
+                //         exportedTables.add(resultat.getString("PKTABLE_NAME"));
+                // }
+                ResultSet resultat1 = metaData.getImportedKeys(null, null, table);
+                while (resultat1.next()) {
+                    if(!exportedTables.contains(resultat1.getString("FKTABLE_NAME")))
+                        exportedTables.add(resultat1.getString("FKTABLE_NAME"));
+                    // if(!exportedTables.contains(resultat1.getString("PKTABLE_NAME")))
+                    //     exportedTables.add(resultat1.getString("PKTABLE_NAME"));
+                }
+            } catch (SQLException e) {
+                System.out.println("Error : cannot get the foring keys");
+            }
+            return exportedTables;
+        }
+    //----------- get the Exported FKeysTables of tables -------------
+    public static ArrayList<String[]> getKeysAndTables(String table){
+        ArrayList<String[]> exportedTables = new ArrayList<>();
+        try {
+            DatabaseMetaData metaData = connexion.getMetaData();            
+            ResultSet resultat = metaData.getExportedKeys(null, null, table);
+            while (resultat.next()) {
+                String[] temp1 = {resultat.getString("FKTABLE_NAME"),resultat.getString("FKCOLUMN_NAME")};
+                if(!Analyse.containsTab(exportedTables, temp1))
+                    exportedTables.add(temp1);
+                String[] temp2 = {resultat.getString("PKTABLE_NAME"),resultat.getString("PKCOLUMN_NAME")};
+                if(!Analyse.containsTab(exportedTables,temp2))
+                    exportedTables.add(temp2);
+            }
+            ResultSet resultat1 = metaData.getImportedKeys(null, null, table);
+            while (resultat1.next()) {
+                String[] temp1 = {resultat1.getString("FKTABLE_NAME"),resultat1.getString("FKCOLUMN_NAME")};
+                if(!Analyse.containsTab(exportedTables,temp1))
+                    exportedTables.add(temp1);
+                String[] temp2 = {resultat1.getString("PKTABLE_NAME"),resultat1.getString("PKCOLUMN_NAME")};
+                if(!Analyse.containsTab(exportedTables,temp2))
+                    exportedTables.add(temp2);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error : cannot get the foring keys");
+        }
+        return exportedTables;
+    }
+    //----------- get the Exported FKeysTables of tables -------------
+    public static ArrayList<String[]> getExportedKeysAndTables(String table){
+        ArrayList<String[]> exportedTables = new ArrayList<>();
+        try {
+            DatabaseMetaData metaData = connexion.getMetaData();            
+            ResultSet resultat = metaData.getExportedKeys(null, null, table);
+            while (resultat.next()) {
+                String[] temp1 = {resultat.getString("FKTABLE_NAME"),resultat.getString("FKCOLUMN_NAME")};
+                if(!Analyse.containsTab(exportedTables, temp1))
+                    exportedTables.add(temp1);
+                // String[] temp2 = {resultat.getString("PKTABLE_NAME"),resultat.getString("PKCOLUMN_NAME")};
+                // if(!Analyse.containsTab(exportedTables,temp2))
+                //     exportedTables.add(temp2);
+            }
+            ResultSet resultat1 = metaData.getImportedKeys(null, null, table);
+            while (resultat1.next()) {
+                String[] temp1 = {resultat1.getString("FKTABLE_NAME"),resultat1.getString("FKCOLUMN_NAME")};
+                if(!Analyse.containsTab(exportedTables,temp1))
+                    exportedTables.add(temp1);
+                // String[] temp2 = {resultat1.getString("PKTABLE_NAME"),resultat1.getString("PKCOLUMN_NAME")};
+                // if(!Analyse.containsTab(exportedTables,temp2))
+                //     exportedTables.add(temp2);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error : cannot get the foring keys");
+        }
+        return exportedTables;
+    }
     //----------- get the Imported FKeys of tables -------------
     public static HashMap<String,String> getImportedFKeys(String table){
         HashMap<String,String> importedKeys = new HashMap<>();
@@ -248,7 +327,7 @@ public class MySql {
             System.out.println("Error : cannot get the foring keys");
         }
         return importedKeys;
-    }  
+    }
     //----------- get the FKeys of tables -------------
     public static HashMap<String,String> getKeys(String table){
         HashMap<String,String> keys = new HashMap<>();

@@ -73,6 +73,13 @@
                           <input class="form-control form-control-user" type="password" id="password"
                             placeholder="Password" />
                         </div>
+                        <div class="form-group">
+                          <select class="form-control mb-3" id="type" style="border-radius: 10rem;font-size: .8rem;height: 50px;">
+                            <option value="">Choose type</option>
+                            <option value="Administrator">Administrator</option>
+                            <option value="User">User</option>
+                          </select>
+                        </div>
 
                         <button id="button1" onclick="connect()" class="btn btn-primary btn-block text-white btn-user" type="button">
                           Connect
@@ -96,12 +103,12 @@
     </div>
     <!-- Modal -->
     <%@ include file="WEB-INF/pages/model.jsp" %>
-    <script src="assets/js/chart.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/myScript.js"></script>
+    <script type="text/javascript" src='<c:url value="/assets/js/chart.min.js" />'></script>
+    <script type="text/javascript" src='<c:url value="/assets/js/bs-init.js" />'></script>
+    <script type="text/javascript" src='<c:url value="/assets/js/myScript.js" />'></script>
     <script type="text/javascript" src='<c:url value="/assets/js/jquery.min.js" />'></script>
     <script type="text/javascript" src='<c:url value="/assets/bootstrap/js/bootstrap.min.js" />'></script>
-    <script src="assets/js/theme.js"></script>
+    <script type="text/javascript" src='<c:url value="/assets/js/theme.js" />'></script>
 
 </body>
 

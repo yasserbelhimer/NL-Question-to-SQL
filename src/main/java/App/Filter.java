@@ -61,7 +61,7 @@ public class Filter implements Comparable<Filter> {
 	}
 
 	public int compareTo(Filter filter) {  
-        return this.filterName.compareTo(filter.filterName);  
+        return this.filterTable.compareTo(filter.filterTable);
 	}  
 	
 	@Override
