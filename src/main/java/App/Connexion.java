@@ -11,7 +11,12 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "Connexion", urlPatterns = { "connect" }, loadOnStartup = 1)
 public class Connexion extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String disconnect = request.getParameter("disconnect");
         if(disconnect.equals("disconnect")){
@@ -33,12 +38,21 @@ public class Connexion extends HttpServlet {
         String datawarehouse = request.getParameter("datawarehouse");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String type     = request.getParameter("type");
         server+=":"+port+"/"+datawarehouse;
         if(MySql.loadDatabase(server, username, password))
         {
-            request.setAttribute("Connect","1");
+            
             HttpSession session = request.getSession(true);
-            session.setAttribute("connected_user",username);
+            if(type.equals("ITDesigner")){
+                session.setAttribute("connected_ITDesigner",username);
+                request.setAttribute("Connect","1");
+            }
+            else{
+                session.setAttribute("connected_user",username);
+                request.setAttribute("Connect","2");
+            }
+            
         }
         else
             request.setAttribute("Connect","0");

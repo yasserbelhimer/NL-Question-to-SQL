@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:choose>
-  <c:when test="${ empty sessionScope.connected_user }">
+  <c:when test="${ empty sessionScope.connected_user && empty sessionScope.connected_ITDesigner}">
     <c:redirect url="connexion.jsp"/>
   </c:when>
 </c:choose>
@@ -31,15 +31,16 @@
                                 <div class="row" id="connexion">
                                     <div class="col-xl-9 mx-auto text-center">
                                         <br><br>
-                                        <h1 class="mb-5">Input your question</h1>
+                                        <h1 class="mb-5">Input your NL question</h1>
                                     </div>
                                     <div class="col-xl-9 mx-auto">
                                         <form action="" method="POST" class="user">
                                             <div class="form-group">
-                                                <input class="form-control form-control-lg" type="text" id="question"
-                                                    name="question" autocomplete="on" autofocus=""
-                                                    placeholder="Enter your question here ..." />
-                                            </div>
+                                                <textarea class="form-control form-control-lg" rows="3" id="question"
+                                                name="question" autocomplete="on" autofocus=""
+                                                placeholder="Enter your question here ...">
+                                            </textarea>
+                                              </div>
                                             <small class="form-text text-left text-body"
                                                 style="font-size: 20px;">Exemple : What is the quantity of the drugs
                                                 sold in the year 2018 ?<br />
@@ -82,6 +83,7 @@
         <script type="text/javascript" src='<c:url value="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" />'></script>
         <script type="text/javascript" src='<c:url value="assets/js/theme.js" />'></script>
         <script>
+            $("#question").val("");
             $(document).keypress(function(event){
                     var keycode = (event.keyCode ? event.keyCode : event.which);
                     if(keycode == '13'){

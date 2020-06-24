@@ -13,17 +13,17 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface QaVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link QaParser#qa}.
+	 * Visit a parse tree produced by {@link QaParser#wh_question}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitQa(QaParser.QaContext ctx);
+	T visitWh_question(QaParser.Wh_questionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link QaParser#whquestion}.
+	 * Visit a parse tree produced by {@link QaParser#question_pronoun}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitWhquestion(QaParser.WhquestionContext ctx);
+	T visitQuestion_pronoun(QaParser.Question_pronounContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link QaParser#filter}.
 	 * @param ctx the parse tree
@@ -61,11 +61,23 @@ public interface QaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNominal_term(QaParser.Nominal_termContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link QaParser#mg}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMg(QaParser.MgContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link QaParser#noun}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNoun(QaParser.NounContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link QaParser#prepeposition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrepeposition(QaParser.PrepepositionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link QaParser#measure_indicator}.
 	 * @param ctx the parse tree
@@ -85,6 +97,18 @@ public interface QaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTemporal_dimention(QaParser.Temporal_dimentionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link QaParser#spatial_dimention}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSpatial_dimention(QaParser.Spatial_dimentionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link QaParser#spatial_lexion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSpatial_lexion(QaParser.Spatial_lexionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link QaParser#temporal_lexion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -96,18 +120,6 @@ public interface QaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDate(QaParser.DateContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link QaParser#filter_operator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFilter_operator(QaParser.Filter_operatorContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link QaParser#prepeposition}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPrepeposition(QaParser.PrepepositionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link QaParser#wh_determiner}.
 	 * @param ctx the parse tree
@@ -156,4 +168,10 @@ public interface QaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVerb(QaParser.VerbContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link QaParser#dim}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDim(QaParser.DimContext ctx);
 }

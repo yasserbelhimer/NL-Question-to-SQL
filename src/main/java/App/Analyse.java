@@ -10,107 +10,178 @@ import com.generated.parser.QaParser;
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.tree.xpath.XPath;
 
-import edu.stanford.nlp.ling.CoreAnnotations.FirstChildAnnotation;
+import SDM.Concept;
+import SDM.Measure;
+import SDM.Sdm;
 import info.debatty.java.stringsimilarity.*;
 
 
 public class Analyse {
 
 
-    //------------------- generate the suggestion measures ---------------------------
-    public static ArrayList<ArrayList<String>> getSuggestionMeasures(ParseTree tree,QaParser parser){
-        ArrayList<ArrayList<String>> suggestionMeasures = new ArrayList<ArrayList<String>>();
-        ArrayList<String> measures = new ArrayList<>();
-        ArrayList<String> measuresPastParticiples = new ArrayList<>();
-        ArrayList<String> measuresNouns = new ArrayList<>();
-        for (ParseTree t : XPath.findAll(tree, "/qa/ng", parser)) {
-            measures.clear();
+    //------------------- generate the candidate measures ---------------------------
+    public static ArrayList<String> getCandidateMeasures(ParseTree tree,QaParser parser){
+        ArrayList<String> candidateMeasures = new ArrayList<>();
+        ArrayList<String> tempList = new ArrayList<>();
+        for (ParseTree t : XPath.findAll(tree, "/wh_question/ng", parser)) {
+            tempList.clear();
             for (ParseTree t2 : XPath.findAll(t, "ng//measure_indicator", parser)) {
-                measures.add(t2.getText().replaceAll("_[A-Z.]+", ""));
+                tempList.add(t2.getText().replaceAll("_[A-Z.]+", ""));
             }
-            if (!measures.isEmpty()) {
-                for (ParseTree past : XPath.findAll(t, "ng//past_participle", parser)) {
-                    if(!past.getText().equals("been_VBN"))
-                        measuresPastParticiples.add(past.getText().replaceAll("_[A-Z.]+", ""));
-                }
-                for (ParseTree noune : XPath.findAll(t, "ng//noun", parser)) {
-                    measuresNouns.add(noune.getText().replaceAll("_[A-Z.]+", ""));
-                }
-                suggestionMeasures.add(nGram(measures, measuresNouns, measuresPastParticiples));
+            if (!tempList.isEmpty()) {
+                candidateMeasures.add(t.getText().replaceAll("_[A-Z.]+", " "));
             }
         }
-        return suggestionMeasures;
+        return candidateMeasures;
     }
-
-    //---------------------- filter the suggestion measures ---------------
-    public static ArrayList<Term> getMeasures(ParseTree tree,QaParser parser){
-        ArrayList<ArrayList<String>> suggestionMeasures = getSuggestionMeasures(tree,parser);
-        ArrayList<Term> myMeasures = new ArrayList<>();
-        String[] myTables = MySql.getTables().split("\n");
+    //------------------- get the validate measures ---------------------------
+    public static ArrayList<Term> getValidateMeasures(ArrayList<String> candidateMeasures){
+        ArrayList<Term> validateMeasures = new ArrayList<>();
         JaroWinkler jw = new JaroWinkler();
-        for(ArrayList<String> list1:suggestionMeasures){
-            for (String s : list1) {
-                for (String table : myTables) {
-                    if (Tables.measureTables.containsKey(table)) {
-                        for (String attribute : Tables.measureTables.get(table)) {
-                            if (jw.similarity(attribute, s) >= 0.9) {
-                                myMeasures.add(new Term(attribute, table, jw.similarity(attribute, s)));
-                            }
-                        }
-                    }
+        for(Measure measure : Sdm.measures){
+            for(String candidateMeasure : candidateMeasures){
+                if(jw.similarity(measure.getName(), candidateMeasure) >= 0.5){
+                    validateMeasures.add(new Term(measure.getColumn(), measure.getTable(), jw.similarity(measure.getName(), candidateMeasure)));
                 }
             }
         }
-        return myMeasures;
+        return validateMeasures;
     }
 
-    //------------------- generate the suggestion Dimensions ---------------------------
-    public static ArrayList<ArrayList<String>> getSuggestionDimensions(ParseTree tree,QaParser parser){
-        ArrayList<ArrayList<String>> suggestionDimensions = new ArrayList<ArrayList<String>>();
+    //------------------- generate the candidate Dimensions ---------------------------
+    public static ArrayList<HashMap<String,ArrayList<String>>> getCandidateDimensions(ParseTree tree,QaParser parser){
+        ArrayList<HashMap<String,ArrayList<String>>> candidateDimensions = new ArrayList<>();
+        HashMap<String,ArrayList<String>> dimensionsTempo = new HashMap<>();
         ArrayList<String> dimensions = new ArrayList<>();
-        ArrayList<String> dimensionsNouns = new ArrayList<>();
-        for (ParseTree t : XPath.findAll(tree, "/qa/ng", parser)) {
-            dimensions.clear();
-            boolean first = true;
+        for (ParseTree t : XPath.findAll(tree, "/wh_question/ng", parser)) {
             for (ParseTree t2 : XPath.findAll(t, "ng//noun", parser)) {
-                if(first){
-                    dimensions.add(t2.getText().replaceAll("_[A-Z.]+", ""));
-                    first = false;
-                }
+                dimensions.add(t2.getText().replaceAll("_[A-Z.]+", ""));
             }
             if (!dimensions.isEmpty()) {
-                for (ParseTree noune : XPath.findAll(t, "ng//noun", parser)) {
-                    dimensionsNouns.add(noune.getText().replaceAll("_[A-Z.]+", ""));
-                }
-                suggestionDimensions.add(nGram(dimensions, dimensionsNouns, new ArrayList<>()));
+                String key = dimensions.get(0);
+                dimensions.remove(0);
+                dimensionsTempo.put(key,new ArrayList<>(dimensions));
+                candidateDimensions.add(new HashMap<>(dimensionsTempo));
+                dimensions.clear();
+                dimensionsTempo.clear();
             }
         }
-        return suggestionDimensions;
+        return candidateDimensions;
     }
-
-        //---------------------- filter the suggestion dimensions ---------------
-        public static ArrayList<Term> getDimensions(ParseTree tree,QaParser parser){
-            ArrayList<ArrayList<String>> suggestionDimensions = getSuggestionDimensions(tree, parser);
-            ArrayList<Term> myDimensions = new ArrayList<>();
-            String[] myTables = MySql.getTables().split("\n");
-            JaroWinkler jw = new JaroWinkler();
-            for(ArrayList<String> list1:suggestionDimensions){
-                for (String s : list1) {
-                    for (String table : myTables) {
-                        if (Tables.dimensionTable.containsKey(table)) {
-                            for (String attribute : Tables.dimensionTable.get(table)) {
-                                if (jw.similarity(attribute, s) >= 0.8) {
-                                    Term myTerm = new Term(attribute, table, jw.similarity(attribute, s));
-                                    if(!myDimensions.contains(myTerm))
-                                        myDimensions.add(myTerm);
-                                }
+    //------------------------ get the validate dimensions ----------------------------
+    public static ArrayList<Term> getValidateDimensions(ArrayList<HashMap<String,ArrayList<String>>> candidateDimensions){
+        ArrayList<Term> validateDimensions = new ArrayList<>();
+        JaroWinkler jw = new JaroWinkler();
+        ArrayList<Concept> dimensions = new ArrayList<>(Sdm.temporalDimension);
+        dimensions.addAll(Sdm.sapatialDimension);
+        dimensions.addAll(Sdm.otherDimension);
+        for(Concept concept : dimensions ){
+            for(HashMap<String,ArrayList<String>> hashMap:candidateDimensions){
+                for(String key : hashMap.keySet())
+                {
+                    if(jw.similarity(concept.getTable(), key) >= 0.8){
+                        for(String attribute:concept.getAttribute()){
+                            Term myTerm = new Term(attribute, concept.getTable(), jw.similarity(concept.getTable(), key));
+                            if(!validateDimensions.contains(myTerm)){
+                                validateDimensions.add(myTerm);
                             }
                         }
                     }
+                    // else wordnet
+
                 }
             }
-            return myDimensions;
         }
+        return validateDimensions;
+    }
+
+    //------------------- generate the candidate fillters --------------------
+    public static ArrayList<HashMap<String,ArrayList<String>>> getCandidateFilters(ParseTree tree,QaParser parser){
+        HashMap<String,ArrayList<String>> temporalLexion = new HashMap<String,ArrayList<String>>();
+        HashMap<String,ArrayList<String>> spatialLexion = new HashMap<String,ArrayList<String>>();
+        HashMap<String,ArrayList<String>> otherLexion = new HashMap<String,ArrayList<String>>();
+        ArrayList<HashMap<String,ArrayList<String>>> candidateFilters = new ArrayList<>();
+
+        ArrayList<String> tempo = new ArrayList<>();
+
+        ArrayList<String> temporalLexionNouns = new ArrayList<>();
+        ArrayList<String> spatialLexionNouns = new ArrayList<>();
+        ArrayList<String> temporalLexionDate = new ArrayList<>();
+
+        for (ParseTree tree1 : XPath.findAll(tree, "/wh_question/filter", parser)) {
+            tempo.clear();
+            for (ParseTree tree2 : XPath.findAll(tree1, "/filter//temporal_lexion", parser)) {
+                tempo.add(tree2.getText().replaceAll("_[A-Z.]+", ""));
+            }
+            if (!tempo.isEmpty()) {
+                for (ParseTree noun : XPath.findAll(tree1, "/filter//noun", parser)) {
+                    temporalLexionNouns.add(noun.getText().replaceAll("_[A-Z.]+", ""));
+                }
+                for (ParseTree date : XPath.findAll(tree1, "/filter//date", parser)) {
+                    temporalLexionDate.add(date.getText().replaceAll("_[A-Z.]+", ""));
+                }
+                if(!temporalLexionNouns.isEmpty()){
+                    for(String lexion :tempo ){
+                        if(!temporalLexion.containsKey(lexion))
+                            temporalLexion.put(lexion, new ArrayList<>(temporalLexionNouns));
+
+                    }
+                    temporalLexionNouns.clear();
+                }
+                if(!temporalLexionDate.isEmpty()){
+                    for(String lexion :tempo ){
+                        if(!temporalLexion.containsKey(lexion))
+                            temporalLexion.put(lexion,new ArrayList<>(temporalLexionDate));
+                    }
+                    temporalLexionDate.clear();
+                }
+            }
+        }
+        for (ParseTree tree1 : XPath.findAll(tree, "/wh_question/filter", parser)) {
+            tempo.clear();
+            for (ParseTree tree2 : XPath.findAll(tree1, "/filter//spatial_lexion", parser)) {
+                tempo.add(tree2.getText().replaceAll("_[A-Z.]+", ""));
+            }
+            if (!tempo.isEmpty()) {
+                for (ParseTree noun : XPath.findAll(tree1, "/filter//noun", parser)) {
+                    spatialLexionNouns.add(noun.getText().replaceAll("_[A-Z.]+", ""));
+                }
+                if(!spatialLexionNouns.isEmpty()){
+                    for(String lexion :tempo ){
+                        spatialLexion.put(lexion, new ArrayList<>(spatialLexionNouns));
+                    }
+                    spatialLexionNouns.clear();
+                }
+            }
+        }
+        if(temporalLexion.isEmpty()&&spatialLexion.isEmpty()){
+            for (ParseTree tree1 : XPath.findAll(tree, "/wh_question/filter", parser)) {
+                tempo.clear();
+                for (ParseTree t2 : XPath.findAll(tree1, "filter//noun", parser)) {
+                    tempo.add(t2.getText().replaceAll("_[A-Z.]+", ""));
+                }
+                if (!tempo.isEmpty()) {
+                    String key = tempo.get(0);
+                    tempo.remove(0);
+                    if(!tempo.isEmpty()){
+                        if(!otherLexion.containsKey(key))
+                            otherLexion.put(key,new ArrayList<>(tempo));
+                        else{
+                            ArrayList<String> tempo1 = new ArrayList<>(otherLexion.get(key));
+                            for(String string :tempo)
+                                tempo1.add(string);
+                            otherLexion.put(key, tempo1);
+                        }
+                    }
+                    
+                }
+            }
+        }
+        candidateFilters.add(temporalLexion);
+        candidateFilters.add(spatialLexion);
+        candidateFilters.add(otherLexion);
+        return candidateFilters;
+    }
     
     //------------------- generate the suggestion fillters --------------------
     public static HashMap<String,ArrayList<String>> getSuggestionFilters(ParseTree tree,QaParser parser){
@@ -118,7 +189,7 @@ public class Analyse {
         ArrayList<String> temporalLexion = new ArrayList<>();
         ArrayList<String> temporalLexionNouns = new ArrayList<>();
         ArrayList<String> temporalLexionDate = new ArrayList<>();
-        for (ParseTree tree1 : XPath.findAll(tree, "/qa/filter", parser)) {
+        for (ParseTree tree1 : XPath.findAll(tree, "/wh_question/filter", parser)) {
             temporalLexion.clear();
             for (ParseTree tree2 : XPath.findAll(tree1, "/filter//temporal_lexion", parser)) {
                 temporalLexion.add(tree2.getText().replaceAll("_[A-Z.]+", ""));
@@ -147,6 +218,38 @@ public class Analyse {
         return suggestionFilters;
     }
     
+    //------------------- get the validate filters ------------------------
+    public static ArrayList<Filter> getValidateFilters(ArrayList<HashMap<String,ArrayList<String>>> candidateFilters){
+        ArrayList<Filter> myFilers = new ArrayList<>();
+        ArrayList<HashMap<String,ArrayList<String>>> candidateFilter = new ArrayList<>();
+        candidateFilter.add(candidateFilters.get(0));
+        candidateFilter.add(candidateFilters.get(1));
+        candidateFilter.add(candidateFilters.get(2));
+        ArrayList<Concept> mySDM = new ArrayList<>();
+        mySDM.addAll(Sdm.temporalDimension);
+        mySDM.addAll(Sdm.sapatialDimension);
+        mySDM.addAll(Sdm.otherDimension);
+        JaroWinkler jw = new JaroWinkler();
+        for(HashMap<String,ArrayList<String>> hashMap:candidateFilter){
+            for(String key:hashMap.keySet()){
+                for (String s : hashMap.get(key)) {
+                    for(Concept concept : mySDM){
+                        for(String attribute : concept.getAttribute()){
+                            if(jw.similarity(attribute,key)>=0.8){
+                                ArrayList<String> values = MySql.getFilterValue("SELECT "+attribute+" FROM "+concept.getTable()+" WHERE "+attribute+" = '"+s+"'",attribute);
+                                Filter filter = new Filter(attribute, concept.getId(), concept.getTable(), s, jw.similarity(attribute, key));
+                                if(values.size()>0){
+                                    if(!myFilers.contains(filter))
+                                        myFilers.add(filter);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return myFilers;
+    }
     //------------- filter the suggestion filters -------------------------
     public static ArrayList<Filter> getFilters(ParseTree tree,QaParser parser){
         HashMap<String,ArrayList<String>> suggestionFilters = getSuggestionFilters(tree,parser);
@@ -160,7 +263,7 @@ public class Analyse {
                         for (String attribute : Tables.temporalLexion.get(table)) {
                             if (jw.similarity(attribute, key) >= 0.8) {
                                 ArrayList<String> values = MySql.getFilterValue("SELECT "+attribute+" FROM "+table+" WHERE "+attribute+" = '"+s+"'",attribute);
-                                
+
                                 Filter filter = new Filter(attribute, MySql.getPKey(table), table, s, jw.similarity(attribute, key));
                                 if(values.size()>0){
                                     if(!myFilers.contains(filter))
@@ -194,7 +297,7 @@ public class Analyse {
         HashMap<String,ArrayList<String>> dimensionsAndFilter = new HashMap<>();
         String[] myTables = MySql.getTables().split("\n");
         JaroWinkler jw = new JaroWinkler();
-        for (ParseTree tree1 : XPath.findAll(tree, "/qa//noun", parser)) {
+        for (ParseTree tree1 : XPath.findAll(tree, "/wh_question//noun", parser)) {
             boolean found   = false;
             ArrayList<String> myNouns = new ArrayList<>();
             myNouns.add(tree1.getText().replaceAll("_[A-Z.]+", ""));

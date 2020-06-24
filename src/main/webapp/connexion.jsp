@@ -2,6 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:choose>
   <c:when test="${ !empty sessionScope.connected_user }">
+    <c:redirect url="analyse.jsp"/>
+  </c:when>
+  <c:when test="${ !empty sessionScope.connected_ITDesigner}">
     <c:redirect url="tables.jsp"/>
   </c:when>
 </c:choose>
@@ -35,59 +38,71 @@
                     </div>
                   </div>
                   <div class="col-lg-6">
-                    <div class="p-5">
-                      <div class="text-center">
-                        <h4 class="text-dark mb-4">Connect to your data Data-Warehouse !</h4>
-                      </div>
+                    <div class="p-5" id="connect&impoty" style="display: block;">
                       <form action="" method="POST" class="user">
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <input class="form-control form-control-user" type="text" id="server"
-                                placeholder="Server" />
-                            </div>
+                        <div id="choosType" style="display: block;">
+                          <div class="text-center">
+                            <h4 class="text-dark mb-4">Authentication</h4>
                           </div>
-                          <div class="col">
-                            <div class="form-group">
-                              <input class="form-control form-control-user" type="number" id="port"
-                                placeholder="Port" />
-                            </div>
+                          <div class="form-group">
+                            <label for="type">Who are you !</label>
+                            <select class="form-control mb-3" id="type" style="border-radius: 10rem;font-size: .8rem;height: 50px;">
+                              <option value="">Choose type</option>
+                              <option value="ITDesigner">IT-Designer</option>
+                              <option value="DecisionMaker">Decision Maker</option>
+                            </select>
                           </div>
+                          <button onclick="TypeToConnexion()" class="btn btn-primary btn-block text-white btn-user" type="button">
+                            Continue
+                          </button>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <input class="form-control form-control-user" type="text" id="datawarehouse"
-                                placeholder="Datawarehouse Name" />
+                        <div id="connectToDW" style="display: none;">
+                          <div class="text-center">
+                            <h4 class="text-dark mb-4">Connect to your data Data-Warehouse !</h4>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <input class="form-control form-control-user" type="text" id="server"
+                                  placeholder="Server" />
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <input class="form-control form-control-user" type="number" id="port"
+                                  placeholder="Port" />
+                              </div>
                             </div>
                           </div>
-                          <div class="col">
-                            <div class="form-group">
-                              <input class="form-control form-control-user" type="text" id="username"
-                                placeholder="username" />
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <input class="form-control form-control-user" type="text" id="datawarehouse"
+                                  placeholder="Datawarehouse Name" />
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <input class="form-control form-control-user" type="text" id="username"
+                                  placeholder="username" />
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div class="form-group">
-                          <input class="form-control form-control-user" type="password" id="password"
-                            placeholder="Password" />
-                        </div>
-                        <div class="form-group">
-                          <select class="form-control mb-3" id="type" style="border-radius: 10rem;font-size: .8rem;height: 50px;">
-                            <option value="">Choose type</option>
-                            <option value="Administrator">Administrator</option>
-                            <option value="User">User</option>
-                          </select>
-                        </div>
+                          <div class="form-group">
+                            <input class="form-control form-control-user" type="password" id="password"
+                              placeholder="Password" />
+                          </div>
+                          
 
-                        <button id="button1" onclick="connect()" class="btn btn-primary btn-block text-white btn-user" type="button">
-                          Connect
-                        </button>
-                        <button id="button2"  class="btn btn-primary btn-block text-white btn-user" disabled type="button" style="display: none;">
-                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                          Connect...
-                        </button>
+                          <button id="button1" onclick="connect()" class="btn btn-primary btn-block text-white btn-user" type="button">
+                            Connect
+                          </button>
+                          <button id="button2"  class="btn btn-primary btn-block text-white btn-user" disabled type="button" style="display: none;">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Connect...
+                          </button>
+                        </div>
                         <hr />
                         
                       </form>

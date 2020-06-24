@@ -1,7 +1,6 @@
 package App;
 
 import java.util.*;
-import java.io.*;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -18,7 +17,7 @@ import com.generated.parser.QaParser;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.tree.xpath.XPath;
-import info.debatty.java.stringsimilarity.*;
+import org.antlr.v4.runtime.DefaultErrorStrategy;
 import java.util.HashMap;
 
 
@@ -37,65 +36,93 @@ public class App extends HttpServlet {
         CharStream input = CharStreams.fromString(taggedSentence);
         QaLexer lexer = new QaLexer(input);
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
-        QaParser parser = new QaParser(commonTokenStream);
-
-        final ParseTree tree = parser.qa();
+        QaParser parser = new QaParser(commonTokenStream); 
+        parser.removeErrorListeners(); // remove ConsoleErrorListener
+        SyntaxError syntaxError = new SyntaxError();           
+        parser.addErrorListener(syntaxError); // add ours   
+        final ParseTree tree = parser.wh_question();
 
         ArrayList<String> measures = new ArrayList<>();
         ArrayList<String> filter = new ArrayList<>();
         ArrayList<String> dimention = new ArrayList<>();
         
+        ArrayList<String> candidateMeasures = Analyse.getCandidateMeasures(tree, parser);
 
-        // ----------- desplaying the measers ------------
-        ArrayList<Term>     myMeasures  = Analyse.getMeasures(tree, parser);
-        ArrayList<Term>     myDimensions  = new ArrayList<>();
-        ArrayList<Filter>   myFilters   = Analyse.getFilters(tree, parser);
-        if(myMeasures.isEmpty()){
-            myDimensions = Analyse.getDimensions(tree, parser);
+        
+
+        ArrayList<HashMap<String,ArrayList<String>>> candidateFilters = Analyse.getCandidateFilters(tree, parser);
+        ArrayList<HashMap<String,ArrayList<String>>> candidateDimensions = Analyse.getCandidateDimensions(tree, parser);
+        ArrayList<String> candidateFilter = new ArrayList<>();
+        ArrayList<String> candidateDimention = new ArrayList<>();
+
+        ArrayList<Term> validateDimensions = Analyse.getValidateDimensions(candidateDimensions);
+
+        //ArrayList<String> tempList = new ArrayList<>();
+        System.out.println("------------------ dimensions ---------------------");
+        for(HashMap<String,ArrayList<String>> hashMap:candidateDimensions){
+            for(String key : hashMap.keySet())
+            {
+                if(!candidateDimention.contains(key))
+                    candidateDimention.add(key);
+                for(String string:hashMap.get(key)){
+                    if(!candidateFilter.contains(string)) 
+                        candidateFilter.add(string);
+                }
+                System.out.print("key :"+key+"\tvalues :");
+                for(String string:hashMap.get(key)){
+                    System.out.print(" "+string);
+                }
+                System.out.println("");
+            }
         }
+
+        System.out.println("validate dimension :");
+        for(Term term:validateDimensions){
+            if(!dimention.contains(term.getTable()))
+                dimention.add(term.getTable());
+            System.out.println(term.getTerm());
+        }
+        System.out.println("------------------ filters ---------------------");
+        for(String key : candidateFilters.get(0).keySet()){
+            candidateDimention.add(key);
+            System.out.print("dim :"+key);
+            for(String value : candidateFilters.get(0).get(key)){
+                candidateFilter.add(value);
+                System.out.println("0 :"+key+" " + value);
+            }
+        }
+        for(String key : candidateFilters.get(1).keySet()){
+            candidateDimention.add(key);
+            System.out.print("dim :"+key);
+            for(String value : candidateFilters.get(1).get(key)){
+                candidateFilter.add(value);
+                System.out.println("1 :" + value);
+            }
+        }
+        for(String key : candidateFilters.get(2).keySet()){
+            candidateDimention.add(key);
+            System.out.print("dim :"+key);
+            for(String value : candidateFilters.get(2).get(key)){
+                candidateFilter.add(value);
+                System.out.println("2 :" + value);
+            }
+        }
+        System.out.println("------------------ validate filters ---------------------");
+        // ArrayList<Filter>   validateFilter = Analyse.getValidateFilters(candidateFilters);
+        
+        ArrayList<Term>     myMeasures  = Analyse.getValidateMeasures(candidateMeasures);
+        //ArrayList<Term>     myDimensions  = new ArrayList<>();
+        // ArrayList<Filter>   myFilters   = Analyse.getFilters(tree, parser);
+        ArrayList<Filter>   myFilters   =  Analyse.getValidateFilters(candidateFilters);;
+        for(Filter f:myFilters){
+            System.out.println("dim : "+f.getFilterName()+" : val "+f.getFilterValue());
+        }
+        for(Term t :myMeasures){
+            if(!measures.contains(t.getTerm()))
+                measures.add(t.getTerm());
+        }
+
         HashMap<String,ArrayList<String>> dimensionsAndFilter = Analyse.dimensionsAndFilter(tree, parser);
-        System.out.println("Question : "+myQuestion);
-        // String[] com =  Analyse.commun(MySql.getKeysAndTables("year"),MySql.getKeysAndTables("month"));
-        // System.out.println("year-month : "+com[0] + " | "+com[1]);
-        // com =  Analyse.commun(MySql.getKeysAndTables("month"),MySql.getKeysAndTables("day"));
-        // System.out.println("day-month : "+com[0] + " | "+com[1]);
-        // com =  Analyse.commun(MySql.getKeysAndTables("day"),MySql.getKeysAndTables("drug_sold"));
-        // System.out.println("day-drug_sold : "+com[0] + " | "+com[1]);
-        // System.out.println("------------------- drug_sold ------------------------");
-        // ArrayList<String[]> tm = MySql.getKeysAndTables("drug_sold");
-        // for(String[] s:tm){
-        //     System.out.print("| "+s[0] + " "+s[1]);
-        // }
-        // System.out.println("\n------------------- city ------------------------");
-        // tm = MySql.getKeysAndTables("city");
-        // for(String[] s:tm){
-        //     System.out.print("| "+s[0] + " "+s[1]);
-        // }
-        // System.out.println("\n------------------- drug_depot ------------------------");
-        // ArrayList<String[]> tm = MySql.getExportedKeysAndTables("drug_depot");
-        // for(String[] s:tm){
-        //     System.out.print("| "+s[0] + " "+s[1]);
-        // }
-        // System.out.println("\n------------------- day ------------------------");
-        // tm = MySql.getExportedKeysAndTables("day");
-        // for(String[] s:tm){
-        //     System.out.print("| "+s[0] + " "+s[1]);
-        // }
-        // System.out.println("\n------------------- month ------------------------");
-        // tm = MySql.getKeysAndTables("month");
-        // for(String[] s:tm){
-        //     System.out.print("| "+s[0] + " "+s[1]);
-        // }
-        // System.out.println("\n------------------- year ------------------------");
-        // tm = MySql.getKeysAndTables("year");
-        // for(String[] s:tm){
-        //     System.out.print("| "+s[0] + " "+s[1]);
-        // }
-        //System.out.println("------------------- dimensions ------------------------");
-        for(String dim:dimensionsAndFilter.get("dimensions")){
-            if(!dimention.contains(dim))
-                dimention.add(dim);
-        }
         //System.out.println("--------------------- filters -------------------------");
         for(String fil:dimensionsAndFilter.get("filters")){
             if(!filter.contains(fil))
@@ -108,42 +135,10 @@ public class App extends HttpServlet {
             if(!dimention.contains(f.getFilterTable()))
                 dimention.add(f.getFilterTable());
         }
+
         
-        /*System.out.println("--------------------- drug -------------------------");
-        MySql.getFKey("drug");
-        System.out.println("--------------------- drug-sold -------------------------");
-        MySql.getFKey("drug_sold");
-        System.out.println("--------------------- drug_depot -------------------------");
-        MySql.getFKey("drug_depot");
-        System.out.println("--------------------- city -------------------------");
-        MySql.getFKey("city");
-        System.out.println("--------------------- supplier -------------------------");
-        MySql.getFKey("supplier");
-        System.out.println("--------------------- consumer -------------------------");
-        MySql.getFKey("consumer");
-        System.out.println("--------------------- year -------------------------");
-        MySql.getFKey("year");
-        System.out.println("--------------------- month -------------------------");
-        MySql.getFKey("month");
-        System.out.println("--------------------- day -------------------------");
-        MySql.getFKey("day");
-        System.out.println("---------------------  -------------------------");*/
+        
 
-        // ----------- desplaying the dimentions ------------
-
-        /*ArrayList<Term> myDimentions = new ArrayList<>();
-        for (String s : dimention) {
-            for (String table : myTables) {
-                if (myDimensions.containsKey(table)) {
-                    for (String attribute : myDimensions.get(table)) {
-                        if (jw.similarity(attribute, s) >= 0.5) {
-                            myDimentions.add(new Term(attribute,table,jw.similarity(attribute, s)));
-                        }
-                    }
-                }
-            }
-        }
-        */
         // ----------- desplaying the Queries ------------
         ArrayList<String> queries = new ArrayList<>();
         //ArrayList<String> selectedTables = new ArrayList<>();
@@ -152,222 +147,22 @@ public class App extends HttpServlet {
             HashSet<Object> seen=new HashSet<>();
             myMeasures.removeIf(e->!seen.add(e.getTerm()));
             queries = Analyse.generateQuery(myMeasures, myFilters);
-            // for (Term m : myMeasures) {
-            //     String      query = new String ();
-            //     boolean     firstChange = true;
-            //     int i = 0;
-            //     while(i<myFilters.size()-1){
-            //         if(firstChange){
-            //             HashMap<String,String> importedKeys = MySql.getImportedKeys(m.getTable());
-            //             if(importedKeys.containsKey(myFilters.get(i).getFilterID())){
-            //                 query += "SELECT " + m.getTerm() + " FROM " + m.getTable() +" WHERE "+myFilters.get(i).getFilterID() + " IN ( SELECT " 
-            //                 + myFilters.get(i).getFilterID() + " FROM " + myFilters.get(i).getFilterTable() + " WHERE "+
-            //                 myFilters.get(i).getFilterName() + " = '" + myFilters.get(i).getFilterValue() +"'";
-            //                 firstChange = false;
-            //             }
-            //         }
-            //         else{
-            //             query += " OR "+myFilters.get(i).getFilterName()+" = '"+myFilters.get(i).getFilterValue()+"'";
-            //         }
-
-            //         if(!myFilters.get(i).getFilterName().equals(myFilters.get(i+1).getFilterName())){
-            //             query += " )";
-            //             firstChange = true;
-            //             if(!queries.contains(query))
-            //                 queries.add(query);
-            //             if(!selectedTables.contains(m.getTable()))
-            //                 selectedTables.add(m.getTable());
-
-            //             query = "";
-            //         }
-            //         i++;
-            //     }
-            //     if(i<myFilters.size()){
-            //         if(firstChange){
-            //             HashMap<String,String> importedKeys = MySql.getImportedKeys(m.getTable());
-            //             if(importedKeys.containsKey(myFilters.get(i).getFilterID())){
-            //                 query += "SELECT " + m.getTerm() + " FROM " + m.getTable() +" WHERE "+myFilters.get(i).getFilterID() + " IN ( SELECT " 
-            //                 + myFilters.get(i).getFilterID() + " FROM " + myFilters.get(i).getFilterTable() + " WHERE "+
-            //                 myFilters.get(i).getFilterName() + " = '" + myFilters.get(i).getFilterValue() +"')";
-            //             }
-            //         }
-            //         else{
-            //             query += " OR "+myFilters.get(i).getFilterName()+" = '"+myFilters.get(i).getFilterValue()+"')";
-            //         }
-            //         if(!queries.contains(query))
-            //             queries.add(query);
-            //         if(!selectedTables.contains(m.getTable()))
-            //             selectedTables.add(m.getTable());
-            //     }
-                
-            // }
-            
-            // for (Term m : myMeasures) {
-            //     String query = "SELECT " + m.getTerm() + " FROM " + m.getTable();
-            //     if(!queries.contains(query))
-            //         queries.add(query);
-            //     if(!selectedTables.contains(m.getTable()))
-            //         selectedTables.add(m.getTable());
-            // }
         }
         else {
-            Collections.sort(myDimensions, new SortByPourcentage());
+            Collections.sort(validateDimensions, new SortByPourcentage());
             HashSet<Object> seen=new HashSet<>();
-            myDimensions.removeIf(e->!seen.add(e.getTerm()));
-            queries     =    Analyse.generateQuery(myDimensions, myFilters);
-            // for (Term m : myDimensions) {
-            //     String      query = new String ();
-            //     boolean     firstChange = true;
-            //     int i = 0;
-            //     while(i<myFilters.size()-1){
-            //         if(firstChange){
-            //             HashMap<String,String> exportedKeys = MySql.getExportedKeys(m.getTable());
-            //             if(exportedKeys.containsKey(myFilters.get(i).getFilterID())){
-            //                 query += "SELECT " + m.getTerm() + " FROM " + m.getTable() +" WHERE "+myFilters.get(i).getFilterID() + " IN ( SELECT " 
-            //                 + myFilters.get(i).getFilterID() + " FROM " + myFilters.get(i).getFilterTable() + " WHERE "+
-            //                 myFilters.get(i).getFilterName() + " = '" + myFilters.get(i).getFilterValue() +"'";
-            //                 firstChange = false;
-            //             }
-            //             else{
-            //                 // int N = Tables.dimensionTable.size()+Tables.measureTables.size()+Tables.temporalLexion.size();
-            //                 // int compt =0;
-            //                 // boolean found = false;
-            //                 // ArrayList<String> exportedTables = MySql.getExportedFKeysTables(m.getTable());
-            //                 // while(compt < N && !found){
-            //                 //     for(String table:exportedTables){
-            //                 //         HashMap<String,String> importedKeys = MySql.getExportedFKeys(table);
-            //                 //         if(importedKeys.containsKey(myFilters.get(i).getFilterID())){
-            //                 //             query += "SELECT " + m.getTerm() + " FROM " + m.getTable() +" WHERE "+myFilters.get(i).getFilterID() + " IN ( SELECT " 
-            //                 //             + myFilters.get(i).getFilterID() + " FROM " + myFilters.get(i).getFilterTable() + " WHERE "+
-            //                 //             myFilters.get(i).getFilterName() + " = '" + myFilters.get(i).getFilterValue() +"')";
-            //                 //             found = true;
-            //                 //             break;
-            //                 //         }
-            //                 //         System.out.println(table);
-            //                 //     }
-                                
-            //                 //     compt++;
-            //                 // }
-
-            //                 Stack<ArrayList<String>> myStack = new Stack<>();
-            //                 Stack<String> myList = new Stack<>();
-            //                 boolean trouvee = false;
-            //                 ArrayList<String> list = MySql.getKeysTables(m.getTable());
-                            
-            //                 myList.push(m.getTable());
-            //                 while(!trouvee){
-            //                     if(list.contains(myFilters.get(i).getFilterTable())){
-            //                         myList.push(myFilters.get(i).getFilterTable());
-            //                         trouvee = true;
-            //                     }
-            //                     else{
-            //                         if(list.size()>0){
-            //                             String l = list.get(0);
-            //                             list.remove(0);
-            //                             myStack.push(list);
-            //                             list.clear();
-            //                             list = MySql.getKeysTables(l);
-            //                             myList.push(l);
-            //                         }
-            //                         else{
-            //                             list = myStack.pop();
-            //                             myList.pop();
-            //                         }
-
-            //                     }
-            //                 }
-            //                 //System.out.println("myList : "+myList.size());
-            //                 // for(String k : myList){
-            //                 //     System.out.println(k);
-            //                 // }
-                                
-            //             }
-            //         }
-            //         else{
-            //             query += " OR "+myFilters.get(i).getFilterName()+" = '"+myFilters.get(i).getFilterValue()+"'";
-            //         }
-
-            //         if(!myFilters.get(i).getFilterName().equals(myFilters.get(i+1).getFilterName())&&!firstChange){
-            //             query += " )";
-            //             firstChange = true;
-            //             if(!queries.contains(query))
-            //                 queries.add(query);
-            //             if(!selectedTables.contains(m.getTable()))
-            //                 selectedTables.add(m.getTable());
-
-            //             query = "";
-            //         }
-            //         i++;
-            //     }
-            //     if(i<myFilters.size()){
-            //         if(firstChange){
-            //             HashMap<String,String> exportedKeys = MySql.getExportedKeys(m.getTable());
-            //             if(exportedKeys.containsKey(myFilters.get(i).getFilterID())){
-            //                 query += "SELECT " + m.getTerm() + " FROM " + m.getTable() +" WHERE "+myFilters.get(i).getFilterID() + " IN ( SELECT " 
-            //                 + myFilters.get(i).getFilterID() + " FROM " + myFilters.get(i).getFilterTable() + " WHERE "+
-            //                 myFilters.get(i).getFilterName() + " = '" + myFilters.get(i).getFilterValue() +"')";
-            //             }
-            //             else{
-            //                 // int N = Tables.dimensionTable.size()+Tables.measureTables.size()+Tables.temporalLexion.size();
-            //                 // int compt =0;
-            //                 // boolean found = false;
-            //                 // ArrayList<String> exportedTables = MySql.getExportedFKeysTables(m.getTable());
-            //                 // while(compt < N && !found){
-            //                 //     for(String table:exportedTables){
-            //                 //         HashMap<String,String> importedKeys = MySql.getExportedFKeys(table);
-            //                 //         if(importedKeys.containsKey(myFilters.get(i).getFilterID())){
-            //                 //             query += "SELECT " + m.getTerm() + " FROM " + m.getTable() +" WHERE "+myFilters.get(i).getFilterID() + " IN ( SELECT " 
-            //                 //             + myFilters.get(i).getFilterID() + " FROM " + myFilters.get(i).getFilterTable() + " WHERE "+
-            //                 //             myFilters.get(i).getFilterName() + " = '" + myFilters.get(i).getFilterValue() +"')";
-            //                 //             found = true;
-            //                 //             break;
-            //                 //         }
-            //                 //         System.out.println(table);
-            //                 //     }
-                                
-            //                 //     compt++;
-            //                 // }
-
-                            
-            //             }
-            //         }
-            //         else{
-            //             query += " OR "+myFilters.get(i).getFilterName()+" = '"+myFilters.get(i).getFilterValue()+"')";
-            //         }
-            //         if(!queries.contains(query))
-            //             queries.add(query);
-            //         if(!selectedTables.contains(m.getTable()))
-            //             selectedTables.add(m.getTable());
-            //     }
-                
-            // }
-            
-            // for (Term m : myDimensions) {
-            //     String query = "SELECT " + m.getTerm() + " FROM " + m.getTable();
-            //     if(!queries.contains(query))
-            //         queries.add(query);
-            //     if(!selectedTables.contains(m.getTable()))
-            //         selectedTables.add(m.getTable());
-            // }
+            validateDimensions.removeIf(e->!seen.add(e.getTerm()));
+            queries     =    Analyse.generateQuery(validateDimensions, myFilters);
         }
-        // for (String table:selectedTables){
-        //     String query = "SELECT * FROM " + table;
-        //     if(!queries.contains(query))
-        //         queries.add(query);
-        // }
         request.setAttribute("taggedSentence", taggedSentence);
-        request.setAttribute("measers", myMeasures);
+        request.setAttribute("measers", measures);
+        request.setAttribute("candidateMeasers", candidateMeasures);
         request.setAttribute("dimentions", dimention);
+        request.setAttribute("candidateDimentions",candidateDimention);
         request.setAttribute("filters", filter);
+        request.setAttribute("candidateFilters", candidateFilter);
         request.setAttribute("Queries", queries);
-        //Levenshtein l = new Levenshtein();
 
-        // request.setAttribute("distance",
-        // StringUtils.getJaroWinklerDistance(filters,measersString));
-        // request.setAttribute("distance", l.distance("yasher", "hello"));
-        // request.setAttribute("distance", jw.similarity("supplier_email", "numbre"));
-        // request.setAttribute("distance1", l.distance("quantity_sold", "quantity of
-        // the drugs sold"));
         request.getRequestDispatcher("response.jsp").forward(request, response);
     }
 

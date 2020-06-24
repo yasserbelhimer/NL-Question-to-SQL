@@ -19,14 +19,14 @@ public class QaBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements QaV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitQa(QaParser.QaContext ctx) { return visitChildren(ctx); }
+	@Override public T visitWh_question(QaParser.Wh_questionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitWhquestion(QaParser.WhquestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitQuestion_pronoun(QaParser.Question_pronounContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -75,7 +75,21 @@ public class QaBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements QaV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitMg(QaParser.MgContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitNoun(QaParser.NounContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitPrepeposition(QaParser.PrepepositionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -103,6 +117,20 @@ public class QaBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements QaV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitSpatial_dimention(QaParser.Spatial_dimentionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitSpatial_lexion(QaParser.Spatial_lexionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitTemporal_lexion(QaParser.Temporal_lexionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -111,20 +139,6 @@ public class QaBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements QaV
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitDate(QaParser.DateContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitFilter_operator(QaParser.Filter_operatorContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitPrepeposition(QaParser.PrepepositionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -181,4 +195,11 @@ public class QaBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements QaV
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitVerb(QaParser.VerbContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitDim(QaParser.DimContext ctx) { return visitChildren(ctx); }
 }

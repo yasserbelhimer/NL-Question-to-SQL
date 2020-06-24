@@ -35,11 +35,13 @@
                                     </div>
                                     <div class="col-xl-9 mx-auto">
                                         <form action="" method="POST" class="user">
+
                                             <div class="form-group">
-                                                <input class="form-control form-control-lg" type="text" id="query"
-                                                    name="query" autocomplete="on" autofocus=""
-                                                    placeholder="Enter your query here ..." />
-                                            </div>
+                                                <textarea class="form-control form-control-lg" rows="3" id="query"
+                                                name="query" autocomplete="on" autofocus=""
+                                                placeholder="Enter your query here ..." >
+                                            </textarea>
+                                              </div>
                                             <small class="form-text text-left text-body"
                                                 style="font-size: 20px;">Exemple : select * from table where
                                                 ...<br />
@@ -83,6 +85,7 @@
         <script type="text/javascript" src='<c:url value="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" />'></script>
         <script type="text/javascript" src='<c:url value="assets/js/theme.js" />'></script>
         <script>
+            $("#query").val("");
             if(localStorage.getItem("pre")==="analyse"){
                 document.querySelector("#query").value=localStorage.getItem("query");
                 localStorage.removeItem("pre");

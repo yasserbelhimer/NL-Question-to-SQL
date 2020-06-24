@@ -7,7 +7,7 @@
     <hr class="sidebar-divider my-0">
     <ul class="nav navbar-nav text-light" id="accordionSidebar">
       <c:choose>
-        <c:when test="${ empty sessionScope.connected_user }">
+        <c:when test="${ empty sessionScope.connected_user && empty sessionScope.connected_ITDesigner}">
           <li class="nav-item" role="presentation">
             <a class="nav-link" href="connexion.jsp">
               <i class="fas fa-user-cog"></i>
@@ -17,7 +17,7 @@
           <li class="nav-item" role="presentation" 	>
             <a class="nav-link disabled" href="tables.jsp" >
               <i class="fas fa-table"></i>
-              <span>Tables</span>
+              <span>Validation</span>
             </a>
           </li>
           <li class="nav-item" role="presentation">
@@ -35,23 +35,23 @@
         </c:when>
         <c:otherwise>
           <c:choose>
-            <c:when test="${ empty sessionScope.connected_admin }">
+            <c:when test="${ !empty sessionScope.connected_ITDesigner }">
               <li class="nav-item" role="presentation" 	>
-                <a class="nav-link" href="tables.jsp" >
+                <a class="nav-link" href="#" >
                   <i class="fas fa-table"></i>
-                  <span>Tables</span>
+                  <span>Validation</span>
                 </a>
               </li>
             </c:when>
           </c:choose>
           <li class="nav-item" role="presentation">
-            <a class="nav-link" href="analyse.jsp">
+            <a class="nav-link" href="#">
               <i class="fas fa-cogs"></i>
               <span>Analyse</span>
             </a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link" href="execute.jsp">
+            <a class="nav-link" href="#">
               <i class="fas fa-cog"></i>
               <span>Execute query </span>
             </a>

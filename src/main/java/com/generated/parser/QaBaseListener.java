@@ -18,25 +18,25 @@ public class QaBaseListener implements QaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQa(QaParser.QaContext ctx) { }
+	@Override public void enterWh_question(QaParser.Wh_questionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitQa(QaParser.QaContext ctx) { }
+	@Override public void exitWh_question(QaParser.Wh_questionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhquestion(QaParser.WhquestionContext ctx) { }
+	@Override public void enterQuestion_pronoun(QaParser.Question_pronounContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhquestion(QaParser.WhquestionContext ctx) { }
+	@Override public void exitQuestion_pronoun(QaParser.Question_pronounContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -114,6 +114,18 @@ public class QaBaseListener implements QaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMg(QaParser.MgContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMg(QaParser.MgContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNoun(QaParser.NounContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -121,6 +133,18 @@ public class QaBaseListener implements QaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNoun(QaParser.NounContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrepeposition(QaParser.PrepepositionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrepeposition(QaParser.PrepepositionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -162,6 +186,30 @@ public class QaBaseListener implements QaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSpatial_dimention(QaParser.Spatial_dimentionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSpatial_dimention(QaParser.Spatial_dimentionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSpatial_lexion(QaParser.Spatial_lexionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSpatial_lexion(QaParser.Spatial_lexionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTemporal_lexion(QaParser.Temporal_lexionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -181,30 +229,6 @@ public class QaBaseListener implements QaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDate(QaParser.DateContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFilter_operator(QaParser.Filter_operatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFilter_operator(QaParser.Filter_operatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPrepeposition(QaParser.PrepepositionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPrepeposition(QaParser.PrepepositionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -301,6 +325,18 @@ public class QaBaseListener implements QaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVerb(QaParser.VerbContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDim(QaParser.DimContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDim(QaParser.DimContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

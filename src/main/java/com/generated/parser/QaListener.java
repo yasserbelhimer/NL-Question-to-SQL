@@ -10,25 +10,25 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface QaListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link QaParser#qa}.
+	 * Enter a parse tree produced by {@link QaParser#wh_question}.
 	 * @param ctx the parse tree
 	 */
-	void enterQa(QaParser.QaContext ctx);
+	void enterWh_question(QaParser.Wh_questionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link QaParser#qa}.
+	 * Exit a parse tree produced by {@link QaParser#wh_question}.
 	 * @param ctx the parse tree
 	 */
-	void exitQa(QaParser.QaContext ctx);
+	void exitWh_question(QaParser.Wh_questionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link QaParser#whquestion}.
+	 * Enter a parse tree produced by {@link QaParser#question_pronoun}.
 	 * @param ctx the parse tree
 	 */
-	void enterWhquestion(QaParser.WhquestionContext ctx);
+	void enterQuestion_pronoun(QaParser.Question_pronounContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link QaParser#whquestion}.
+	 * Exit a parse tree produced by {@link QaParser#question_pronoun}.
 	 * @param ctx the parse tree
 	 */
-	void exitWhquestion(QaParser.WhquestionContext ctx);
+	void exitQuestion_pronoun(QaParser.Question_pronounContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link QaParser#filter}.
 	 * @param ctx the parse tree
@@ -90,6 +90,16 @@ public interface QaListener extends ParseTreeListener {
 	 */
 	void exitNominal_term(QaParser.Nominal_termContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link QaParser#mg}.
+	 * @param ctx the parse tree
+	 */
+	void enterMg(QaParser.MgContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QaParser#mg}.
+	 * @param ctx the parse tree
+	 */
+	void exitMg(QaParser.MgContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link QaParser#noun}.
 	 * @param ctx the parse tree
 	 */
@@ -99,6 +109,16 @@ public interface QaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNoun(QaParser.NounContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QaParser#prepeposition}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrepeposition(QaParser.PrepepositionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QaParser#prepeposition}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrepeposition(QaParser.PrepepositionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link QaParser#measure_indicator}.
 	 * @param ctx the parse tree
@@ -130,6 +150,26 @@ public interface QaListener extends ParseTreeListener {
 	 */
 	void exitTemporal_dimention(QaParser.Temporal_dimentionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link QaParser#spatial_dimention}.
+	 * @param ctx the parse tree
+	 */
+	void enterSpatial_dimention(QaParser.Spatial_dimentionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QaParser#spatial_dimention}.
+	 * @param ctx the parse tree
+	 */
+	void exitSpatial_dimention(QaParser.Spatial_dimentionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QaParser#spatial_lexion}.
+	 * @param ctx the parse tree
+	 */
+	void enterSpatial_lexion(QaParser.Spatial_lexionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QaParser#spatial_lexion}.
+	 * @param ctx the parse tree
+	 */
+	void exitSpatial_lexion(QaParser.Spatial_lexionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link QaParser#temporal_lexion}.
 	 * @param ctx the parse tree
 	 */
@@ -149,26 +189,6 @@ public interface QaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDate(QaParser.DateContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link QaParser#filter_operator}.
-	 * @param ctx the parse tree
-	 */
-	void enterFilter_operator(QaParser.Filter_operatorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link QaParser#filter_operator}.
-	 * @param ctx the parse tree
-	 */
-	void exitFilter_operator(QaParser.Filter_operatorContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link QaParser#prepeposition}.
-	 * @param ctx the parse tree
-	 */
-	void enterPrepeposition(QaParser.PrepepositionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link QaParser#prepeposition}.
-	 * @param ctx the parse tree
-	 */
-	void exitPrepeposition(QaParser.PrepepositionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link QaParser#wh_determiner}.
 	 * @param ctx the parse tree
@@ -249,4 +269,14 @@ public interface QaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVerb(QaParser.VerbContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QaParser#dim}.
+	 * @param ctx the parse tree
+	 */
+	void enterDim(QaParser.DimContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QaParser#dim}.
+	 * @param ctx the parse tree
+	 */
+	void exitDim(QaParser.DimContext ctx);
 }

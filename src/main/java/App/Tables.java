@@ -6,6 +6,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import SDM.Measure;
+import SDM.Sdm;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,7 +34,7 @@ public class Tables extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         //------------- getting the tables from the user --------------
-
+        Sdm.remplir();
         String      measures        = request.getParameter("measureTables");
         String      dimensions      = request.getParameter("dimensionTable");
         String      temporals       = request.getParameter("temporalLexion");
@@ -129,8 +134,6 @@ public class Tables extends HttpServlet {
                         if(m2.find()){
                             temp = true;
                         }
-                            
-
                     }
                     
                     if((chance >= 1) && temp && (!measureTables.containsKey(table))){

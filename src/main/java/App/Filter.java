@@ -5,7 +5,7 @@ public class Filter implements Comparable<Filter> {
     private String filterID;
     private String filterTable;
     private String filterValue;
-    private double filterpourcentage;
+	private double filterpourcentage;
 
     public Filter(String filterName,String filterID,String filterTable,String filterValue,double filterpourcentage){
         this.filterName         = filterName;
