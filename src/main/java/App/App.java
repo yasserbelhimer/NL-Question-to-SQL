@@ -16,8 +16,10 @@ import com.generated.parser.QaParser;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
-import org.antlr.v4.runtime.tree.xpath.XPath;
-import org.antlr.v4.runtime.DefaultErrorStrategy;
+
+import SDM.Concept;
+import SDM.Sdm;
+
 import java.util.HashMap;
 
 
@@ -69,6 +71,10 @@ public class App extends HttpServlet {
                         candidateFilter.add(string);
                 }
                 System.out.print("key :"+key+"\tvalues :");
+                if(!hashMap.get(key).isEmpty()){
+                    candidateFilters.add(hashMap);
+                    
+                }
                 for(String string:hashMap.get(key)){
                     System.out.print(" "+string);
                 }
@@ -108,11 +114,7 @@ public class App extends HttpServlet {
             }
         }
         System.out.println("------------------ validate filters ---------------------");
-        // ArrayList<Filter>   validateFilter = Analyse.getValidateFilters(candidateFilters);
-        
         ArrayList<Term>     myMeasures  = Analyse.getValidateMeasures(candidateMeasures);
-        //ArrayList<Term>     myDimensions  = new ArrayList<>();
-        // ArrayList<Filter>   myFilters   = Analyse.getFilters(tree, parser);
         ArrayList<Filter>   myFilters   =  Analyse.getValidateFilters(candidateFilters);;
         for(Filter f:myFilters){
             System.out.println("dim : "+f.getFilterName()+" : val "+f.getFilterValue());
@@ -122,13 +124,6 @@ public class App extends HttpServlet {
                 measures.add(t.getTerm());
         }
 
-        HashMap<String,ArrayList<String>> dimensionsAndFilter = Analyse.dimensionsAndFilter(tree, parser);
-        //System.out.println("--------------------- filters -------------------------");
-        for(String fil:dimensionsAndFilter.get("filters")){
-            if(!filter.contains(fil))
-                filter.add(fil);
-        }
-        
         for(Filter f:myFilters){
             if(!filter.contains(f.getFilterValue()))
                 filter.add(f.getFilterValue());
@@ -141,18 +136,34 @@ public class App extends HttpServlet {
 
         // ----------- desplaying the Queries ------------
         ArrayList<String> queries = new ArrayList<>();
-        //ArrayList<String> selectedTables = new ArrayList<>();
-        if(!myMeasures.isEmpty()){
-            Collections.sort(myMeasures, new SortByPourcentage());
-            HashSet<Object> seen=new HashSet<>();
-            myMeasures.removeIf(e->!seen.add(e.getTerm()));
-            queries = Analyse.generateQuery(myMeasures, myFilters);
+        System.out.println("------------------ pronom ---------------------");
+        String pronom = Analyse.getPronom(tree, parser);
+
+        if(pronom.equals("what") || pronom.equals("who")){
+            if(!myMeasures.isEmpty()){
+                Collections.sort(myMeasures, new SortByPourcentage());
+                HashSet<Object> seen=new HashSet<>();
+                myMeasures.removeIf(e->!seen.add(e.getTerm()));
+                queries = Analyse.generateQuery(myMeasures, myFilters);
+            }
+            else {
+                Collections.sort(validateDimensions, new SortByPourcentage());
+                HashSet<Object> seen=new HashSet<>();
+                validateDimensions.removeIf(e->!seen.add(e.getTerm()));
+                queries     =    Analyse.generateQuery(validateDimensions, myFilters);
+            }
         }
-        else {
-            Collections.sort(validateDimensions, new SortByPourcentage());
-            HashSet<Object> seen=new HashSet<>();
-            validateDimensions.removeIf(e->!seen.add(e.getTerm()));
-            queries     =    Analyse.generateQuery(validateDimensions, myFilters);
+        else if(pronom.equals("where")){
+            ArrayList<Term> terms = new ArrayList<>();
+            for(Concept concept:Sdm.sapatialDimension){
+                for(String attribute:concept.getAttribute()){
+                    terms.add(new Term(attribute, concept.getTable(),0.5));
+                }
+            }
+            queries     =    Analyse.generateQuery(terms, myFilters);
+        }
+        else  if(pronom.equals("when")){
+            queries     =    Analyse.generateQueryWhen(myFilters);
         }
         request.setAttribute("taggedSentence", taggedSentence);
         request.setAttribute("measers", measures);

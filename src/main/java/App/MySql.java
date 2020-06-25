@@ -7,6 +7,9 @@ import info.debatty.java.stringsimilarity.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import SDM.Concept;
+import SDM.Sdm;
+
 public class MySql {
     public static Connection connexion;
     public MySql(){
@@ -176,6 +179,44 @@ public class MySql {
             System.out.println("Error : cannot get the foring keys");
         }
         return exportedKeys;
+    }
+    public static String getCommunTable(String table1,String table2){
+        ArrayList<ArrayList<String>> ways = new ArrayList<>();
+        ArrayList<String> expo1 = new ArrayList<>();
+        ArrayList<String> expo2 = new ArrayList<>();
+        ArrayList<String> fact = new ArrayList<>();
+        String commun = "";
+        for(Concept con: Sdm.fact){
+            fact.add(con.getTable());
+        }
+        try {
+            DatabaseMetaData metaData = connexion.getMetaData();            
+            ResultSet resultat = metaData.getExportedKeys(null, null, table1);
+            while (resultat.next()) {
+                if(!expo1.contains(resultat.getString("FKTABLE_NAME")))
+                    expo1.add(new String(resultat.getString("FKTABLE_NAME")));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error : cannot get the foring keys");
+        }
+
+        try {
+            DatabaseMetaData metaData = connexion.getMetaData();            
+            ResultSet resultat = metaData.getExportedKeys(null, null, table2);
+            while (resultat.next()) {
+                if(!expo2.contains(resultat.getString("FKTABLE_NAME")))
+                    expo2.add(new String(resultat.getString("FKTABLE_NAME")));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error : cannot get the foring keys");
+        }
+        for(String fac :fact){
+            if(expo1.contains(fac) && expo2.contains(fac)){
+                commun = fac;
+                break;
+            }
+        }
+        return commun;
     }
     //----------- get the Imported PKeys of tables -------------
     public static HashMap<String,String> getImportedKeys(String table){

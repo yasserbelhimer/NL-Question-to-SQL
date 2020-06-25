@@ -19,7 +19,6 @@ public class Sdm {
         attribute.add("city_name");attribute.add("city_id");
         sapatialDimension.add(new Concept("City", "city", "city_id", new ArrayList<>(attribute)));
         attribute.clear();
-
         attribute.add("day");attribute.add("day_label");attribute.add("day_id");attribute.add("month_id");
         temporalDimension.add(new Concept("Day", "day", "day_id", new ArrayList<>(attribute)));
         attribute.clear();
@@ -29,6 +28,8 @@ public class Sdm {
         attribute.add("year");attribute.add("year_id");
         temporalDimension.add(new Concept("Year", "year", "year_id", new ArrayList<>(attribute)));
         attribute.clear();
+
+        
 
         attribute.add("drug_name");attribute.add("pharmaceutical_form_drug");attribute.add("drug_dosage");attribute.add("expiration_time");attribute.add("drug_id");
         otherDimension.add(new Concept("Drug", "drug", "drug_id", new ArrayList<>(attribute)));

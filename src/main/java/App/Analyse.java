@@ -19,6 +19,14 @@ import info.debatty.java.stringsimilarity.*;
 public class Analyse {
 
 
+    //----------------------- get the question pronom ---------------------------
+    public static String getPronom(ParseTree tree,QaParser parser){
+        String pronom = new String();
+        for(ParseTree t : XPath.findAll(tree, "/wh_question/question_pronoun", parser))
+            pronom = t.getText().replaceAll("_[A-Z.]+", "");
+        return pronom;
+    }
+    
     //------------------- generate the candidate measures ---------------------------
     public static ArrayList<String> getCandidateMeasures(ParseTree tree,QaParser parser){
         ArrayList<String> candidateMeasures = new ArrayList<>();
@@ -176,55 +184,20 @@ public class Analyse {
                     
                 }
             }
+            //--------- add here yesterday,last ...
         }
         candidateFilters.add(temporalLexion);
         candidateFilters.add(spatialLexion);
         candidateFilters.add(otherLexion);
         return candidateFilters;
     }
-    
-    //------------------- generate the suggestion fillters --------------------
-    public static HashMap<String,ArrayList<String>> getSuggestionFilters(ParseTree tree,QaParser parser){
-        HashMap<String,ArrayList<String>> suggestionFilters = new HashMap<>();
-        ArrayList<String> temporalLexion = new ArrayList<>();
-        ArrayList<String> temporalLexionNouns = new ArrayList<>();
-        ArrayList<String> temporalLexionDate = new ArrayList<>();
-        for (ParseTree tree1 : XPath.findAll(tree, "/wh_question/filter", parser)) {
-            temporalLexion.clear();
-            for (ParseTree tree2 : XPath.findAll(tree1, "/filter//temporal_lexion", parser)) {
-                temporalLexion.add(tree2.getText().replaceAll("_[A-Z.]+", ""));
-            }
-            if (!temporalLexion.isEmpty()) {
-                for (ParseTree noun : XPath.findAll(tree1, "/filter//noun", parser)) {
-                    temporalLexionNouns.add(noun.getText().replaceAll("_[A-Z.]+", ""));
-                }
-                for (ParseTree date : XPath.findAll(tree1, "/filter//date", parser)) {
-                    temporalLexionDate.add(date.getText().replaceAll("_[A-Z.]+", ""));
-                }
-                if(!temporalLexionNouns.isEmpty()){
-                    for(String lexion :temporalLexion ){
-                        suggestionFilters.put(lexion, new ArrayList<>(temporalLexionNouns));
-                    }
-                    temporalLexionNouns.clear();
-                }
-                if(!temporalLexionDate.isEmpty()){
-                    for(String lexion :temporalLexion ){
-                        suggestionFilters.put(lexion,new ArrayList<>(temporalLexionDate));
-                    }
-                    temporalLexionDate.clear();
-                }
-            }
-        }
-        return suggestionFilters;
-    }
-    
     //------------------- get the validate filters ------------------------
     public static ArrayList<Filter> getValidateFilters(ArrayList<HashMap<String,ArrayList<String>>> candidateFilters){
         ArrayList<Filter> myFilers = new ArrayList<>();
         ArrayList<HashMap<String,ArrayList<String>>> candidateFilter = new ArrayList<>();
-        candidateFilter.add(candidateFilters.get(0));
-        candidateFilter.add(candidateFilters.get(1));
-        candidateFilter.add(candidateFilters.get(2));
+        for(int i = 0;i<candidateFilters.size();i++)
+            candidateFilter.add(candidateFilters.get(i));
+
         ArrayList<Concept> mySDM = new ArrayList<>();
         mySDM.addAll(Sdm.temporalDimension);
         mySDM.addAll(Sdm.sapatialDimension);
@@ -250,104 +223,8 @@ public class Analyse {
         }
         return myFilers;
     }
-    //------------- filter the suggestion filters -------------------------
-    public static ArrayList<Filter> getFilters(ParseTree tree,QaParser parser){
-        HashMap<String,ArrayList<String>> suggestionFilters = getSuggestionFilters(tree,parser);
-        ArrayList<Filter> myFilers = new ArrayList<>();
-        String[] myTables = MySql.getTables().split("\n");
-        JaroWinkler jw = new JaroWinkler();
-        for(String key:suggestionFilters.keySet()){
-            for (String s : suggestionFilters.get(key)) {
-                for (String table : myTables) {
-                    if (Tables.temporalLexion.containsKey(table)) {
-                        for (String attribute : Tables.temporalLexion.get(table)) {
-                            if (jw.similarity(attribute, key) >= 0.8) {
-                                ArrayList<String> values = MySql.getFilterValue("SELECT "+attribute+" FROM "+table+" WHERE "+attribute+" = '"+s+"'",attribute);
-
-                                Filter filter = new Filter(attribute, MySql.getPKey(table), table, s, jw.similarity(attribute, key));
-                                if(values.size()>0){
-                                    if(!myFilers.contains(filter))
-                                        myFilers.add(filter);
-                                }
-                            }
-                        }
-                    }
-                    else if(Tables.dimensionTable.containsKey(table)){
-                        for (String attribute : Tables.dimensionTable.get(table)) {
-                            if (jw.similarity(attribute, key) >= 0.8) {
-                                ArrayList<String> values = MySql.getFilterValue("SELECT "+attribute+" FROM "+table+" WHERE "+attribute+" = '"+s+"'",attribute);
-
-                                Filter filter = new Filter(attribute, MySql.getPKey(table), table, s, jw.similarity(attribute, key));
-                                if(values.size()>0){
-                                    if(!myFilers.contains(filter))
-                                        myFilers.add(filter);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return myFilers;
-    }
-
-    public static HashMap<String,ArrayList<String>> dimensionsAndFilter(ParseTree tree,QaParser parser){
-        ArrayList<String> dimensions = new ArrayList<>();
-        ArrayList<String> filters = new ArrayList<>();
-        HashMap<String,ArrayList<String>> dimensionsAndFilter = new HashMap<>();
-        String[] myTables = MySql.getTables().split("\n");
-        JaroWinkler jw = new JaroWinkler();
-        for (ParseTree tree1 : XPath.findAll(tree, "/wh_question//noun", parser)) {
-            boolean found   = false;
-            ArrayList<String> myNouns = new ArrayList<>();
-            myNouns.add(tree1.getText().replaceAll("_[A-Z.]+", ""));
-
-            for(String noun:myNouns){
-                for(String table:Tables.dimensionTable.keySet()){
-                    if(jw.similarity(table, noun)>=0.8 && !found){
-                        if(!dimensions.contains(table))
-                            dimensions.add(table);
-                        found = true;
-                    }
-                    else{
-                        for(String attribute:Tables.dimensionTable.get(table)){
-                            if(jw.similarity(attribute, noun)>=0.8){
-                                if(!dimensions.contains(attribute))
-                                    dimensions.add(attribute);
-                                found=true;
-                            }
-                        }
-                    }
-                }
-                if(!found){
-                    for(String table:Tables.temporalLexion.keySet()){
-                        if(jw.similarity(table, noun)>=0.8 && !found){
-                            if(!dimensions.contains(table))
-                                dimensions.add(table);
-                            found = true;
-                        }
-                        else{
-                            for(String attribute:Tables.temporalLexion.get(table)){
-                                if(jw.similarity(attribute, noun)>=0.8){
-                                    if(!dimensions.contains(attribute))
-                                        dimensions.add(attribute);
-                                    found=true;
-                                }
-                            }
-                        }
-                    }
-                }
-                if(!found){
-                    filters.add(noun);
-                }
-            }
-        }
-        dimensionsAndFilter.put("dimensions", dimensions);
-        dimensionsAndFilter.put("filters", filters);
-        return dimensionsAndFilter;
-    }
-
     
+
     public static ArrayList<String> nGram(ArrayList<String> list1,ArrayList<String> list2,ArrayList<String> list3){
         ArrayList<String> myList = new ArrayList<>();
         for(String l1:list1){
@@ -468,7 +345,7 @@ public class Analyse {
                         }
                     }
                 }
-                
+
 
                 int nbRemove = 0;
                 for(int j:tab1){
@@ -476,7 +353,7 @@ public class Analyse {
                     nbRemove++;
                 }
                 for(int j = myList.size()-1;j>0;j--){
-                   String[] com =  commun(MySql.getExportedKeysAndTables(myList.get(j)[0]),MySql.getExportedKeysAndTables(myList.get(j-1)[0]));
+                    String[] com =  commun(MySql.getExportedKeysAndTables(myList.get(j)[0]),MySql.getExportedKeysAndTables(myList.get(j-1)[0]));
                     if(!containsTab(myList, com)){
                         myList.set(j-1, com);
                     }
@@ -532,18 +409,167 @@ public class Analyse {
         return queries;
     }
 
+    public static ArrayList<String> generateQueryWhen(ArrayList<Filter> myFilters){
+        ArrayList<String> queries = new ArrayList<>();
+        String firstQuery = "";
+        String secQuery = "";
+        String thirdQuery = "";
+        boolean first = true;
+        for(Concept concept:Sdm.temporalDimension){
+            if(first){
+                firstQuery= "SELECT "+concept.getName();
+                secQuery = " FROM " + concept.getTable();
+                first = false;
+            }
+            else{
+                firstQuery+=","+concept.getName();
+                secQuery+=","+concept.getTable();
+            }
+        }
+        first = true;
+        for(int i = Sdm.temporalDimension.size()-1;i>0;i--){
+            if(first){
+                thirdQuery=" WHERE "+Sdm.temporalDimension.get(i).getTable()+"."+Sdm.temporalDimension.get(i).getId()+" = "
+                +Sdm.temporalDimension.get(i-1).getTable()+"."+Sdm.temporalDimension.get(i).getId();
+                first=false;
+            }
+            else{
+                thirdQuery+=" AND "+Sdm.temporalDimension.get(i).getTable()+"."+Sdm.temporalDimension.get(i).getId()+" = "
+                +Sdm.temporalDimension.get(i-1).getTable()+"."+Sdm.temporalDimension.get(i).getId();
+            }
+        }
+        Collections.sort(myFilters);
+        
+        ArrayList<ArrayList<Filter>> separedFilters = new ArrayList<ArrayList<Filter>>();
+        int i = 0;
+        String tab = "";
+        ArrayList<Filter> filtersTemp = new ArrayList<>();
+        
+        for(int j = 0;j<myFilters.size()-1;j++){
+            tab = myFilters.get(j).getFilterTable();
+            if(!tab.equals( myFilters.get(j+1).getFilterTable() ) && j==0){
+                filtersTemp.add(myFilters.get(j));
+                separedFilters.add(new ArrayList<>(filtersTemp));
+                filtersTemp.clear();
+            }
+            else if(!tab.equals( myFilters.get(j+1).getFilterTable() )){
+                separedFilters.add(new ArrayList<>(filtersTemp));
+                filtersTemp.clear();
+            }
+            else{
+                filtersTemp.add(myFilters.get(j));
+            }
+            i++;
+        }
+        if(i<myFilters.size()){
+            if(tab.equals(myFilters.get(i).getFilterTable() )){
+                filtersTemp.clear();
+                int j = separedFilters.size()-1;
+                filtersTemp.addAll(separedFilters.get(j));
+                filtersTemp.add(myFilters.get(i));
+                separedFilters.remove(j);
+                separedFilters.add(new ArrayList<>(filtersTemp));
+            }
+            else{
+                filtersTemp.clear();
+                filtersTemp.add(myFilters.get(i));
+                separedFilters.add(new ArrayList<>(filtersTemp));
+            }
+        }
+        filtersTemp.clear();
+        for(ArrayList<Filter> filtersTempo:separedFilters){
+            for(Filter f:filtersTempo)
+                System.out.println(f.getFilterName()+" "+f.getFilterTable());
+        }
+        Concept concept = Sdm.temporalDimension.get(0);
+        String query = " AND " +concept.getId()+" IN ( SELECT "+concept.getId()+" FROM ";
+        for(int l = 0;l<separedFilters.size();l++){
+            ArrayList<Filter> filtersTempo = new ArrayList<>(separedFilters.get(l)) ;
+            
+            String commun = MySql.getCommunTable(filtersTempo.get(0).getFilterTable(), concept.getTable());
+            if(l==0){
+                boolean     firstChange = true;
+                i = 0;
+                while(i<filtersTempo.size()){
+                    if(firstChange){ 
+                        query +=commun+" WHERE "+ filtersTempo.get(i).getFilterID()+" IN (SELECT " + filtersTempo.get(i).getFilterID()
+                        + " FROM " + filtersTempo.get(i).getFilterTable()
+                        +" WHERE "+filtersTempo.get(i).getFilterName()+" = '" + filtersTempo.get(i).getFilterValue() +"'";
+                        firstChange = false;
+                    }
+                    else{
+                        query += " OR "+filtersTempo.get(i).getFilterName()+" = '"+filtersTempo.get(i).getFilterValue()+"'";
+                    }
+                    if(i == filtersTempo.size()-1){
+                        query += " )";
+                    }
+                    i++;
+                }
+                if(separedFilters.size()-1==0){
+                    query += " )";
+                }
+            }
+            else if(l==separedFilters.size()-1){
+                boolean     firstChange = true;
+                i = 0;
+                while(i<filtersTempo.size()){
+                    if(firstChange){ 
+                        query +=" AND "+ filtersTempo.get(i).getFilterID()+" IN (SELECT " + filtersTempo.get(i).getFilterID()
+                        + " FROM " + filtersTempo.get(i).getFilterTable()
+                        +" WHERE "+filtersTempo.get(i).getFilterName()+" = '" + filtersTempo.get(i).getFilterValue() +"'";
+                        firstChange = false;
+                    }
+                    else{
+                        query += " OR "+filtersTempo.get(i).getFilterName()+" = '"+filtersTempo.get(i).getFilterValue()+"'";
+                    }
+                    if(i == filtersTempo.size()-1){
+                        query += " )";
+                    }
+                    i++;
+                }
+                query += " )";
+            }
+            else{
+                boolean     firstChange = true;
+                i = 0;
+                while(i<filtersTempo.size()){
+                    if(firstChange){ 
+                        query +=" AND "+ filtersTempo.get(i).getFilterID()+" IN (SELECT " + filtersTempo.get(i).getFilterID()
+                        + " FROM " + filtersTempo.get(i).getFilterTable()
+                        +" WHERE "+filtersTempo.get(i).getFilterName()+" = '" + filtersTempo.get(i).getFilterValue() +"'";
+                        firstChange = false;
+                    }
+                    else{
+                        query += " OR "+filtersTempo.get(i).getFilterName()+" = '"+filtersTempo.get(i).getFilterValue()+"'";
+                    }
+                    if(i == filtersTempo.size()-1){
+                        query += " )";
+                    }
+                    i++;
+                }
+            }
+        }
+        queries.add(firstQuery+secQuery+thirdQuery+query);
+        return queries;
+    }
+    
     public static boolean containsTab(ArrayList<String[]> arrayList,String[] tab){
         for(String[] list:arrayList){
-            if(list[0].equals(tab[0]) && list[1].equals(tab[1]))
-                return true;
+            if(list[0]!=null && tab[0]!=null || list[1]!=null || tab[1]!=null){
+                if(list[0].equals(tab[0]) && list[1].equals(tab[1]))
+                    return true;
+            }    
         }
 
         return false;
     }
     public static boolean containsTab(Stack<String[]> arrayList,String[] tab){
+       
         for(String[] list:arrayList){
-            if(list[0].equals(tab[0]) && list[1].equals(tab[1]))
-                return true;
+            if(list[0]!=null && tab[0]!=null || list[1]!=null || tab[1]!=null){
+                if(list[0].equals(tab[0]) && list[1].equals(tab[1]))
+                    return true;
+            }
         }
 
         return false;
@@ -553,8 +579,10 @@ public class Analyse {
         int dif = 0;
         for(String[] array1:arrayList1){
             for(String[] array2:arrayList2){
-                if(array1[0].equals(array2[0]) && array1[1].equals(array2[1]))
-                    dif++;
+                if(array1.length>1 &&array2.length>1){
+                    if(array1[0].equals(array2[0]) && array1[1].equals(array2[1]))
+                        dif++;
+                }
             }
         }
         return dif;
@@ -563,10 +591,13 @@ public class Analyse {
         String[] com = new String[2];
         for(String[] array1:arrayList1){
             for(String[] array2:arrayList2){
-                if(array1[0].equals(array2[0]) && array1[1].equals(array2[1]))
-                    com = array1;
+                if(array1.length>1 &&array2.length>1){
+                    if(array1[0].equals(array2[0]) && array1[1].equals(array2[1]))
+                        com = array1;
+                }
             }
         }
         return com;
     }
+
 }
