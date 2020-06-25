@@ -477,10 +477,7 @@ public class Analyse {
             }
         }
         filtersTemp.clear();
-        for(ArrayList<Filter> filtersTempo:separedFilters){
-            for(Filter f:filtersTempo)
-                System.out.println(f.getFilterName()+" "+f.getFilterTable());
-        }
+        
         Concept concept = Sdm.temporalDimension.get(0);
         String query = " AND " +concept.getId()+" IN ( SELECT "+concept.getId()+" FROM ";
         for(int l = 0;l<separedFilters.size();l++){

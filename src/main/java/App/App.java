@@ -59,8 +59,6 @@ public class App extends HttpServlet {
 
         ArrayList<Term> validateDimensions = Analyse.getValidateDimensions(candidateDimensions);
 
-        //ArrayList<String> tempList = new ArrayList<>();
-        System.out.println("------------------ dimensions ---------------------");
         for(HashMap<String,ArrayList<String>> hashMap:candidateDimensions){
             for(String key : hashMap.keySet())
             {
@@ -70,55 +68,27 @@ public class App extends HttpServlet {
                     if(!candidateFilter.contains(string)) 
                         candidateFilter.add(string);
                 }
-                System.out.print("key :"+key+"\tvalues :");
                 if(!hashMap.get(key).isEmpty()){
                     candidateFilters.add(hashMap);
-                    
                 }
-                for(String string:hashMap.get(key)){
-                    System.out.print(" "+string);
-                }
-                System.out.println("");
             }
         }
 
-        System.out.println("validate dimension :");
         for(Term term:validateDimensions){
             if(!dimention.contains(term.getTable()))
                 dimention.add(term.getTable());
-            System.out.println(term.getTerm());
         }
-        System.out.println("------------------ filters ---------------------");
-        for(String key : candidateFilters.get(0).keySet()){
-            candidateDimention.add(key);
-            System.out.print("dim :"+key);
-            for(String value : candidateFilters.get(0).get(key)){
-                candidateFilter.add(value);
-                System.out.println("0 :"+key+" " + value);
+
+        for(HashMap<String,ArrayList<String>> hashMap:candidateFilters){
+            for(String key : hashMap.keySet()){
+                candidateDimention.add(key);
+                for(String value : hashMap.get(key)){
+                    candidateFilter.add(value);
+                }
             }
         }
-        for(String key : candidateFilters.get(1).keySet()){
-            candidateDimention.add(key);
-            System.out.print("dim :"+key);
-            for(String value : candidateFilters.get(1).get(key)){
-                candidateFilter.add(value);
-                System.out.println("1 :" + value);
-            }
-        }
-        for(String key : candidateFilters.get(2).keySet()){
-            candidateDimention.add(key);
-            System.out.print("dim :"+key);
-            for(String value : candidateFilters.get(2).get(key)){
-                candidateFilter.add(value);
-                System.out.println("2 :" + value);
-            }
-        }
-        System.out.println("------------------ validate filters ---------------------");
         ArrayList<Term>     myMeasures  = Analyse.getValidateMeasures(candidateMeasures);
         ArrayList<Filter>   myFilters   =  Analyse.getValidateFilters(candidateFilters);;
-        for(Filter f:myFilters){
-            System.out.println("dim : "+f.getFilterName()+" : val "+f.getFilterValue());
-        }
         for(Term t :myMeasures){
             if(!measures.contains(t.getTerm()))
                 measures.add(t.getTerm());
@@ -131,12 +101,9 @@ public class App extends HttpServlet {
                 dimention.add(f.getFilterTable());
         }
 
-        
-        
 
         // ----------- desplaying the Queries ------------
         ArrayList<String> queries = new ArrayList<>();
-        System.out.println("------------------ pronom ---------------------");
         String pronom = Analyse.getPronom(tree, parser);
 
         if(pronom.equals("what") || pronom.equals("who")){
@@ -165,6 +132,13 @@ public class App extends HttpServlet {
         else  if(pronom.equals("when")){
             queries     =    Analyse.generateQueryWhen(myFilters);
         }
+        String error = "";
+        if(queries.isEmpty()){
+            error += "1";
+        }
+        else if(syntaxError.isError()){
+            error += syntaxError.getMessageError();
+        }
         request.setAttribute("taggedSentence", taggedSentence);
         request.setAttribute("measers", measures);
         request.setAttribute("candidateMeasers", candidateMeasures);
@@ -173,6 +147,7 @@ public class App extends HttpServlet {
         request.setAttribute("filters", filter);
         request.setAttribute("candidateFilters", candidateFilter);
         request.setAttribute("Queries", queries);
+        request.setAttribute("error", error);
 
         request.getRequestDispatcher("response.jsp").forward(request, response);
     }

@@ -25,6 +25,7 @@ dependencies {
     antlr "org.antlr:antlr4:4.8"
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
     compile group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.19'
+    compile group: 'org.w3c', name: 'dom', version: '2.3.0-jaxb-1.0.6'
 
     compile files('src/main/resources/StanfordPoSTagger/stanford-postagger.jar')
     compile files('src/main/resources/eu/syllable-counter-4.1.0.jar')

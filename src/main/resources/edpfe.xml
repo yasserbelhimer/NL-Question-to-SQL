@@ -1,0 +1,76 @@
+<Schema name="OLAP Cube">
+  <Cube name="Drug depot" >
+    <Table name="drug_depot">
+    </Table>
+    <Dimension type="StandardDimension" foreignKey="city_id" name="City">
+      <Hierarchy name="City" hasAll="true" primaryKey="city_id">
+        <Table name="city" primaryKey="city_id" attribute="city_id;city_name">
+        </Table>
+        <Level name="city_name" column="city_name" uniqueMembers="false"></Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="drug_id" name="Drug">
+      <Hierarchy name="Drug" hasAll="true" primaryKey="drug_id">
+        <Table name="drug" primaryKey="drug_id" attribute= "drug_id;drug_name;pharmaceutical_form_drug;drug_dosage;expiration_time">
+        </Table>
+        <Level name="drug_name" column="drug_name" uniqueMembers="false">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="supplier_id" name="Supplier">
+      <Hierarchy name="Supplier" hasAll="true" primaryKey="supplier_id">
+        <Table name="supplier" primaryKey="supplier_id" attribute= "supplier_id;supplier_name;supplier_account;supplier_address;supplier_phone;supplier_email">
+        </Table>
+        <Level name="supplier_name" column="supplier_name" uniqueMembers="false">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="TimeDimension" foreignKey="day_id" name="time">
+      <Hierarchy name="time" hasAll="false" primaryKey="day_id">
+        <Table name="day" primaryKey="day_id" attribute= "day_id;day;day_label;month_id"></Table>
+        <Table name="month" primaryKey="month_id;month;month_label;year_id"></Table>
+        <Table name="year" primaryKey="year_id" attribute="year_id;year"></Table>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Quantity Stored" column="quantity_stored" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="Drug sold" cache="true" enabled="true">
+    <Table name="drug_sold">
+    </Table>
+    <Dimension type="StandardDimension" foreignKey="city_id" name="City">
+      <Hierarchy name="City" hasAll="true" primaryKey="city_id">
+        <Table name="city" primaryKey="city_id" attribute="city_id;city_name">
+        </Table>
+        <Level name="city_name" column="city_name" uniqueMembers="false"></Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="drug_id" name="Drug">
+      <Hierarchy name="Drug" hasAll="true" primaryKey="drug_id">
+        <Table name="drug" primaryKey="drug_id" attribute= "drug_id;drug_name;pharmaceutical_form_drug;drug_dosage;expiration_time">
+        </Table>
+        <Level name="drug_name" column="drug_name" uniqueMembers="false">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" foreignKey="consumer_id" name="Consumer">
+      <Hierarchy name="Consumer" hasAll="true" primaryKey="consumer_id">
+        <Table name="consumer" primaryKey="consumer_id" attribute= "consumer_id;consumer_first_name;consumer_last_name;consumer_account;consumer_email;consumer_phone">
+        </Table>
+        <Level name="consumer_name" column="consumer_first_name" uniqueMembers="false">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="TimeDimension" foreignKey="day_id" name="time">
+      <Hierarchy name="time" hasAll="false" primaryKey="day_id">
+        <Table name="day" primaryKey="day_id" attribute= "day_id;day;day_label;month_id"></Table>
+        <Table name="month" primaryKey="month_id;month;month_label;year_id"></Table>
+        <Table name="year" primaryKey="year_id" attribute="year_id;year"></Table>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Quantity sold" column="quantity_sold" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+</Schema>

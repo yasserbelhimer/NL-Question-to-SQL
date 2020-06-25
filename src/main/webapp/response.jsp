@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
 <!--display the Details-->
 
 <div class="card shadow-lg o-hidden border-0 my-5">
@@ -163,6 +164,18 @@
 </div>
 
 <script>
+  error ="${ error }";
+  if(error=='1'){
+    $("#messageError").html("warning :  rephrase your question and try again please !");
+    $("#error").css('display','block');
+  }
+  else if(error!=''){
+    $("#messageError").html("warning : "+error);
+    $("#error").css('display','block');
+  }
+  else{
+    $("#error").css('display','none');
+  }
   $( "#queries" ).click(function( event ) {
     if(event.target.textContent!=="Queries"){
       localStorage.setItem("pre", "analyse");

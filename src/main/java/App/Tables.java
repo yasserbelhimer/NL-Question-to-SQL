@@ -6,7 +6,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import SDM.Concept;
 import SDM.Measure;
 import SDM.Sdm;
 
@@ -19,6 +31,8 @@ import java.util.regex.Pattern;
 
 @WebServlet(name = "Tables", urlPatterns = { "tables" }, loadOnStartup = 1)
 public class Tables extends HttpServlet {
+    private ArrayList<Concept> sdmTables = new ArrayList<>();
+
     public static HashMap<String, String[]> measureTables = new HashMap<String, String[]>();
     public static HashMap<String, String[]> dimensionTable = new HashMap<String, String[]>();
     public static HashMap<String, String[]> temporalLexion = new HashMap<String, String[]>();
@@ -28,6 +42,29 @@ public class Tables extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String filePath = "src/main/resources/edpfe.xml";
+        File xmlFile = new File(filePath);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder;
+        try {
+            dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+            NodeList nodeList = doc.getElementsByTagName("Cube");
+            // now XML is loaded as Document in memory, lets convert it to Object List
+            ArrayList < Concept > concepts = new ArrayList < Concept > ();
+// ----------------------------------- put your code here ---------------------------------
+            // for (int i = 0; i < nodeList.getLength(); i++) {
+            //     concepts.add(new Concept(name, table, id, attribute));
+            // }
+            // lets print User list information
+            // for (User emp: userList) {
+            //     System.out.println(emp.toString());
+            // }
+        } catch (SAXException | ParserConfigurationException | IOException e1) {
+            e1.printStackTrace();
+        }
         response.getWriter().print(MySql.getTables());
     }
 

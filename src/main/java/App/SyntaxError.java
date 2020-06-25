@@ -7,12 +7,14 @@ import java.util.*;
 
 public class SyntaxError extends BaseErrorListener {
     private boolean error;
-
+    private String messageError;
 
 
     public SyntaxError(){
         super();
         error = false;
+        messageError = "";
+
     }
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer,
@@ -22,6 +24,7 @@ public class SyntaxError extends BaseErrorListener {
                             RecognitionException e)
     {
         this.error = true;
+        this.messageError +=msg+"<br>";
         // List<String> stack = ((Parser)recognizer).getRuleInvocationStack();
         // Collections.reverse(stack);
         // System.err.println("rule stack: "+stack);
@@ -35,4 +38,13 @@ public class SyntaxError extends BaseErrorListener {
     public void setError(boolean error) {
         this.error = error;
     }
+
+    public String getMessageError() {
+        return this.messageError;
+    }
+
+    public void setMessageError(String messageError) {
+        this.messageError = messageError;
+    }
+
 }

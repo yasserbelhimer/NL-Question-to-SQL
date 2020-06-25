@@ -36,7 +36,7 @@
                                     <div class="col-xl-9 mx-auto">
                                         <form action="" method="POST" class="user">
                                             <div class="form-group">
-                                                <textarea class="form-control form-control-lg" rows="3" id="question"
+                                                <textarea class="form-control form-control-lg" rows="1" id="question"
                                                 name="question" autocomplete="on" autofocus=""
                                                 placeholder="Enter your question here ...">
                                             </textarea>
@@ -45,6 +45,13 @@
                                                 style="font-size: 20px;">Exemple : What is the quantity of the drugs
                                                 sold in the year 2018 ?<br />
                                             </small>
+                                            <br>
+                                            <div class="alert alert-danger" role="alert" id="error" style="display: none;">
+                                                
+                                                <small class="form-text text-left text-body"
+                                                style="font-size: 20px;" id="messageError">
+                                            </small>
+                                              </div>
                                             <div class="col text-center">
                                                 <button onclick="analyse()" class="btn btn-primary text-center shadow" type="button"
                                                     id="submit"
@@ -83,6 +90,7 @@
         <script type="text/javascript" src='<c:url value="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" />'></script>
         <script type="text/javascript" src='<c:url value="assets/js/theme.js" />'></script>
         <script>
+            $("#error").css('display','none');
             $("#question").val("");
             $(document).keypress(function(event){
                     var keycode = (event.keyCode ? event.keyCode : event.which);
