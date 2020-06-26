@@ -81,9 +81,11 @@ public class App extends HttpServlet {
 
         for(HashMap<String,ArrayList<String>> hashMap:candidateFilters){
             for(String key : hashMap.keySet()){
-                candidateDimention.add(key);
+                if(!candidateDimention.contains(key))
+                    candidateDimention.add(key);
                 for(String value : hashMap.get(key)){
-                    candidateFilter.add(value);
+                    if(!candidateFilter.contains(value))
+                        candidateFilter.add(value);
                 }
             }
         }

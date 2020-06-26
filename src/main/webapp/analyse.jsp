@@ -98,7 +98,7 @@
                         event.preventDefault();
                         $("#submit").click();
                     }
-                });
+            });
         </script>
 </body>
 

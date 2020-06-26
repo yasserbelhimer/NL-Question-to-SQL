@@ -14,6 +14,7 @@ import SDM.Concept;
 import SDM.Measure;
 import SDM.Sdm;
 import info.debatty.java.stringsimilarity.*;
+import edu.smu.tspell.wordnet.*;
 
 
 public class Analyse {
@@ -78,8 +79,10 @@ public class Analyse {
     }
     //------------------------ get the validate dimensions ----------------------------
     public static ArrayList<Term> getValidateDimensions(ArrayList<HashMap<String,ArrayList<String>>> candidateDimensions){
+        System.setProperty("wordnet.database.dir", "src/main/resources/dict/");
         ArrayList<Term> validateDimensions = new ArrayList<>();
         JaroWinkler jw = new JaroWinkler();
+        
         ArrayList<Concept> dimensions = new ArrayList<>(Sdm.temporalDimension);
         dimensions.addAll(Sdm.sapatialDimension);
         dimensions.addAll(Sdm.otherDimension);
@@ -96,6 +99,33 @@ public class Analyse {
                         }
                     }
                     // else wordnet
+                    else{
+                        WordNetDatabase database = WordNetDatabase.getFileInstance();
+                        Synset[] synsets = database.getSynsets(key, SynsetType.NOUN);
+                        //  Display the word forms and definitions for synsets retrieved
+                            if (synsets.length > 0)
+                            {
+                                for (int i = 0; i < synsets.length; i++)
+                                {
+                                    String[] wordForms = synsets[i].getWordForms();
+                                    for (int j = 0; j < wordForms.length; j++)
+                                    {
+                                        if(jw.similarity(concept.getTable(), wordForms[j]) >= 0.8){
+                                            for(String attribute:concept.getAttribute()){
+                                                Term myTerm = new Term(attribute, concept.getTable(), jw.similarity(concept.getTable(), wordForms[j]));
+                                                if(!validateDimensions.contains(myTerm)){
+                                                    validateDimensions.add(myTerm);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                System.err.println("No synsets exist that contain the word form '"+key+"'");
+                            }
+                    }
 
                 }
             }

@@ -14,6 +14,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta name="_token" content="{{ csrf_token() }}">
     <title>PFE</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/select2.min.css" />
@@ -52,17 +53,7 @@
                                                 <div id="validateFact"  style="display: block;">
                                                     <div class="text-center">
                                                         <h4 class="text-dark mb-4">Validate Fact Tables</h4>
-                                                        <div class="form-group" id="myTabs">
-                                                            <div class='chip m-1'>drug_depot</div>
-                                                            <div class='chip m-1'>drug_sold</div>
-                                                            <div class='chip m-1'>supplier</div>
-                                                            <div class='chip m-1'>consumer</div>
-                                                            <div class='chip m-1'>drug</div>
-                                                            <div class='chip m-1'>city</div>
-                                                            <div class='chip m-1'>day</div>
-                                                            <div class='chip m-1'>month</div>
-                                                            <div class='chip m-1'>year</div>
-                                                        </div>
+                                                        <div class="form-group" id="myTabs1"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <select id="FactTables" class="FactTables" name="states[]" multiple="multiple" >
@@ -78,14 +69,7 @@
                                                 <div id="validateMeasures"  style="display: none;">
                                                     <div class="text-center">
                                                         <h4 class="text-dark mb-4">Validate Measures</h4>
-                                                        <div class="form-group" id="myTabs">
-                                                            <div class='chip m-1'>Supplier_id</div>
-                                                            <div class='chip m-1'>Consumer_id</div>
-                                                            <div class='chip m-1'>Drug_id</div>
-                                                            <div class='chip m-1'>City_id</div>
-                                                            <div class='chip m-1'>Day_id</div>
-                                                            <div class='chip m-1'>Quantity_sold</div>
-                                                            <div class='chip m-1'>Quantity_stored</div>
+                                                        <div class="form-group" id="myTabs2">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -103,14 +87,7 @@
                                                 <div id="validateDimensions" style="display: none;">
                                                     <div class="text-center">
                                                         <h4 class="text-dark mb-4">Validate Dimensions</h4>
-                                                        <div class="form-group" id="myTabs">
-                                                            <div class='chip m-1'>supplier</div>
-                                                            <div class='chip m-1'>consumer</div>
-                                                            <div class='chip m-1'>drug</div>
-                                                            <div class='chip m-1'>city</div>
-                                                            <div class='chip m-1'>day</div>
-                                                            <div class='chip m-1'>month</div>
-                                                            <div class='chip m-1'>year</div>
+                                                        <div class="form-group" id="myTabs3">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -154,7 +131,6 @@
                 </div>
             </div>
         </div>
-
         <script type="text/javascript" src='<c:url value="/assets/js/jquery.min.js" />'></script>
         <script type="text/javascript" src='<c:url value="/assets/bootstrap/js/bootstrap.min.js" />'></script>
         <script type="text/javascript" src='<c:url value="/assets/js/chart.min.js" />'></script>
@@ -164,9 +140,9 @@
         <script type="text/javascript" src='<c:url value="assets/js/theme.js" />'></script>
         <script type="text/javascript" src='<c:url value="assets/js/select2.full.min.js" />'></script>
         <script>
-            
+            tables = [];
+            attribute = [];
             $(document).ready(function() {
-
                 $.ajax({
                     url: "tables",
                     method: "get",
@@ -174,76 +150,90 @@
                         localStorage.setItem("tables", data);
                     },
                 });
-                // var tables = localStorage.getItem("tables");
-                // localStorage.removeItem("tables");
-                // if(tables !=="")
-                //     tables = tables.split("\n");
-                // let chips = "";
-                tables = [
-                            {
-                            "id": 1,
-                            "text": "drug_depot"
-                            },
-                            {
-                            "id": 2,
-                            "text": "drug_sold",
-                            },
-                            {
-                            "id": 3,
-                            "text": "supplier",
-                            },
-                            {
-                            "id": 4,
-                            "text": "consumer",
-                            },
-                            {
-                            "id": 5,
-                            "text": "drug",
-                            },
-                            {
-                            "id": 6,
-                            "text": "day",
-                            },
-                            {
-                            "id": 7,
-                            "text": "month",
-                            },
-                            {
-                            "id": 8,
-                            "text": "year",
-                            }
-                        ]
-                // attrbute = [
-                //             {
-                //             "id": 1,
-                //             "text": "Quantity_stored"
-                //             },
-                //             {
-                //             "id": 2,
-                //             "text": "Quantity_sold",
-                //             },
-                //             {
-                //             "id": 3,
-                //             "text": "Option 3",
-                //             }
-                //         ]
-                // for(i=0;i<tables.length;i++){
-                //     if(tables[i]!="")
-                //         chips+="<div class='chip m-1'>"+tables[i]+"</div>"; 
-                // }
-                // console.log(chips);
-                // $("#myTabs").html(chips);
+                tables = localStorage.getItem("tables");
+                localStorage.removeItem("tables");
+                if(tables !=="")
+                    tables = tables.split("\n");
+                let chips1 = "";
+                for(i=0;i<tables.length;i++){
+                    if(tables[i]!="")
+                        chips1+="<div class='chip m-1'>"+tables[i]+"</div>"; 
+                }
+                $("#myTabs1").html(chips1);
             
                 $('.FactTables').select2({
                     placeholder: 'Fact Tables',
                     width:"100%",
                     data:tables
                 });
+                
+            });
+            factToMeasures = () =>{
+                let factTables = $("#FactTables").val();
+                let factTable = factTables.toString();
+                if(factTable==""){
+                    alert("Please select fact tables");
+                }
+                else{
+                    $.ajax({
+                        url: "tables",
+                        method: "post",
+                        data: {type:"getAttributes",factTable:factTable,measures:"",spatialDimensions:"",temporalDimensions:"",otherDimensions:""},
+                        success: function (data) {
+                            localStorage.setItem("attribute", data);
+                            $('#validateFact').css('display','none');
+                            $('#validateMeasures').css('display','block');
+                        },
+                    });
+                }
+                
+                
+
+                attribute = localStorage.getItem("attribute");
+                localStorage.removeItem("attribute");
+                if(attribute !=="")
+                    attribute = attribute.split("\n");
+                let chips1 = "";
+                for(i=0;i<attribute.length;i++){
+                    if(attribute[i]!=""){
+                        chips1+="<div class='chip m-1'>"+attribute[i]+"</div>"; 
+                    }
+                }
+                $("#myTabs2").html(chips1);
                 $('.Measures').select2({
                     placeholder: 'Measures',
                     width:"100%",
-                    data:tables
+                    data:attribute
                 });
+                
+            }
+            measuresToDimensions = ()=>{
+                let factTables = $("#FactTables").val();
+                factTables = factTables.toString().split(",");
+                var measures = $("#Measures").val();
+                measures  = measures.toString();
+
+                for(let i=0;i<factTables.length;i++){
+                    if(tables.includes(factTables[i]))
+                        remove(tables,factTables[i]);
+                }
+                if(measures==""){
+                    alert("Please select the measures");
+                }
+                else{
+                    $('#validateMeasures').css('display','none');
+                    $('#validateDimensions').css('display','block');
+                }
+                
+
+                let chips1 = "";
+                for(i=0;i<tables.length;i++){
+                    if(tables[i]!=""){
+                        chips1+="<div class='chip m-1'>"+tables[i]+"</div>"; 
+                    }
+                }
+                $("#myTabs3").html(chips1);
+
                 $('.AutreTable').select2({
                     placeholder: 'other dimension Tables',
                     width:"100%",
@@ -259,8 +249,44 @@
                     width:"100%",
                     data:tables
                 });
-            });
+
+                function remove(arr, what) {
+                    var found = arr.indexOf(what);
+
+                    while (found !== -1) {
+                        arr.splice(found, 1);
+                        found = arr.indexOf(what);
+                    }
+                }
+            }
+            const setTables = () => {
+
+                var factTables = $("#FactTables").val();
+                var measures = $("#Measures").val();
+                var spatialDimensions = $("#SpatialTable").val();
+                var temporalDimensions = $("#TemporalLexion").val();
+                var otherDimensions = $("#AutreTable").val();
+                factTables   = factTables.toString();
+                measures  = measures.toString();
+                spatialDimensions  = spatialDimensions.toString();
+                temporalDimensions  = temporalDimensions.toString();
+                otherDimensions  = otherDimensions.toString();
+                if(spatialDimensions==""||temporalDimensions==""||otherDimensions==""){
+                    alert("There are empty fildes");
+                }
+                else{
+                    $.ajax({
+                    url: "tables",
+                    method: "post",
+                    data: { type:"setConcepts",factTables:factTables,measures:measures,spatialDimensions:spatialDimensions,temporalDimensions:temporalDimensions,otherDimensions:otherDimensions},
+                    success: function (data) {
+                        setTimeout("window.location.href='analyse.jsp'");
+                    },
+                    });
+                }
+                
+            }
         </script>
-</body>
+    </body>
 
 </html>

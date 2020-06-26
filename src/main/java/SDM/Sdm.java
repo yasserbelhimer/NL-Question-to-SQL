@@ -11,7 +11,11 @@ public class Sdm {
 
     public static void remplir()
     {
-        
+        measures.clear();
+        fact.clear();
+        sapatialDimension.clear();
+        temporalDimension.clear();
+        otherDimension.clear();
         measures.add(new Measure("Quantity stored", "drug_depot", "quantity_stored"));
         measures.add(new Measure("Quantity sold", "drug_sold", "quantity_sold"));
 

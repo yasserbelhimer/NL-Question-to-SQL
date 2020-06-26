@@ -28,12 +28,11 @@
     <Dimension type="TimeDimension" foreignKey="day_id" name="time">
       <Hierarchy name="time" hasAll="false" primaryKey="day_id">
         <Table name="day" primaryKey="day_id" attribute= "day_id;day;day_label;month_id"></Table>
-        <Table name="month" primaryKey="month_id;month;month_label;year_id"></Table>
+        <Table name="month" primaryKey="month_id" attribute="month_id;month;month_label;year_id"></Table>
         <Table name="year" primaryKey="year_id" attribute="year_id;year"></Table>
-        </Level>
       </Hierarchy>
     </Dimension>
-    <Measure name="Quantity Stored" column="quantity_stored" aggregator="sum" visible="true">
+    <Measure name="Quantity Stored" table="drug_depot" column="quantity_stored" aggregator="sum" visible="true">
     </Measure>
   </Cube>
   <Cube name="Drug sold" cache="true" enabled="true">
@@ -65,12 +64,11 @@
     <Dimension type="TimeDimension" foreignKey="day_id" name="time">
       <Hierarchy name="time" hasAll="false" primaryKey="day_id">
         <Table name="day" primaryKey="day_id" attribute= "day_id;day;day_label;month_id"></Table>
-        <Table name="month" primaryKey="month_id;month;month_label;year_id"></Table>
+        <Table name="month" primaryKey="month_id" attribute="month_id;month;month_label;year_id"></Table>
         <Table name="year" primaryKey="year_id" attribute="year_id;year"></Table>
-        </Level>
       </Hierarchy>
     </Dimension>
-    <Measure name="Quantity sold" column="quantity_sold" aggregator="sum" visible="true">
+    <Measure name="Quantity sold" table="drug_sold" column="quantity_sold" aggregator="sum" visible="true">
     </Measure>
   </Cube>
 </Schema>

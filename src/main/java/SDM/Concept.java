@@ -17,6 +17,12 @@ public class Concept {
         this.id = id;
         this.attribute = attribute;
     }
+    public Concept(Concept concept){
+        this.name = concept.name;
+        this.table = concept.table;
+        this.id = concept.id;
+        this.attribute = new ArrayList<String>(concept.attribute);
+    }
 
     public String getName() {
         return this.name;
@@ -49,5 +55,22 @@ public class Concept {
     public void setAttribute(ArrayList<String> attribute) {
         this.attribute = attribute;
     }
+    
+    @Override
+    public boolean equals(Object o)
+    {
+        if (o == this) { 
+            return true; 
+        } 
+
+        if (!(o instanceof Concept)) { 
+            return false; 
+        } 
+
+        Concept c = (Concept) o; 
+        return (this.name.equals(c.name) && this.table.equals(c.table) && this.id.equals(c.id)); 
+    }
+
+    
 
 }

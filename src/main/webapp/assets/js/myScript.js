@@ -73,7 +73,7 @@ const connect = () => {
 const analyse = ()=>{
   let question = $("#question").val();
   if (question == "") {
-    alert("Enter your question");
+    alert("Please enter your question");
   } else {
     $.ajax({
       url: "analyse",
@@ -95,7 +95,7 @@ const analyse = ()=>{
 const execute = ()=>{
   let query = $("#query").val();
   if (query == "") {
-    alert("Enter your query");
+    alert("Please enter your query !");
   } else {
     $.ajax({
       url: "queryResult",
@@ -122,39 +122,15 @@ const disconnect = ()=>{
     },
   });
 }
-const factToMeasures = () =>{
-  $('#validateFact').css('display','none');
-  $('#validateMeasures').css('display','block');
-}
-const measuresToDimensions = ()=>{
-  var measures = $("#Measures").val();
-  $('#validateMeasures').css('display','none');
-  $('#validateDimensions').css('display','block');
-}
-const setTables = () => {
 
-  var measureTables = $("#FactTables").val();
-  var dimensionTable = $("#SpatialTable").val();
-  var temporalLexion = $("#TemporalLexion").val();
-  measureTables   = measureTables.toString();
-  dimensionTable  = dimensionTable.toString();
-  temporalLexion  = temporalLexion.toString();
 
-  $.ajax({
-    url: "tables",
-    method: "post",
-    data: { measureTables:measureTables,dimensionTable:dimensionTable,temporalLexion:temporalLexion},
-    success: function (data) {
-      setTimeout("window.location.href='analyse.jsp'");
-    },
-  });
-}
+
 
 const setTablesDecisionMaker = ()=>{
   $.ajax({
     url: "tables",
     method: "post",
-    data: { measureTables:"",dimensionTable:"",temporalLexion:""},
+    data: {type:"DecisionMaker", factTable:"",measures:"",spatialDimensions:"",temporalDimensions:"",otherDimensions:""},
     success: function (data) {
       setTimeout("window.location.href='analyse.jsp'");
     },

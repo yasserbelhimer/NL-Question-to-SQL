@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:choose>
-  <c:when test="${ empty sessionScope.connected_user }">
+  <c:when test="${ empty sessionScope.connected_user && empty sessionScope.connected_ITDesigner}">
     <c:redirect url="connexion.jsp"/>
   </c:when>
 </c:choose>
@@ -76,7 +76,8 @@
                 </div>
             </div>
         </div>
-
+        <!-- Modal -->
+        <%@ include file="WEB-INF/pages/model.jsp" %>
         <script type="text/javascript" src='<c:url value="/assets/js/jquery.min.js" />'></script>
         <script type="text/javascript" src='<c:url value="/assets/bootstrap/js/bootstrap.min.js" />'></script>
         <script type="text/javascript" src='<c:url value="/assets/js/chart.min.js" />'></script>
@@ -91,6 +92,13 @@
                 localStorage.removeItem("pre");
                 localStorage.removeItem("query");
             }
+            $(document).keypress(function(event){
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if(keycode == '13'){
+                    event.preventDefault();
+                    $("#submitQuery").click();
+                }
+            });
         </script>
 </body>
 

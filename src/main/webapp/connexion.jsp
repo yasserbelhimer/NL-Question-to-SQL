@@ -124,6 +124,7 @@
     <script type="text/javascript" src='<c:url value="/assets/js/bs-init.js" />'></script>
     <script type="text/javascript" src='<c:url value="/assets/js/myScript.js" />'></script>
     <script type="text/javascript" src='<c:url value="/assets/js/theme.js" />'></script>
+    
 
 </body>
 
